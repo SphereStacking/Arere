@@ -132,7 +132,7 @@ export default defineAction({
     }
 
     // Read template file
-    const templatePath = join(__dirname, '..', 'templates', `${template}.ts.template`)
+    const templatePath = join(__dirname, '..', 'stubs', `${template}.ts.template`)
     let templateContent: string
     try {
       templateContent = readFileSync(templatePath, 'utf-8')
