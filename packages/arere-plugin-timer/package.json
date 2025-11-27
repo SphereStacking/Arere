@@ -1,6 +1,6 @@
 {
   "name": "arere-plugin-timer",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Timer plugin for 'arere' - countdown timer, pomodoro, stopwatch",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,6 +9,7 @@
     "dist",
     "actions",
     "locales",
+    "sounds",
     "README.md"
   ],
   "scripts": {
@@ -24,10 +25,19 @@
     "timer",
     "pomodoro"
   ],
-  "author": "arere team",
+  "author": "SphereStacking <sphere.stacking@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SphereStacking/Arere.git",
+    "directory": "packages/arere-plugin-timer"
+  },
+  "bugs": {
+    "url": "https://github.com/SphereStacking/Arere/issues"
+  },
+  "homepage": "https://github.com/SphereStacking/Arere/tree/main/packages/arere-plugin-timer#readme",
   "peerDependencies": {
-    "arere": "*"
+    "arere": "^0.1.0"
   },
   "dependencies": {
     "play-sound": "^1.1.6"

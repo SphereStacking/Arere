@@ -1,6 +1,6 @@
 {
   "name": "arere-plugin-tutorial",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Tutorial plugin for 'arere' - demonstrates i18n and external dependencies",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,10 +12,19 @@
     "prepublishOnly": "npm run build"
   },
   "keywords": ["arere", "arere-plugin", "cli", "launcher", "tutorial"],
-  "author": "",
+  "author": "SphereStacking <sphere.stacking@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SphereStacking/Arere.git",
+    "directory": "packages/arere-plugin-tutorial"
+  },
+  "bugs": {
+    "url": "https://github.com/SphereStacking/Arere/issues"
+  },
+  "homepage": "https://github.com/SphereStacking/Arere/tree/main/packages/arere-plugin-tutorial#readme",
   "peerDependencies": {
-    "arere": "*"
+    "arere": "^0.1.0"
   },
   "dependencies": {
     "@octokit/rest": "^22.0.1",
