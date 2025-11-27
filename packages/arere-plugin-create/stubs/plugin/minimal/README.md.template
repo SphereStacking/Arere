@@ -1,0 +1,51 @@
+# {{pluginName}}
+
+{{description}}
+
+## Installation
+
+```bash
+npm install {{pluginName}}
+```
+
+## Usage
+
+This plugin will be automatically detected by arere if installed.
+
+### Enable the plugin
+
+Add to your `.arere/settings.json`:
+
+```json
+{
+  "plugins": {
+    "{{pluginName}}": {
+      "enabled": true
+    }
+  }
+}
+```
+
+### Actions
+
+- **hello**: A simple hello world action
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Build
+npm run build
+
+# Watch mode
+npm run dev
+
+# Type check
+npm run typecheck
+```
+
+## License
+
+MIT © {{author}}

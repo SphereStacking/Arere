@@ -1,0 +1,33 @@
+{
+  "basic": {
+    "description": "Basic action example",
+    "title": "Basic Action Example",
+    "message": "This is a simple action demonstrating basic structure with i18n support.",
+    "success": "Action completed successfully"
+  },
+  "prompts": {
+    "description": "Interactive prompts example",
+    "title": "Prompts Example",
+    "prompt": {
+      "name": "What is your name?",
+      "confirm": "Hello {{name}}, do you want to continue?",
+      "color": "What is your favorite color?"
+    },
+    "colors": {
+      "red": "Red",
+      "blue": "Blue",
+      "green": "Green"
+    },
+    "result": "Great! {{name}}'s favorite color is {{color}}.",
+    "cancelled": "Operation cancelled."
+  },
+  "config": {
+    "description": "Plugin configuration example",
+    "title": "Configuration Example",
+    "notConfigured": "Plugin is not configured yet.",
+    "helpText": "Add configuration to .arere/settings.json:\n{\n  \"plugins\": {\n    \"{{pluginName}}\": {\n      \"enabled\": true,\n      \"config\": {\n        \"greeting\": \"Hello\",\n        \"enabled\": true,\n        \"maxRetries\": 3\n      }\n    }\n  }\n}",
+    "currentSettings": "Current configuration:",
+    "greetingMessage": "{{greeting}} from {{pluginName}}!",
+    "disabled": "Plugin features are currently disabled in configuration."
+  }
+}

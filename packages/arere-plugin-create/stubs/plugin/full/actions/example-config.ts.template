@@ -1,0 +1,45 @@
+/**
+ * Config Example
+ * Demonstrates plugin configuration usage
+ */
+
+import { defineAction } from 'arere'
+
+export default defineAction({
+  name: 'config',
+  description: ({ t }) => t('plugin:config.description'),
+  category: 'examples',
+  tags: ['example', 'config'],
+
+  async run({ tui, t, pluginConfig }) {
+    tui.output.section(t('plugin:config.title'))
+    tui.output.newline()
+
+    if (!pluginConfig) {
+      tui.output.warn(t('plugin:config.notConfigured'))
+      tui.output.newline()
+      tui.output.info(t('plugin:config.helpText'))
+      return
+    }
+
+    // Show configuration values
+    tui.output.info(t('plugin:config.currentSettings'))
+    tui.output.newline()
+
+    tui.output.info(`  greeting: ${pluginConfig.greeting}`)
+    tui.output.info(`  enabled: ${pluginConfig.enabled}`)
+    tui.output.info(`  maxRetries: ${pluginConfig.maxRetries}`)
+    tui.output.newline()
+
+    // Use configuration in action
+    if (pluginConfig.enabled) {
+      tui.output.success(
+        t('plugin:config.greetingMessage', {
+          greeting: pluginConfig.greeting,
+        })
+      )
+    } else {
+      tui.output.warn(t('plugin:config.disabled'))
+    }
+  },
+})

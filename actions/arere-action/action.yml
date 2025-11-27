@@ -1,0 +1,46 @@
+name: 'Run Arere Action'
+description: 'Run Arere actions in GitHub Actions with TypeScript'
+author: 'Arere Project'
+branding:
+  icon: 'play'
+  color: 'blue'
+
+inputs:
+  action:
+    description: 'Action name to run'
+    required: true
+  working-directory:
+    description: 'Working directory where arere is configured'
+    required: false
+    default: '.'
+  node-version:
+    description: 'Node.js version to use'
+    required: false
+    default: '18'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Install dependencies
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        if [ -f "package-lock.json" ]; then
+          npm ci
+        elif [ -f "yarn.lock" ]; then
+          yarn install --frozen-lockfile
+        elif [ -f "pnpm-lock.yaml" ]; then
+          pnpm install --frozen-lockfile
+        else
+          npm install
+        fi
+
+    - name: Run Arere Action
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: npx arere run ${{ inputs.action }}

@@ -1,0 +1,9 @@
+/* Custom styles for Arere documentation */
+
+/* Logo styling */
+.logo {
+  font-family: 'Press Start 2P', cursive;
+  white-space: nowrap;
+  font-size: clamp(2rem, 5vw, 5rem);
+  display: inline-block;
+}

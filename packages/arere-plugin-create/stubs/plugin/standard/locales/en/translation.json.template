@@ -1,0 +1,12 @@
+{
+  "example": {
+    "description": "Example action with i18n and config",
+    "title": "Example Action from {{pluginName}}",
+    "greeting": "{{greeting}} from {{pluginName}}!",
+    "prompt": {
+      "name": "What is your name?"
+    },
+    "message": "Nice to meet you, {{name}}!",
+    "success": "Action completed successfully"
+  }
+}

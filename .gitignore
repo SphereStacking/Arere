@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+docs/.vitepress/dist
+docs/.vitepress/cache
+
+# Testing
+coverage/
+.nyc_output/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Cache
+.cache/
+.eslintcache
+.vitest/
+
+# Temporary files
+*.tmp
+*.temp
+.temp/
+
+# Runtime config (user-specific settings, not committed)
+.arere/
+.claude/settings.local.json
+
+# Development plans (internal use only)
+plan/

@@ -1,0 +1,33 @@
+{
+  "basic": {
+    "description": "基本的なアクション例",
+    "title": "基本アクションの例",
+    "message": "これはi18n対応の基本的な構造を示すシンプルなアクションです。",
+    "success": "アクションが正常に完了しました"
+  },
+  "prompts": {
+    "description": "インタラクティブプロンプトの例",
+    "title": "プロンプトの例",
+    "prompt": {
+      "name": "お名前は？",
+      "confirm": "{{name}}さん、続けますか？",
+      "color": "好きな色は？"
+    },
+    "colors": {
+      "red": "赤",
+      "blue": "青",
+      "green": "緑"
+    },
+    "result": "素晴らしい！{{name}}さんの好きな色は{{color}}です。",
+    "cancelled": "操作がキャンセルされました。"
+  },
+  "config": {
+    "description": "プラグイン設定の例",
+    "title": "設定の例",
+    "notConfigured": "プラグインがまだ設定されていません。",
+    "helpText": ".arere/settings.jsonに設定を追加してください：\n{\n  \"plugins\": {\n    \"{{pluginName}}\": {\n      \"enabled\": true,\n      \"config\": {\n        \"greeting\": \"こんにちは\",\n        \"enabled\": true,\n        \"maxRetries\": 3\n      }\n    }\n  }\n}",
+    "currentSettings": "現在の設定：",
+    "greetingMessage": "{{pluginName}}から{{greeting}}！",
+    "disabled": "プラグイン機能は現在設定で無効化されています。"
+  }
+}

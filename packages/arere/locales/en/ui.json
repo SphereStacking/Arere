@@ -1,0 +1,144 @@
+{
+  "empty_state": {
+    "title": "📭 No actions found",
+    "description": "Place your actions in the following locations:",
+    "locations": {
+      "project": "Project: ./.arere/actions/",
+      "global": "Global: ~/.arere/actions/",
+      "plugin": "Plugin: npm install -g arere-plugin-*"
+    },
+    "help_hint": "For more information, see `arere --help`"
+  },
+  "help": {
+    "title": "Keyboard Shortcuts",
+    "shortcuts": {
+      "navigate": "Navigate actions",
+      "run": "Run action",
+      "help": "Show help",
+      "back": "Go back to previous screen",
+      "quit": "Quit"
+    },
+    "hint": "Esc: back"
+  },
+  "search": {
+    "label": "🔍 Search: ",
+    "placeholder": "Enter action name or description...",
+    "no_results": "No results found",
+    "count": "{{count}} results"
+  },
+  "executing": {
+    "status": "Executing..."
+  },
+  "success": {
+    "title": "✓ Completed",
+    "message": "\"{{name}}\" completed successfully",
+    "duration": "Execution time: {{ms}}ms",
+    "hint": "Press Enter/Esc to go back"
+  },
+  "error": {
+    "title": "Error",
+    "unknown_prompt_type": "Unknown prompt type",
+    "unknown_screen": "Unknown screen",
+    "ui_error_occurred": "❌ UI Error Occurred",
+    "stack_trace": "Stack Trace:",
+    "unexpected_error": "This error is unexpected. Please restart the program.",
+    "exit_hint": "Ctrl+C to exit"
+  },
+  "input": {
+    "loading": "Loading..."
+  },
+  "prompts": {
+    "warning": "⚠ Warning",
+    "selected_count": "({{count}} selected)",
+    "placeholder": {
+      "multiline": "Enter text..."
+    },
+    "errors": {
+      "number_invalid": "Please enter a valid number",
+      "number_min": "Please enter a value greater than or equal to {{min}}",
+      "number_max": "Please enter a value less than or equal to {{max}}",
+      "password_minlength": "Password must be at least {{minLength}} characters long",
+      "text_minlength": "Minimum {{minLength}} characters required"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "sections": {
+      "general": "General",
+      "appearance": "Appearance",
+      "plugins": "Plugins"
+    },
+    "layer": {
+      "label": "Layer",
+      "user": "User",
+      "workspace": "Workspace",
+      "overridden": "(⚠ overridden by workspace)"
+    },
+    "options": {
+      "locale": "Language",
+      "locale_en": "English",
+      "locale_ja": "Japanese",
+      "actionsDir": "Actions Directory",
+      "primaryColor": "Primary Color",
+      "logLevel": "Log Level",
+      "plugins": "Plugins",
+      "plugins_description": "Configure installed plugins"
+    },
+    "saved": "Settings saved successfully"
+  },
+  "plugins": {
+    "title": "Plugins",
+    "no_plugins": "No plugins installed",
+    "list": {
+      "actions_count": "{{count}} action(s)",
+      "configurable": "Configurable"
+    },
+    "detail": {
+      "save": "Save Configuration",
+      "no_config": "This plugin has no configuration options",
+      "edit_field": "Edit {{field}}",
+      "select_field": "Select {{field}}",
+      "current_value": "Current value: ",
+      "new_value": "New value"
+    }
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "search": "Search",
+    "help": "Help",
+    "settings": "Settings",
+    "plugins": "Plugins",
+    "input": "Input",
+    "form": "Form",
+    "language": "Language",
+    "locale": "Language",
+    "actionsDir": "Actions Directory",
+    "logLevel": "Log Level",
+    "theme.primaryColor": "Primary Color"
+  },
+  "keybinding": {
+    "labels": {
+      "quit": "quit",
+      "search": "search",
+      "help": "help",
+      "settings": "settings",
+      "back": "back",
+      "navigate": "navigate",
+      "select": "select",
+      "toggle": "toggle",
+      "layer": "layer",
+      "configure": "configure",
+      "edit": "edit",
+      "confirm": "confirm",
+      "cancel": "cancel",
+      "submit": "submit",
+      "run": "run",
+      "change": "change",
+      "next": "next",
+      "newline": "newline",
+      "lines": "{{count}} lines",
+      "range": "(range: {{min}}〜{{max}})",
+      "minLength": "(min: {{minLength}} chars)"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "actions": {
+    "timer": {
+      "name": "Timer",
+      "description": "Countdown timer - set a duration and get notified"
+    },
+    "pomodoro": {
+      "name": "Pomodoro",
+      "description": "Pomodoro technique - 25min work, 5min break cycles"
+    },
+    "stopwatch": {
+      "name": "Stopwatch",
+      "description": "Stopwatch with lap time recording"
+    }
+  },
+  "timer": {
+    "enterDuration": "Enter duration (e.g., 5m, 30s, 1h30m)",
+    "placeholder": "5m",
+    "invalidFormat": "Invalid format. Use: 5m, 30s, 1h30m",
+    "starting": "Timer starting: {{duration}}",
+    "remaining": "Remaining",
+    "finished": "Time's up!",
+    "cancelled": "Timer cancelled"
+  },
+  "pomodoro": {
+    "title": "Pomodoro Timer",
+    "work": "Work",
+    "shortBreak": "Short Break",
+    "longBreak": "Long Break",
+    "session": "Session",
+    "cycle": "Cycle {{current}}/{{total}}",
+    "workTime": "Work time (minutes)",
+    "breakTime": "Break time (minutes)",
+    "longBreakTime": "Long break time (minutes)",
+    "cyclesBeforeLongBreak": "Cycles before long break",
+    "starting": "Starting {{phase}}...",
+    "finished": "{{phase}} finished!",
+    "completed": "Pomodoro session completed!",
+    "totalWork": "Total work time: {{time}}",
+    "cancelled": "Pomodoro cancelled",
+    "pressEnterToStart": "Press Enter to start next phase",
+    "pressEscToCancel": "Press Esc to cancel"
+  },
+  "stopwatch": {
+    "title": "Stopwatch",
+    "running": "Running",
+    "stopped": "Stopped",
+    "elapsed": "Elapsed",
+    "lap": "Lap",
+    "laps": "Laps",
+    "startStop": "Space: Start/Stop",
+    "lapReset": "L: Lap | R: Reset",
+    "quit": "Esc: Quit",
+    "noLaps": "No laps recorded"
+  },
+  "common": {
+    "hours": "h",
+    "minutes": "m",
+    "seconds": "s"
+  }
+}

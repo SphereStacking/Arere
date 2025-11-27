@@ -1,0 +1,7 @@
+{
+  "actionsDir": "./custom-actions",
+  "logLevel": "debug",
+  "theme": {
+    "primaryColor": "green"
+  }
+}

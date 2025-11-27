@@ -1,0 +1,17 @@
+{
+  "name": "> Arere",
+  "scripts": {
+    "dev": "nuxt dev --extends docus",
+    "build": "nuxt build --extends docus"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SphereStacking/Arere.git"
+  },
+  "dependencies": {
+    "@nuxt/fonts": "^0.12.1",
+    "better-sqlite3": "^12.2.0",
+    "docus": "latest",
+    "nuxt": "^4.1.2"
+  }
+}

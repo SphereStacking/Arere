@@ -1,0 +1,62 @@
+/**
+ * {{description}}
+ *
+ * This action demonstrates i18n (internationalization) support
+ */
+
+import { defineAction } from 'arere'
+
+export default defineAction({
+  name: '{{name}}',
+  description: '{{description}}',
+  category: '{{category}}',
+  tags: {{tags}},
+
+  // Define translations inline
+  translations: {
+    en: {
+      greeting: 'Hello!',
+      farewell: 'Goodbye, {{name}}!',
+      prompt: {
+        askName: 'What is your name?',
+      },
+      messages: {
+        welcome: 'Welcome to {{name}} action',
+        success: 'Action completed successfully',
+      },
+    },
+    ja: {
+      greeting: 'こんにちは！',
+      farewell: 'さようなら、{{name}}さん！',
+      prompt: {
+        askName: 'あなたの名前は？',
+      },
+      messages: {
+        welcome: '{{name}}アクションへようこそ',
+        success: 'アクションが正常に完了しました',
+      },
+    },
+  },
+
+  async run({ tui, t }) {
+    // Section header (using translation)
+    tui.output.section(t('messages.welcome', { name: '{{name}}' }))
+    tui.output.newline()
+
+    // Greeting (using translation)
+    tui.output.info(t('greeting'))
+    tui.output.newline()
+
+    // Prompt with translated message
+    const name = await tui.prompt.text(t('prompt.askName'), {
+      placeholder: 'Enter your name',
+    })
+
+    // Farewell with parameter interpolation
+    tui.output.success(t('farewell', { name }))
+    tui.output.newline()
+
+    // Success message
+    tui.output.success(t('messages.success'))
+  },
+})

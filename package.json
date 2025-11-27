@@ -1,0 +1,32 @@
+{
+  "name": "arere-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "dev": "npm run dev --workspaces",
+    "dev:cli": "npm run dev:cli --workspace=arere",
+    "test": "npm run test --workspaces --if-present",
+    "test:watch": "npm run test:watch --workspace=arere",
+    "test:coverage": "npm run test:coverage --workspace=arere",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "docs": "npm run dev --prefix docs",
+    "docs:build": "npm run build --prefix docs"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^20.19.25",
+    "@types/react": "^18.3.26",
+    "@types/react-test-renderer": "^19.1.0",
+    "@vitest/coverage-v8": "^1.6.1",
+    "ink-testing-library": "^4.0.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^1.6.1"
+  }
+}

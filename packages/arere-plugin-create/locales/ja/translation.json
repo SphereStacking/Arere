@@ -1,0 +1,110 @@
+{
+  "description": "新しいArereアクションを作成",
+  "title": "新しいアクションを作成",
+  "prompts": {
+    "name": "アクション名（ケバブケース）",
+    "description": "説明",
+    "category": "カテゴリ",
+    "tags": "タグ（複数選択可）",
+    "template": "テンプレートタイプ",
+    "scope": "保存先は？",
+    "overwrite": "ファイルが既に存在します。上書きしますか？"
+  },
+  "categories": {
+    "utility": "ユーティリティ",
+    "development": "開発",
+    "git": "Git",
+    "testing": "テスト",
+    "demo": "デモ",
+    "custom": "カスタム（手動入力）"
+  },
+  "templates": {
+    "basic": {
+      "label": "Basic",
+      "description": "最小限のアクション構造"
+    },
+    "advanced": {
+      "label": "Advanced",
+      "description": "プロンプト、シェル実行、エラーハンドリング付き"
+    },
+    "with-i18n": {
+      "label": "With i18n",
+      "description": "国際化対応"
+    }
+  },
+  "scopes": {
+    "workspace": {
+      "label": "ワークスペース",
+      "description": "プロジェクト固有（./.arere/actions/）"
+    },
+    "global": {
+      "label": "グローバル",
+      "description": "ユーザー全体（~/.arere/actions/）"
+    }
+  },
+  "tags": {
+    "demo": "デモ",
+    "tutorial": "チュートリアル",
+    "utility": "ユーティリティ",
+    "git": "Git",
+    "test": "テスト",
+    "dev": "開発"
+  },
+  "messages": {
+    "creating": "アクションファイルを作成中...",
+    "success": "✓ アクションファイルを作成しました！",
+    "cancelled": "アクション作成をキャンセルしました",
+    "file_path": "ファイルパス: {{path}}",
+    "next_steps": "次のステップ:",
+    "restart": "arereを再起動して新しいアクションを読み込んでください"
+  },
+  "errors": {
+    "invalid_name": "名前はケバブケース（小文字、数字、ハイフン）で入力してください",
+    "empty_description": "説明を入力してください",
+    "template_not_found": "テンプレートファイルが見つかりません: {{template}}"
+  },
+  "createPlugin": {
+    "description": "新しいArereプラグインを作成",
+    "title": "新しいプラグインを作成",
+    "prompt": {
+      "pluginName": "プラグイン名（arere-plugin-*）",
+      "description": "説明",
+      "author": "作成者名",
+      "email": "作成者メールアドレス",
+      "template": "テンプレートタイプ",
+      "outputDir": "出力ディレクトリ",
+      "overwrite": "ディレクトリ {{dir}} が既に存在します。上書きしますか？"
+    },
+    "validation": {
+      "required": "この項目は必須です",
+      "emailFormat": "有効なメールアドレスを入力してください"
+    },
+    "templates": {
+      "minimal": {
+        "label": "Minimal",
+        "description": "i18nや設定なしの基本的なプラグイン構造"
+      },
+      "standard": {
+        "label": "Standard",
+        "description": "i18nと設定対応の標準的なプラグイン"
+      },
+      "full": {
+        "label": "Full",
+        "description": "複数の例とテストを含む完全なプラグイン"
+      }
+    },
+    "summary": "以下の設定でプラグインを作成します：",
+    "summaryFields": {
+      "name": "名前",
+      "description": "説明",
+      "author": "作成者",
+      "template": "テンプレート",
+      "outputDir": "出力ディレクトリ"
+    },
+    "rendering": "テンプレートをレンダリング中...",
+    "success": "✓ プラグインを作成しました！",
+    "cancelled": "プラグイン作成をキャンセルしました",
+    "error": "プラグインの作成に失敗しました: {{message}}",
+    "nextSteps": "次のステップ:"
+  }
+}

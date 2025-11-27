@@ -1,0 +1,39 @@
+/**
+ * Example Action
+ * Demonstrates plugin features with i18n and config
+ */
+
+import { defineAction } from 'arere'
+
+export default defineAction({
+  name: 'example',
+  description: ({ t }) => t('plugin:example.description'),
+  category: 'demo',
+  tags: ['example', 'demo'],
+
+  async run({ tui, t, pluginConfig }) {
+    // Section header
+    tui.output.section(t('plugin:example.title'))
+    tui.output.newline()
+
+    // Show greeting from config
+    if (pluginConfig) {
+      const greeting = pluginConfig.greeting || 'Hello'
+      tui.output.info(t('plugin:example.greeting', { greeting }))
+    } else {
+      tui.output.info(t('plugin:example.greeting', { greeting: 'Hello' }))
+    }
+
+    // Get user input
+    const name = await tui.prompt.text(t('plugin:example.prompt.name'), {
+      placeholder: 'Enter your name',
+    })
+
+    // Show personalized message
+    tui.output.success(t('plugin:example.message', { name }))
+    tui.output.newline()
+
+    // Success message
+    tui.output.success(t('plugin:example.success'))
+  },
+})

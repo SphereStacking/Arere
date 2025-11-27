@@ -1,0 +1,21 @@
+{
+  "name": "arere-plugin-create",
+  "version": "1.0.0",
+  "description": "Create new Arere actions and plugins from interactive prompts",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "actions", "stubs", "locales"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": ["arere", "plugin", "create", "scaffold", "action", "cli", "developer-experience"],
+  "author": "Arere Contributors",
+  "license": "MIT",
+  "peerDependencies": {
+    "arere": "^0.1.0"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,157 @@
+{
+  "config": {
+    "greeting": {
+      "description": "使用する挨拶メッセージ"
+    },
+    "enableDebug": {
+      "description": "デバッグログを有効化"
+    },
+    "theme": {
+      "description": "UIテーマの設定"
+    },
+    "maxRetries": {
+      "description": "操作の最大リトライ回数"
+    },
+    "apiKey": {
+      "description": "外部サービスのAPIキー"
+    },
+    "timeout": {
+      "description": "リクエストタイムアウト（ミリ秒）"
+    },
+    "mode": {
+      "description": "実行モード"
+    },
+    "verbose": {
+      "description": "詳細ログを有効化"
+    },
+    "githubToken": {
+      "description": "GitHub個人アクセストークン（認証API呼び出し用）"
+    }
+  },
+  "locales_demo": {
+    "description": "チュートリアル: localesディレクトリパターン",
+    "greeting": "チュートリアルプラグインからこんにちは（locales）！",
+    "message": "これはlocalesディレクトリパターンのデモンストレーションです。",
+    "tip": "翻訳はプラグインのlocales/ディレクトリから読み込まれ、プラグインネームスペース経由でアクセスされます。"
+  },
+  "plugin-demo": {
+    "api_demo_description": "API設定の使用方法をデモ",
+    "config_viewer_description": "現在のプラグイン設定を表示",
+    "quick_test_description": "最小限の出力でクイックテスト",
+    "api_test": "API接続をテスト中...",
+    "timeout_info": "リクエストタイムアウト: {{timeout}}ms",
+    "mode_info": "{{mode}}モードで実行中",
+    "verbose_enabled": "詳細ログが有効です",
+    "verbose_disabled": "詳細ログが無効です",
+    "config_summary": "設定サマリー",
+    "api_key_masked": "APIキー: {{key}} (マスク済み)",
+    "success": "デモスクリプトが正常に完了しました！",
+    "debug_starting": "[DEBUG] モックAPIリクエスト開始中...",
+    "debug_endpoint": "[DEBUG] エンドポイント: https://api.example.com/demo",
+    "debug_timeout": "[DEBUG] タイムアウト: {{timeout}}ms",
+    "config_not_found": "設定が見つかりません。デフォルト値を使用します。",
+    "config_howto": "このプラグインを設定するには:",
+    "config_step1": "1. \"s\" を押して設定を開く",
+    "config_step2": "2. \"プラグイン\" を選択",
+    "config_step3": "3. \"arere-plugin-tutorial\" を選択",
+    "config_step4": "4. 設定を変更",
+    "config_values": "設定値:",
+    "config_apikey": "APIキー: {{key}}",
+    "config_timeout": "タイムアウト: {{timeout}}ms",
+    "config_mode": "モード: {{mode}}",
+    "config_verbose": "詳細ログ: {{status}}",
+    "config_tip": "ヒント: これらの設定は以下から変更できます:",
+    "config_path": "設定 → プラグイン → arere-plugin-tutorial",
+    "quick_test_production": "productionモードでクイックテスト実行中",
+    "quick_test_test": "testモードでクイックテスト実行中",
+    "quick_test_development": "developmentモードでクイックテスト実行中",
+    "quick_validation": "Productionモード: 完全な検証が有効",
+    "quick_mock": "Testモード: モックデータが有効",
+    "quick_debug": "Developmentモード: デバッグログが利用可能",
+    "quick_completed": "テスト完了！",
+    "enabled": "有効",
+    "disabled": "無効",
+    "config": {
+      "greeting": {
+        "description": "使用する挨拶メッセージ"
+      },
+      "enableDebug": {
+        "description": "デバッグログを有効化"
+      },
+      "theme": {
+        "description": "UIテーマの設定"
+      },
+      "maxRetries": {
+        "description": "操作の最大リトライ回数"
+      },
+      "apiKey": {
+        "description": "外部サービスのAPIキー"
+      },
+      "timeout": {
+        "description": "リクエストタイムアウト（ミリ秒）"
+      },
+      "mode": {
+        "description": "実行モード"
+      },
+      "verbose": {
+        "description": "詳細ログを有効化"
+      },
+      "githubToken": {
+        "description": "GitHub個人アクセストークン（認証API呼び出し用）"
+      }
+    }
+  },
+  "shell_demo": {
+    "description": "日時、システム情報、API呼び出しのShellExecutorデモ",
+    "title": "🐚 Shell Executorデモ",
+    "date_section": "📅 日時情報:",
+    "current_datetime": "現在日時",
+    "iso_format": "ISO 8601 (UTC)",
+    "unix_timestamp": "Unixタイムスタンプ",
+    "custom_format": "カスタムフォーマット",
+    "system_section": "💻 システム情報:",
+    "current_user": "現在のユーザー",
+    "working_directory": "作業ディレクトリ",
+    "operating_system": "オペレーティングシステム",
+    "architecture": "アーキテクチャ",
+    "interpolation_section": "🔧 変数の埋め込み:",
+    "file_exists": "✅ 見つかりました",
+    "file_not_found": "❌ 見つかりません",
+    "github_section": "🐙 GitHub API呼び出し:",
+    "github_error": "GitHubリポジトリ情報の取得に失敗しました",
+    "github_not_found": "リポジトリ \"{{repo}}\" が見つかりません",
+    "github_success": "✅ リポジトリ情報を取得しました",
+    "github_repo": "リポジトリ",
+    "github_stars": "⭐ スター数",
+    "github_forks": "🍴 フォーク数",
+    "github_language": "📝 言語",
+    "github_parse_error": "GitHub APIレスポンスの解析に失敗しました",
+    "completed": "✅ Shell executorデモが完了しました！"
+  },
+  "github_info": {
+    "description": "外部SDK使用デモ（Octokit/GitHub API）",
+    "title": "🐙 GitHub 情報取得デモ",
+    "fetching_user": "👤 ユーザー情報を取得中: {{username}}",
+    "user_success": "✅ ユーザー情報を取得しました",
+    "user_name": "名前",
+    "user_username": "ユーザー名",
+    "user_repos": "📦 公開リポジトリ数",
+    "user_followers": "👥 フォロワー数",
+    "user_following": "👣 フォロー数",
+    "fetching_repo": "📦 リポジトリ情報を取得中: {{repo}}",
+    "repo_success": "✅ リポジトリ情報を取得しました",
+    "repo_name": "リポジトリ",
+    "repo_stars": "⭐ スター数",
+    "repo_forks": "🍴 フォーク数",
+    "repo_watchers": "👀 ウォッチャー数",
+    "repo_issues": "🐛 オープンイシュー数",
+    "repo_language": "📝 言語",
+    "repo_created": "📅 作成日",
+    "repo_updated": "🔄 最終更新",
+    "call_to_action": "🌟 このプロジェクトが気に入りましたか？",
+    "follow_user": "👤 @{{username}} をフォローする: https://github.com/{{username}}",
+    "star_repo": "⭐ {{repo}} にスターをつける: {{url}}",
+    "error": "❌ エラーが発生しました",
+    "not_found": "⚠️  ユーザーまたはリポジトリが見つかりません"
+  }
+}

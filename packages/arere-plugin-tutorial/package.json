@@ -1,0 +1,25 @@
+{
+  "name": "arere-plugin-tutorial",
+  "version": "1.0.0",
+  "description": "Tutorial plugin for 'arere' - demonstrates i18n and external dependencies",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": ["dist", "actions", "locales", "README.md", "TEMPLATE.md"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["arere", "arere-plugin", "cli", "launcher", "tutorial"],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "arere": "*"
+  },
+  "dependencies": {
+    "@octokit/rest": "^22.0.1",
+    "date-fns": "^3.0.0"
+  },
+  "devDependencies": {}
+}

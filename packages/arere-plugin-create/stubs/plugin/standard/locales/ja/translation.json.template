@@ -1,0 +1,12 @@
+{
+  "example": {
+    "description": "i18nと設定を使ったサンプルアクション",
+    "title": "{{pluginName}}のサンプルアクション",
+    "greeting": "{{pluginName}}から{{greeting}}！",
+    "prompt": {
+      "name": "お名前は？"
+    },
+    "message": "はじめまして、{{name}}さん！",
+    "success": "アクションが正常に完了しました"
+  }
+}

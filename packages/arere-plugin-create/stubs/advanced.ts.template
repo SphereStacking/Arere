@@ -1,0 +1,97 @@
+/**
+ * {{description}}
+ *
+ * This action demonstrates advanced features:
+ * - Prompt API (text, confirm, select)
+ * - Shell execution
+ * - Error handling
+ * - Output formatting
+ * - Control API (spinner)
+ */
+
+import { defineAction } from 'arere'
+
+export default defineAction({
+  name: '{{name}}',
+  description: '{{description}}',
+  category: '{{category}}',
+  tags: {{tags}},
+
+  async run({ tui, $ }) {
+    try {
+      // Section header
+      tui.output.section('{{description}}')
+      tui.output.newline()
+
+      // Step 1: Get user input
+      tui.output.step(1, 'Getting user input')
+      const name = await tui.prompt.text('What is your name?', {
+        placeholder: 'Enter your name',
+      })
+      tui.output.success(`Hello, ${name}!`)
+      tui.output.newline()
+
+      // Step 2: Confirmation
+      tui.output.step(2, 'Confirmation')
+      const shouldContinue = await tui.prompt.confirm('Do you want to continue?', {
+        defaultValue: true,
+      })
+
+      if (!shouldContinue) {
+        tui.output.info('Operation cancelled')
+        return
+      }
+      tui.output.newline()
+
+      // Step 3: Selection
+      tui.output.step(3, 'Selection')
+      const choice = await tui.prompt.select(
+        'Select an option',
+        [
+          { label: 'Option A', value: 'a', description: 'First option' },
+          { label: 'Option B', value: 'b', description: 'Second option' },
+          { label: 'Option C', value: 'c', description: 'Third option' },
+        ],
+      )
+      tui.output.success(`You selected: ${choice}`)
+      tui.output.newline()
+
+      // Step 4: Shell execution (with spinner)
+      tui.output.step(4, 'Executing shell command')
+      const spinner = tui.control.spinner('Running command...')
+      spinner.start()
+
+      const result = await $`echo "Hello from shell!"`
+
+      spinner.stop()
+
+      if (result.exitCode === 0) {
+        tui.output.success('Command ran successfully')
+        tui.output.code(result.stdout.trim())
+      } else {
+        tui.output.error('Command failed')
+        tui.output.code(result.stderr.trim())
+      }
+      tui.output.newline()
+
+      // Summary
+      tui.output.separator()
+      tui.output.section('Summary')
+      tui.output.keyValue({
+        'Name': name,
+        'Choice': choice,
+        'Command Exit Code': result.exitCode,
+      })
+      tui.output.newline()
+      tui.output.success('Action completed successfully!')
+
+    } catch (error) {
+      // Error handling
+      tui.output.error('An error occurred')
+      if (error instanceof Error) {
+        tui.output.error(error.message)
+      }
+      throw error
+    }
+  },
+})

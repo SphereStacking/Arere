@@ -1,0 +1,67 @@
+{
+  "name": "arere",
+  "version": "0.1.0",
+  "description": "Persistent terminal launcher with fuzzy search, plugins, and i18n support",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "arere": "./dist/cli.js",
+    "arr": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "locales",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "dev:cli": "node dist/cli.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [
+    "cli",
+    "launcher",
+    "typescript",
+    "scripts",
+    "terminal",
+    "tui",
+    "interactive"
+  ],
+  "author": "SphereStacking <sphere.stacking@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SphereStacking/Arere.git",
+    "directory": "packages/arere"
+  },
+  "bugs": {
+    "url": "https://github.com/SphereStacking/Arere/issues"
+  },
+  "homepage": "https://github.com/SphereStacking/Arere#readme",
+  "dependencies": {
+    "c12": "^1.11.2",
+    "cli-table3": "^0.6.5",
+    "fuzzysort": "^2.0.4",
+    "hookable": "^5.5.3",
+    "ink": "^4.4.1",
+    "jiti": "^1.21.7",
+    "react": "^18.3.1",
+    "update-notifier": "^7.3.1",
+    "zod": "^3.25.76",
+    "zustand": "^5.0.8"
+  }
+}

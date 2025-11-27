@@ -1,0 +1,45 @@
+/**
+ * Prompts Example
+ * Demonstrates various prompt types
+ */
+
+import { defineAction } from 'arere'
+
+export default defineAction({
+  name: 'prompts',
+  description: ({ t }) => t('plugin:prompts.description'),
+  category: 'examples',
+  tags: ['example', 'prompts', 'interactive'],
+
+  async run({ tui, t }) {
+    tui.output.section(t('plugin:prompts.title'))
+    tui.output.newline()
+
+    // Text input
+    const name = await tui.prompt.text(t('plugin:prompts.prompt.name'), {
+      placeholder: 'John Doe',
+    })
+
+    // Confirm prompt
+    const confirmed = await tui.prompt.confirm(
+      t('plugin:prompts.prompt.confirm', { name })
+    )
+
+    if (confirmed) {
+      // Select prompt
+      const color = await tui.prompt.select(t('plugin:prompts.prompt.color'), {
+        options: [
+          { label: t('plugin:prompts.colors.red'), value: 'red' },
+          { label: t('plugin:prompts.colors.blue'), value: 'blue' },
+          { label: t('plugin:prompts.colors.green'), value: 'green' },
+        ],
+      })
+
+      tui.output.success(
+        t('plugin:prompts.result', { name, color })
+      )
+    } else {
+      tui.output.info(t('plugin:prompts.cancelled'))
+    }
+  },
+})

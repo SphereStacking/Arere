@@ -1,0 +1,7 @@
+{
+  "action_not_found": "アクションが見つかりません: {{name}}",
+  "action_load_error": "アクションの読み込みに失敗しました: {{path}}",
+  "action_execution_error": "アクションの実行に失敗しました: {{name}}",
+  "plugin_load_error": "プラグインの読み込みに失敗しました: {{name}}",
+  "caused_by": "原因: {{message}}"
+}

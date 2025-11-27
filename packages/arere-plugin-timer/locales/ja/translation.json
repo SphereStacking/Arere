@@ -1,0 +1,61 @@
+{
+  "actions": {
+    "timer": {
+      "name": "タイマー",
+      "description": "カウントダウンタイマー - 時間を設定して通知"
+    },
+    "pomodoro": {
+      "name": "ポモドーロ",
+      "description": "ポモドーロテクニック - 25分作業、5分休憩のサイクル"
+    },
+    "stopwatch": {
+      "name": "ストップウォッチ",
+      "description": "ラップタイム記録付きストップウォッチ"
+    }
+  },
+  "timer": {
+    "enterDuration": "時間を入力 (例: 5m, 30s, 1h30m)",
+    "placeholder": "5m",
+    "invalidFormat": "無効な形式です。例: 5m, 30s, 1h30m",
+    "starting": "タイマー開始: {{duration}}",
+    "remaining": "残り",
+    "finished": "時間です！",
+    "cancelled": "タイマーをキャンセルしました"
+  },
+  "pomodoro": {
+    "title": "ポモドーロタイマー",
+    "work": "作業",
+    "shortBreak": "短い休憩",
+    "longBreak": "長い休憩",
+    "session": "セッション",
+    "cycle": "サイクル {{current}}/{{total}}",
+    "workTime": "作業時間（分）",
+    "breakTime": "休憩時間（分）",
+    "longBreakTime": "長い休憩時間（分）",
+    "cyclesBeforeLongBreak": "長い休憩までのサイクル数",
+    "starting": "{{phase}} を開始...",
+    "finished": "{{phase}} 終了！",
+    "completed": "ポモドーロセッション完了！",
+    "totalWork": "合計作業時間: {{time}}",
+    "cancelled": "ポモドーロをキャンセルしました",
+    "pressEnterToStart": "Enterで次のフェーズを開始",
+    "pressEscToCancel": "Escでキャンセル"
+  },
+  "stopwatch": {
+    "title": "ストップウォッチ",
+    "running": "計測中",
+    "stopped": "停止",
+    "elapsed": "経過時間",
+    "lap": "ラップ",
+    "laps": "ラップ一覧",
+    "startStop": "Space: 開始/停止",
+    "lapReset": "L: ラップ | R: リセット",
+    "quit": "Esc: 終了",
+    "noLaps": "ラップなし"
+  },
+  "common": {
+    "hours": "時間",
+    "minutes": "分",
+    "seconds": "秒"
+  }
+}

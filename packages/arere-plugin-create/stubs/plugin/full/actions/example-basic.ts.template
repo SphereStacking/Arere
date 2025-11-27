@@ -1,0 +1,26 @@
+/**
+ * Basic Action Example
+ * Demonstrates simple action structure with i18n
+ */
+
+import { defineAction } from 'arere'
+
+export default defineAction({
+  name: 'basic',
+  description: ({ t }) => t('plugin:basic.description'),
+  category: 'examples',
+  tags: ['example', 'basic'],
+
+  async run({ tui, t }) {
+    // Section header
+    tui.output.section(t('plugin:basic.title'))
+    tui.output.newline()
+
+    // Simple output
+    tui.output.info(t('plugin:basic.message'))
+    tui.output.newline()
+
+    // Success message
+    tui.output.success(t('plugin:basic.success'))
+  },
+})

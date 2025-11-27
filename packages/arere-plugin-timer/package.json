@@ -1,0 +1,38 @@
+{
+  "name": "arere-plugin-timer",
+  "version": "1.0.0",
+  "description": "Timer plugin for 'arere' - countdown timer, pomodoro, stopwatch",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": [
+    "dist",
+    "actions",
+    "locales",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "arere",
+    "arere-plugin",
+    "cli",
+    "launcher",
+    "timer",
+    "pomodoro"
+  ],
+  "author": "arere team",
+  "license": "MIT",
+  "peerDependencies": {
+    "arere": "*"
+  },
+  "dependencies": {
+    "play-sound": "^1.1.6"
+  },
+  "devDependencies": {
+    "@types/play-sound": "^1.1.2"
+  }
+}

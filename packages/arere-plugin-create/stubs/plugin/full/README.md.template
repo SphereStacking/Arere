@@ -1,0 +1,185 @@
+# {{pluginName}}
+
+{{description}}
+
+## Features
+
+- 🎯 **Multiple Action Examples**: Basic, interactive prompts, and configuration usage
+- 🌍 **Internationalization**: Built-in support for English and Japanese
+- ⚙️ **Type-Safe Configuration**: Zod schema validation for plugin settings
+- 📦 **TypeScript**: Fully typed with TypeScript support
+- 🧪 **Test-Ready**: Configured with Vitest for testing
+
+## Installation
+
+```bash
+npm install {{pluginName}}
+```
+
+## Usage
+
+This plugin will be automatically detected by arere if installed.
+
+### Enable the plugin
+
+Add to your `.arere/settings.json`:
+
+```json
+{
+  "plugins": {
+    "{{pluginName}}": {
+      "enabled": true
+    }
+  }
+}
+```
+
+## Actions
+
+### basic
+Basic action demonstrating simple structure with i18n support.
+
+**Example:**
+```bash
+arere
+# Select "basic" from the action list
+```
+
+### prompts
+Interactive action showcasing various prompt types:
+- Text input
+- Confirmation prompts
+- Select menus
+
+**Example:**
+```bash
+arere
+# Select "prompts" from the action list
+```
+
+### config
+Demonstrates how to use plugin configuration in actions.
+
+**Example:**
+```bash
+arere
+# Select "config" from the action list
+```
+
+## Configuration
+
+You can configure this plugin in `.arere/settings.json`:
+
+```json
+{
+  "plugins": {
+    "{{pluginName}}": {
+      "enabled": true,
+      "config": {
+        "greeting": "Hello",
+        "enabled": true,
+        "maxRetries": 3
+      }
+    }
+  }
+}
+```
+
+### Configuration Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `greeting` | string | `"Hello"` | Greeting message used in actions |
+| `enabled` | boolean | `true` | Enable/disable plugin features |
+| `maxRetries` | number | `3` | Maximum number of retries (1-10) |
+
+## Internationalization
+
+This plugin supports multiple languages:
+- English (en)
+- Japanese (ja)
+
+The plugin automatically detects your system language and uses the appropriate translations. Translations are located in the `locales/` directory.
+
+### Adding New Languages
+
+1. Create a new directory in `locales/` with the language code (e.g., `locales/fr/`)
+2. Add a `translation.json` file with your translations
+3. Follow the same structure as the existing translation files
+
+## Development
+
+### Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Build
+npm run build
+
+# Watch mode (auto-rebuild on changes)
+npm run dev
+```
+
+### Testing
+
+```bash
+# Run tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run in watch mode
+npm run test:watch
+```
+
+### Type Checking
+
+```bash
+npm run typecheck
+```
+
+### Project Structure
+
+```
+{{pluginName}}/
+├── src/
+│   └── index.ts           # Plugin definition
+├── actions/
+│   ├── example-basic.ts   # Basic action example
+│   ├── example-prompts.ts # Prompts example
+│   └── example-config.ts  # Config example
+├── locales/
+│   ├── en/
+│   │   └── translation.json
+│   └── ja/
+│       └── translation.json
+├── tests/                 # Test files
+├── package.json
+├── tsconfig.json
+└── README.md
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+### Guidelines
+
+1. Follow the existing code style
+2. Add tests for new features
+3. Update documentation as needed
+4. Ensure all tests pass: `npm test`
+5. Run type checking: `npm run typecheck`
+
+## License
+
+MIT © {{author}}
+
+## Resources
+
+- [Arere Documentation](https://github.com/yourusername/arere)
+- [Plugin Development Guide](https://github.com/yourusername/arere/docs/plugins.md)
+- [API Reference](https://github.com/yourusername/arere/docs/api.md)

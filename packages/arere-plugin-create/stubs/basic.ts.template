@@ -1,0 +1,20 @@
+/**
+ * {{description}}
+ */
+
+import { defineAction } from 'arere'
+
+export default defineAction({
+  name: '{{name}}',
+  description: '{{description}}',
+  category: '{{category}}',
+  tags: {{tags}},
+
+  async run({ tui }) {
+    tui.output.section('{{description}}')
+    tui.output.newline()
+
+    // Your action logic here
+    tui.output.success('Action completed successfully!')
+  },
+})

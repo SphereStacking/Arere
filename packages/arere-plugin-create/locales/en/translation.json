@@ -1,0 +1,110 @@
+{
+  "description": "Create a new Arere action",
+  "title": "Create New Action",
+  "prompts": {
+    "name": "Action name (kebab-case)",
+    "description": "Description",
+    "category": "Category",
+    "tags": "Tags (select multiple)",
+    "template": "Template type",
+    "scope": "Where to save?",
+    "overwrite": "File already exists. Overwrite?"
+  },
+  "categories": {
+    "utility": "Utility",
+    "development": "Development",
+    "git": "Git",
+    "testing": "Testing",
+    "demo": "Demo",
+    "custom": "Custom (enter manually)"
+  },
+  "templates": {
+    "basic": {
+      "label": "Basic",
+      "description": "Minimal action structure"
+    },
+    "advanced": {
+      "label": "Advanced",
+      "description": "With prompts, shell execution, error handling"
+    },
+    "with-i18n": {
+      "label": "With i18n",
+      "description": "Internationalization support"
+    }
+  },
+  "scopes": {
+    "workspace": {
+      "label": "Workspace",
+      "description": "Project-specific (./.arere/actions/)"
+    },
+    "global": {
+      "label": "Global",
+      "description": "User-wide (~/.arere/actions/)"
+    }
+  },
+  "tags": {
+    "demo": "Demo",
+    "tutorial": "Tutorial",
+    "utility": "Utility",
+    "git": "Git",
+    "test": "Test",
+    "dev": "Development"
+  },
+  "messages": {
+    "creating": "Creating action file...",
+    "success": "✓ Action file created successfully!",
+    "cancelled": "Action creation cancelled",
+    "file_path": "File path: {{path}}",
+    "next_steps": "Next steps:",
+    "restart": "Restart arere to load the new action"
+  },
+  "errors": {
+    "invalid_name": "Name must be in kebab-case (lowercase letters, numbers, hyphens)",
+    "empty_description": "Description cannot be empty",
+    "template_not_found": "Template file not found: {{template}}"
+  },
+  "createPlugin": {
+    "description": "Create a new Arere plugin",
+    "title": "Create New Plugin",
+    "prompt": {
+      "pluginName": "Plugin name (arere-plugin-*)",
+      "description": "Description",
+      "author": "Author name",
+      "email": "Author email",
+      "template": "Template type",
+      "outputDir": "Output directory",
+      "overwrite": "Directory {{dir}} already exists. Overwrite?"
+    },
+    "validation": {
+      "required": "This field is required",
+      "emailFormat": "Please enter a valid email address"
+    },
+    "templates": {
+      "minimal": {
+        "label": "Minimal",
+        "description": "Basic plugin structure without i18n or config"
+      },
+      "standard": {
+        "label": "Standard",
+        "description": "Standard plugin with i18n and config support"
+      },
+      "full": {
+        "label": "Full",
+        "description": "Complete plugin with multiple examples and tests"
+      }
+    },
+    "summary": "Creating plugin with the following settings:",
+    "summaryFields": {
+      "name": "Name",
+      "description": "Description",
+      "author": "Author",
+      "template": "Template",
+      "outputDir": "Output Directory"
+    },
+    "rendering": "Rendering template...",
+    "success": "✓ Plugin created successfully!",
+    "cancelled": "Plugin creation cancelled",
+    "error": "Failed to create plugin: {{message}}",
+    "nextSteps": "Next steps:"
+  }
+}

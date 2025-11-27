@@ -1,0 +1,21 @@
+/**
+ * Hello Action
+ * A simple hello world action
+ */
+
+import { defineAction } from 'arere'
+
+export default defineAction({
+  name: 'hello',
+  description: 'Say hello from {{pluginName}}',
+  category: 'demo',
+  tags: ['hello', 'demo'],
+
+  async run({ tui }) {
+    tui.output.section('Hello from {{pluginName}}!')
+    tui.output.newline()
+    tui.output.success('This is a sample action from your new plugin.')
+    tui.output.newline()
+    tui.output.info('Edit this file to customize your action.')
+  },
+})

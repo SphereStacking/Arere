@@ -1,0 +1,7 @@
+{
+  "action_not_found": "Action not found: {{name}}",
+  "action_load_error": "Failed to load action: {{path}}",
+  "action_execution_error": "Action execution failed: {{name}}",
+  "plugin_load_error": "Failed to load plugin: {{name}}",
+  "caused_by": "Caused by: {{message}}"
+}

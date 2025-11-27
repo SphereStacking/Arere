@@ -1,0 +1,19 @@
+{
+  "help": {
+    "usage": "Usage",
+    "commands": {
+      "default": "Show action launcher",
+      "version": "Show version",
+      "help": "Show this help"
+    },
+    "version_label": "Version"
+  },
+  "loading": {
+    "actions": "Loading actions..."
+  },
+  "info": {
+    "loaded_global_actions": "Loaded {{count}} global action(s)",
+    "loaded_project_actions": "Loaded {{count}} project action(s)",
+    "registered_actions": "Registered {{count}} action(s) total"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "actionsDir": 123,
+  "logLevel": "invalid-level",
+  "theme": {
+    "primaryColor": true
+  }
+}

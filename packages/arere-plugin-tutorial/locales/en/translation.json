@@ -1,0 +1,129 @@
+{
+  "config": {
+    "greeting": {
+      "description": "Greeting message to use"
+    },
+    "enableDebug": {
+      "description": "Enable debug logging"
+    },
+    "theme": {
+      "description": "UI theme preference"
+    },
+    "maxRetries": {
+      "description": "Maximum number of retries for operations"
+    },
+    "apiKey": {
+      "description": "API key for external service"
+    },
+    "timeout": {
+      "description": "Request timeout in milliseconds"
+    },
+    "mode": {
+      "description": "Execution mode"
+    },
+    "verbose": {
+      "description": "Enable verbose logging"
+    },
+    "githubToken": {
+      "description": "GitHub Personal Access Token (for authenticated API calls)"
+    }
+  },
+  "locales_demo": {
+    "description": "Tutorial: Locales directory pattern",
+    "greeting": "Hello from tutorial plugin (locales)!",
+    "message": "This demonstrates the locales directory pattern.",
+    "tip": "Translations are loaded from the plugin's locales/ directory and accessed via plugin namespace."
+  },
+  "plugin-demo": {
+    "api_demo_description": "Demonstrates API configuration usage",
+    "config_viewer_description": "View current plugin configuration",
+    "quick_test_description": "Quick test with minimal output",
+    "greeting": "Hello from Tutorial Plugin!",
+    "api_test": "Testing API connection...",
+    "timeout_info": "Request timeout: {{timeout}}ms",
+    "mode_info": "Running in {{mode}} mode",
+    "verbose_enabled": "Verbose logging is enabled",
+    "verbose_disabled": "Verbose logging is disabled",
+    "config_summary": "Configuration Summary",
+    "api_key_masked": "API Key: {{key}} (masked)",
+    "success": "Demo action completed successfully!",
+    "debug_starting": "[DEBUG] Mock API request starting...",
+    "debug_endpoint": "[DEBUG] Endpoint: https://api.example.com/demo",
+    "debug_timeout": "[DEBUG] Timeout: {{timeout}}ms",
+    "config_not_found": "No configuration found. Using defaults.",
+    "config_howto": "To configure this plugin:",
+    "config_step1": "1. Press \"s\" to open Settings",
+    "config_step2": "2. Select \"Plugins\"",
+    "config_step3": "3. Select \"arere-plugin-tutorial\"",
+    "config_step4": "4. Configure your settings",
+    "config_values": "Configuration Values:",
+    "config_apikey": "API Key: {{key}}",
+    "config_timeout": "Timeout: {{timeout}}ms",
+    "config_mode": "Mode: {{mode}}",
+    "config_verbose": "Verbose: {{status}}",
+    "config_tip": "Tip: You can change these settings from:",
+    "config_path": "Settings → Plugins → arere-plugin-tutorial",
+    "quick_test_production": "Quick test running in production mode",
+    "quick_test_test": "Quick test running in test mode",
+    "quick_test_development": "Quick test running in development mode",
+    "quick_validation": "Production mode: Full validation enabled",
+    "quick_mock": "Test mode: Mock data enabled",
+    "quick_debug": "Development mode: Debug logging available",
+    "quick_completed": "Test completed!",
+    "enabled": "Enabled",
+    "disabled": "Disabled"
+  },
+  "shell_demo": {
+    "description": "Shell executor demo with date, system info, and API calls",
+    "title": "🐚 Shell Executor Demo",
+    "date_section": "📅 Date & Time Information:",
+    "current_datetime": "Current Date/Time",
+    "iso_format": "ISO 8601 (UTC)",
+    "unix_timestamp": "Unix Timestamp",
+    "custom_format": "Custom Format",
+    "system_section": "💻 System Information:",
+    "current_user": "Current User",
+    "working_directory": "Working Directory",
+    "operating_system": "Operating System",
+    "architecture": "Architecture",
+    "interpolation_section": "🔧 Variable Interpolation:",
+    "file_exists": "✅ Found",
+    "file_not_found": "❌ Not found",
+    "github_section": "🐙 GitHub API Call:",
+    "github_error": "Failed to fetch GitHub repository info",
+    "github_not_found": "Repository \"{{repo}}\" not found",
+    "github_success": "✅ Repository info fetched successfully",
+    "github_repo": "Repository",
+    "github_stars": "⭐ Stars",
+    "github_forks": "🍴 Forks",
+    "github_language": "📝 Language",
+    "github_parse_error": "Failed to parse GitHub API response",
+    "completed": "✅ Shell executor demo completed!"
+  },
+  "github_info": {
+    "description": "External SDK usage demo (Octokit/GitHub API)",
+    "title": "🐙 GitHub Info Demo",
+    "fetching_user": "👤 Fetching user info: {{username}}",
+    "user_success": "✅ User info fetched successfully",
+    "user_name": "Name",
+    "user_username": "Username",
+    "user_repos": "📦 Public Repos",
+    "user_followers": "👥 Followers",
+    "user_following": "👣 Following",
+    "fetching_repo": "📦 Fetching repository info: {{repo}}",
+    "repo_success": "✅ Repository info fetched successfully",
+    "repo_name": "Repository",
+    "repo_stars": "⭐ Stars",
+    "repo_forks": "🍴 Forks",
+    "repo_watchers": "👀 Watchers",
+    "repo_issues": "🐛 Open Issues",
+    "repo_language": "📝 Language",
+    "repo_created": "📅 Created",
+    "repo_updated": "🔄 Updated",
+    "call_to_action": "🌟 Like this project?",
+    "follow_user": "👤 Follow @{{username}}: https://github.com/{{username}}",
+    "star_repo": "⭐ Star {{repo}}: {{url}}",
+    "error": "❌ An error occurred",
+    "not_found": "⚠️  User or repository not found"
+  }
+}

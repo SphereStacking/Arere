@@ -1,0 +1,36 @@
+{
+  "name": "{{pluginName}}",
+  "version": "1.0.0",
+  "description": "{{description}}",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "actions",
+    "locales"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
+  },
+  "keywords": [
+    "arere",
+    "arere-plugin",
+    "{{pluginNameShort}}"
+  ],
+  "author": "{{author}} <{{authorEmail}}>",
+  "license": "MIT",
+  "peerDependencies": {
+    "arere": "^0.1.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vitest": "^2.1.8",
+    "zod": "^3.25.76"
+  }
+}
