@@ -1,6 +1,6 @@
 {
   "name": "arere-plugin-tutorial",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Tutorial plugin for 'arere' - demonstrates i18n and external dependencies",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

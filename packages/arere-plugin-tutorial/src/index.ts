@@ -13,7 +13,7 @@ import { z } from 'zod'
 export default definePlugin({
   meta: {
     name: 'arere-plugin-tutorial',
-    version: '2.0.0',
+    version: '0.1.1',
     description: 'Official tutorial plugin - 13 step-by-step tutorials for learning arere',
     author: 'arere team',
     i18nNamespace: 'plugin-tutorial',
