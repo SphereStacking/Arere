@@ -163,9 +163,11 @@ export async function loadPlugin(
 export async function loadPluginActions(plugin: LoadedPlugin): Promise<Action[]> {
   const actions: Action[] = []
 
-  // Create jiti instance from current working directory
-  // This allows actions to import from both the plugin and the main 'arere' package
-  const jiti = createJiti(process.cwd(), {
+  // Create jiti instance from plugin's directory
+  // This ensures proper module resolution for both:
+  // - Plugin's internal imports (../src/...)
+  // - External dependencies including 'arere' package
+  const jiti = createJiti(plugin.path, {
     interopDefault: true,
     extensions: ['.ts', '.js', '.mjs', '.cjs'],
     // Alias 'arere' to the built package for plugin action imports
