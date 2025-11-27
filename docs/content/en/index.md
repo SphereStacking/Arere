@@ -39,6 +39,9 @@ Create type-safe actions in TypeScript and execute them with fuzzy search. A per
   :::
 ::
 
+<img src="/images/home-en.png" alt="Home Screen" style="max-width: 1000px; display: block; margin: 0 auto;">
+
+
 ::u-page-section
 #title
 Feature-Rich Out of the Box
@@ -147,3 +150,5 @@ Feature-Rich Out of the Box
   Works with terminal multiplexers. Execute in new panes to improve your workflow.
   :::
 ::
+
+<img src="/images/action-en.png" alt="Action Execution" style="max-width: 1000px; display: block; margin: 0 auto;">

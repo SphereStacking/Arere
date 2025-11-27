@@ -3,11 +3,7 @@ seo:
   title: TypeScript製ターミナルランチャー arere
   description: コマンドを覚える必要なし。TypeScriptで型安全なアクションを作成し、ファジー検索で実行。CI/CDにも対応した常駐型ターミナルランチャー。
 ---
-<style>
-.logo{
-  font-color:red
-}
-</style>
+
 ::u-page-hero
 #title
 [> Arere(¯n ¯?)]{.logo}
@@ -41,6 +37,8 @@ TypeScriptで型安全にアクションを作成し、ファジー検索で実�
   GitHub
   :::
 ::
+
+<img src="/images/home-jp.png" alt="ホーム画面" style="max-width: 1000px; display: block; margin: 0 auto;">
 
 ::u-page-section
 #title
@@ -150,3 +148,5 @@ TypeScriptで型安全にアクションを作成し、ファジー検索で実�
   ターミナルマルチプレクサと連携。新しいペインで実行でき、ワークフローが改善されます。
   :::
 ::
+
+<img src="/images/action-jp.png" alt="アクション実行" style="max-width: 1000px; display: block; margin: 0 auto;">

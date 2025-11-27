@@ -10,6 +10,10 @@
 
 A TypeScript-based **persistent terminal launcher**. No need to remember commands. Just launch `arere` and run your favorite actions with fuzzy search.
 
+![arere home screen](docs/public/images/home-en.png)
+
+![arere action execution](docs/public/images/action-en.png)
+
 ## ✨ Features
 
 - 🏃 **Persistent** - Once launched, run actions continuously

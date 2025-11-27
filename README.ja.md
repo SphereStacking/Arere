@@ -10,6 +10,10 @@
 
 TypeScriptベースの**常駐型ターミナルランチャー**。コマンドを覚える必要はありません。`arere` を起動すれば、よく使うアクションをファジー検索で実行できます。
 
+![arere ホーム画面](docs/public/images/home-jp.png)
+
+![arere アクション実行](docs/public/images/action-jp.png)
+
 ## ✨ 特徴
 
 - 🏃 **常駐型** - 一度起動すれば、連続してアクションを実行可能
