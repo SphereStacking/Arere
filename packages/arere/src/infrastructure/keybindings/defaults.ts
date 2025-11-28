@@ -18,6 +18,7 @@ export const defaultKeyBindings: KeyBindingsConfig = {
     down: [{ key: 'downArrow' }],
     select: [{ key: 'return' }],
     toggle: [{ key: ' ' }],
+    bookmark: [{ key: 'tab' }],
   },
 
   input: {

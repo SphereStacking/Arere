@@ -145,6 +145,7 @@ export function createKeyMatcher(config: KeyBindingsConfig) {
       down: createMatcher(config.list.down),
       select: createMatcher(config.list.select),
       toggle: createMatcher(config.list.toggle),
+      bookmark: createMatcher(config.list.bookmark),
     },
     input: {
       submit: createMatcher(config.input.submit),

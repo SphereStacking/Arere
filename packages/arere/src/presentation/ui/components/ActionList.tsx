@@ -7,8 +7,10 @@
 
 import { createActionContext } from '@/domain/action/context'
 import type { Action } from '@/domain/action/types'
+import { createBookmarkId, isBookmarked } from '@/domain/bookmark/utils'
 import { defaultConfig } from '@/infrastructure/config/schema'
 import { useActionExecution } from '@/presentation/ui/hooks/useActionExecution'
+import { useConfigManagement } from '@/presentation/ui/hooks/useConfigManagement'
 import { useKeyBindings } from '@/presentation/ui/hooks/useKeyBindings'
 import { useTerminalSize } from '@/presentation/ui/hooks/useTerminalSize'
 import { useTheme } from '@/presentation/ui/hooks/useTheme'
@@ -16,6 +18,7 @@ import { useSettingsStore } from '@/presentation/ui/stores/settingsStore'
 import { evaluateDescription, formatCategoryLabel } from '@/presentation/ui/utils/action'
 import { Box, Text, useInput } from 'ink'
 import React, { useEffect, useState } from 'react'
+import stringWidth from 'string-width'
 
 /** Scroll info for parent ScrollArea */
 export interface ActionListScrollInfo {
@@ -68,6 +71,7 @@ interface ActionItem {
   maxNameLength: number
   description: string
   tagsText: string
+  isBookmarked: boolean
 }
 
 export const ActionList: React.FC<ActionListProps> = ({
@@ -78,12 +82,24 @@ export const ActionList: React.FC<ActionListProps> = ({
   const [selectedIndex, setSelectedIndex] = useState(0)
   const { primaryColor, inactiveColor } = useTheme()
   const storeActions = useSettingsStore((s) => s.currentActions)
+  const getBookmarks = useSettingsStore((s) => s.getBookmarks)
+  const toggleBookmark = useSettingsStore((s) => s.toggleBookmark)
+  const currentLayer = useSettingsStore((s) => s.currentLayer)
+  const currentConfig = useSettingsStore((s) => s.currentConfig)
+  const bookmarkIcon = currentConfig.ui?.bookmarkIcon ?? defaultConfig.ui?.bookmarkIcon ?? '⭐'
   const { runAction } = useActionExecution()
+  const { saveConfig } = useConfigManagement()
   const { columns } = useTerminalSize()
 
   // Use prop actions if provided, otherwise use store
-  const actions = propActions ?? storeActions
+  const rawActions = propActions ?? storeActions
   const handleSelect = onSelect ?? runAction
+
+  // Get current bookmarks
+  const bookmarks = getBookmarks()
+
+  // Use actions directly without sorting
+  const actions = rawActions
 
   // Calculate items with memoization to avoid re-evaluation on every render
   const items = React.useMemo((): ActionItem[] => {
@@ -98,6 +114,8 @@ export const ActionList: React.FC<ActionListProps> = ({
 
     // Available width for content (minus scrollbar width of 1)
     const SCROLLBAR_WIDTH = 1
+    // Bookmark icon width: space + icon (auto-calculated)
+    const bookmarkIconWidth = 1 + stringWidth(bookmarkIcon)
     const availableWidth = columns - LAYOUT.margin - SCROLLBAR_WIDTH
 
     // Calculate fixed widths
@@ -107,8 +125,8 @@ export const ActionList: React.FC<ActionListProps> = ({
         ? maxCategoryLength + LAYOUT.categoryBrackets + LAYOUT.categoryPadding
         : 0
 
-    // Line fixed width: prefix + category + name + space before description
-    const fixedWidth = LAYOUT.prefix + categoryWidth + maxNameLength + 1
+    // Line fixed width: prefix + category + name + space before description + bookmark icon
+    const fixedWidth = LAYOUT.prefix + categoryWidth + maxNameLength + 1 + bookmarkIconWidth
 
     // Space available for description + tags
     const descriptionSpace = availableWidth - fixedWidth
@@ -122,6 +140,7 @@ export const ActionList: React.FC<ActionListProps> = ({
       const categoryLabel = categoryLabels[index]
       const description = evaluateDescription(action.meta.description, context, action.meta.name)
       const tagsText = formatTags(action.meta.tags)
+      const bookmarked = isBookmarked(action, bookmarks)
 
       // Truncate description and tags to fit available space
       const tagsWidth = tagsText ? tagsText.length + 1 : 0 // +1 for space before tags
@@ -135,9 +154,10 @@ export const ActionList: React.FC<ActionListProps> = ({
         maxNameLength,
         description: truncatedDescription,
         tagsText,
+        isBookmarked: bookmarked,
       }
     })
-  }, [actions, columns])
+  }, [actions, columns, bookmarks, bookmarkIcon])
 
   const kb = useKeyBindings()
 
@@ -159,6 +179,24 @@ export const ActionList: React.FC<ActionListProps> = ({
       if (kb.list.select(input, key)) {
         if (items[selectedIndex]) {
           handleSelect(items[selectedIndex].action)
+        }
+        return
+      }
+
+      // Toggle bookmark
+      if (kb.list.bookmark(input, key)) {
+        if (items[selectedIndex]) {
+          const bookmarkId = createBookmarkId(items[selectedIndex].action)
+          const currentBookmarks = getBookmarks()
+          const newBookmarks = currentBookmarks.includes(bookmarkId)
+            ? currentBookmarks.filter((b) => b !== bookmarkId)
+            : [...currentBookmarks, bookmarkId]
+
+          // Update local state
+          toggleBookmark(bookmarkId)
+
+          // Persist to config file
+          saveConfig('bookmarks', newBookmarks, currentLayer)
         }
         return
       }
@@ -230,7 +268,7 @@ export const ActionList: React.FC<ActionListProps> = ({
             {item.tagsText}
           </Text>
         )}
-        <Text> </Text>
+        <Text color={primaryColor}>{item.isBookmarked ? ` ${bookmarkIcon}` : '  '}</Text>
       </Box>
     )
   }

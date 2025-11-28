@@ -2,8 +2,10 @@
  * Tests for ActionList component
  */
 
-import type { Action } from '@/domain/action/types.js'
+import type { Action, ActionLocation } from '@/domain/action/types.js'
 import { ActionList } from '@/presentation/ui/components/ActionList.js'
+import { useSettingsStore } from '@/presentation/ui/stores/settingsStore.js'
+import type { ArereConfig } from '@/infrastructure/config/schema.js'
 import { render } from 'ink-testing-library'
 import React, { act } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -35,13 +37,19 @@ vi.mock('@/presentation/ui/hooks/useMouseScroll', () => ({
 }))
 
 describe('ActionList', () => {
-  const createMockAction = (name: string, description: string, tags?: string[]): Action => ({
+  const createMockAction = (
+    name: string,
+    description: string,
+    tags?: string[],
+    location?: ActionLocation,
+  ): Action => ({
     meta: {
       name,
       description,
       tags,
     },
     filePath: `/fake/${name}.ts`,
+    location,
     run: async () => {},
   })
 
@@ -49,6 +57,19 @@ describe('ActionList', () => {
     capturedHandler = null
     mockColumns = 120 // Reset to wide terminal
     vi.clearAllMocks()
+    // Reset settingsStore with no bookmarks
+    useSettingsStore.setState({
+      currentConfig: {
+        bookmarks: [],
+      } as ArereConfig,
+      currentPlugins: [],
+      currentActions: [],
+      selectedPlugin: null,
+      currentLayer: 'workspace',
+      userLayerConfig: null,
+      workspaceLayerConfig: null,
+      onPluginReload: null,
+    })
   })
 
   it('should render action list', () => {
@@ -448,6 +469,105 @@ describe('ActionList', () => {
       // Always 1-line layout
       const lines = output?.split('\n').filter(line => line.trim()) ?? []
       expect(lines.length).toBe(1)
+    })
+  })
+
+  describe('Bookmark display', () => {
+    it('should display bookmark icon for bookmarked actions', () => {
+      useSettingsStore.setState({
+        currentConfig: {
+          bookmarks: ['local:action1'],
+        } as ArereConfig,
+      })
+
+      const actions = [
+        createMockAction('action1', 'Bookmarked action', undefined, 'project'),
+        createMockAction('action2', 'Not bookmarked', undefined, 'project'),
+      ]
+
+      const onSelect = vi.fn()
+      const { lastFrame } = render(<ActionList actions={actions} onSelect={onSelect} />)
+      const output = lastFrame() ?? ''
+
+      // Should contain bookmark icon (default is 🔖)
+      expect(output).toContain('🔖')
+    })
+
+    it('should not display bookmark icon for non-bookmarked actions only', () => {
+      // No bookmarks set
+      useSettingsStore.setState({
+        currentConfig: {
+          bookmarks: [],
+        } as ArereConfig,
+      })
+
+      const actions = [
+        createMockAction('action1', 'First action', undefined, 'project'),
+        createMockAction('action2', 'Second action', undefined, 'project'),
+      ]
+
+      const onSelect = vi.fn()
+      const { lastFrame } = render(<ActionList actions={actions} onSelect={onSelect} />)
+      const output = lastFrame() ?? ''
+
+      // Should not contain bookmark icon (only spaces where icon would be)
+      expect(output).not.toContain('🔖')
+    })
+
+    it('should toggle bookmark when Tab key is pressed', async () => {
+      const actions = [
+        createMockAction('action1', 'First action', undefined, 'project'),
+        createMockAction('action2', 'Second action', undefined, 'project'),
+      ]
+
+      const onSelect = vi.fn()
+      render(<ActionList actions={actions} onSelect={onSelect} />)
+
+      // Initially no bookmarks
+      expect(useSettingsStore.getState().currentConfig.bookmarks).toEqual([])
+
+      // Press Tab to toggle bookmark on first action
+      await act(async () => {
+        capturedHandler?.('', { tab: true })
+      })
+
+      // action1 should now be bookmarked
+      expect(useSettingsStore.getState().currentConfig.bookmarks).toContain('local:action1')
+
+      // Press Tab again to remove bookmark
+      await act(async () => {
+        capturedHandler?.('', { tab: true })
+      })
+
+      // action1 should no longer be bookmarked
+      expect(useSettingsStore.getState().currentConfig.bookmarks).not.toContain('local:action1')
+    })
+
+    it('should toggle bookmark for correct action after navigation', async () => {
+      const actions = [
+        createMockAction('action1', 'First action', undefined, 'project'),
+        createMockAction('action2', 'Second action', undefined, 'project'),
+        createMockAction('action3', 'Third action', undefined, 'project'),
+      ]
+
+      const onSelect = vi.fn()
+      render(<ActionList actions={actions} onSelect={onSelect} />)
+
+      // Navigate down to action2
+      await act(async () => {
+        capturedHandler?.('', { downArrow: true })
+      })
+
+      // Press Tab to bookmark action2
+      await act(async () => {
+        capturedHandler?.('', { tab: true })
+      })
+
+      // action2 should be bookmarked, not action1
+      const bookmarks = useSettingsStore.getState().currentConfig.bookmarks ?? []
+      expect(bookmarks).not.toContain('local:action1')
+      expect(bookmarks).toContain('local:action2')
+      expect(bookmarks).not.toContain('local:action3')
     })
   })
 })

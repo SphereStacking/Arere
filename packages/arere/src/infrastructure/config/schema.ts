@@ -33,6 +33,8 @@ export const configSchema = z.object({
     .object({
       /** Enable dynamic kaomoji that changes based on app state */
       dynamicKaomoji: z.boolean().optional(),
+      /** Bookmark icon displayed in action list */
+      bookmarkIcon: z.string().optional(),
     })
     .optional(),
 
@@ -48,6 +50,9 @@ export const configSchema = z.object({
       ]),
     )
     .optional(),
+
+  /** Bookmarked actions (stored as BookmarkId strings) */
+  bookmarks: z.array(z.string()).optional(),
 })
 
 /**
@@ -63,5 +68,8 @@ export const defaultConfig: ArereConfig = {
   logLevel: 'info',
   theme: {
     primaryColor: 'green',
+  },
+  ui: {
+    bookmarkIcon: '🔖',
   },
 }

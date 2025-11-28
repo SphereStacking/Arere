@@ -23,6 +23,9 @@ describe('mergeConfigs', () => {
         theme: {
           primaryColor: 'green',
         },
+        ui: {
+          bookmarkIcon: '🔖',
+        },
       })
     })
 
