@@ -23,7 +23,7 @@ export interface ScrollbarProps {
 function calculateTrack(
   height: number,
   scrollTop: number,
-  contentHeight: number
+  contentHeight: number,
 ): { trackStart: number; trackSize: number } {
   if (contentHeight <= height) {
     // Content fits, no scrolling needed
@@ -55,11 +55,7 @@ function calculateTrack(
  *   contentHeight={50}
  * />
  */
-export const Scrollbar: React.FC<ScrollbarProps> = ({
-  height,
-  scrollTop,
-  contentHeight,
-}) => {
+export const Scrollbar: React.FC<ScrollbarProps> = ({ height, scrollTop, contentHeight }) => {
   const { primaryColor, inactiveColor } = useTheme()
   const { trackStart, trackSize } = calculateTrack(height, scrollTop, contentHeight)
 
@@ -70,7 +66,7 @@ export const Scrollbar: React.FC<ScrollbarProps> = ({
     lines.push(
       <Text key={i} color={isTrack ? primaryColor : inactiveColor}>
         {isTrack ? '█' : '░'}
-      </Text>
+      </Text>,
     )
   }
 

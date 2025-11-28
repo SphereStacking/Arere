@@ -43,20 +43,15 @@ export default defineAction({
     tui.output.newline()
 
     // Configuration
-    const workMinutes = await tui.prompt.number(
-      t('plugin:pomodoro.workTime'),
-      { defaultValue: 25 },
-    )
+    const workMinutes = await tui.prompt.number(t('plugin:pomodoro.workTime'), { defaultValue: 25 })
 
-    const breakMinutes = await tui.prompt.number(
-      t('plugin:pomodoro.breakTime'),
-      { defaultValue: 5 },
-    )
+    const breakMinutes = await tui.prompt.number(t('plugin:pomodoro.breakTime'), {
+      defaultValue: 5,
+    })
 
-    const longBreakMinutes = await tui.prompt.number(
-      t('plugin:pomodoro.longBreakTime'),
-      { defaultValue: 15 },
-    )
+    const longBreakMinutes = await tui.prompt.number(t('plugin:pomodoro.longBreakTime'), {
+      defaultValue: 15,
+    })
 
     const cyclesBeforeLongBreak = await tui.prompt.number(
       t('plugin:pomodoro.cyclesBeforeLongBreak'),
@@ -70,17 +65,23 @@ export default defineAction({
 
     const getPhaseLabel = (phase: PomodoroPhase): string => {
       switch (phase) {
-        case 'work': return t('plugin:pomodoro.work')
-        case 'shortBreak': return t('plugin:pomodoro.shortBreak')
-        case 'longBreak': return t('plugin:pomodoro.longBreak')
+        case 'work':
+          return t('plugin:pomodoro.work')
+        case 'shortBreak':
+          return t('plugin:pomodoro.shortBreak')
+        case 'longBreak':
+          return t('plugin:pomodoro.longBreak')
       }
     }
 
     const getPhaseEmoji = (phase: PomodoroPhase): string => {
       switch (phase) {
-        case 'work': return '🍅'
-        case 'shortBreak': return '☕'
-        case 'longBreak': return '🌴'
+        case 'work':
+          return '🍅'
+        case 'shortBreak':
+          return '☕'
+        case 'longBreak':
+          return '🌴'
       }
     }
 
@@ -94,7 +95,9 @@ export default defineAction({
       // Progress indicators
       const completedTomatoes = '🍅'.repeat(currentCycle - 1)
       const remainingTomatoes = '○'.repeat(cyclesBeforeLongBreak - currentCycle)
-      tui.output.info(`${t('plugin:pomodoro.cycle', { current: currentCycle, total: cyclesBeforeLongBreak })} ${completedTomatoes}⏳${remainingTomatoes}`)
+      tui.output.info(
+        `${t('plugin:pomodoro.cycle', { current: currentCycle, total: cyclesBeforeLongBreak })} ${completedTomatoes}⏳${remainingTomatoes}`,
+      )
 
       const startTime = Date.now()
       const endTime = startTime + durationMs
@@ -140,10 +143,9 @@ export default defineAction({
       tui.output.success(t('plugin:pomodoro.finished', { phase: getPhaseLabel('work') }))
 
       // Ask to continue
-      const continueSession = await tui.prompt.confirm(
-        t('plugin:pomodoro.pressEnterToStart'),
-        { defaultValue: true },
-      )
+      const continueSession = await tui.prompt.confirm(t('plugin:pomodoro.pressEnterToStart'), {
+        defaultValue: true,
+      })
 
       if (!continueSession) {
         cancelled = true
@@ -161,10 +163,9 @@ export default defineAction({
         tui.output.success(t('plugin:pomodoro.completed'))
         tui.output.info(t('plugin:pomodoro.totalWork', { time: formatMinutes(totalWorkMinutes) }))
 
-        const anotherRound = await tui.prompt.confirm(
-          'Start another pomodoro session?',
-          { defaultValue: false },
-        )
+        const anotherRound = await tui.prompt.confirm('Start another pomodoro session?', {
+          defaultValue: false,
+        })
 
         if (!anotherRound) {
           break

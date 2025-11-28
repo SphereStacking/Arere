@@ -5,27 +5,13 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
-  "files": [
-    "dist",
-    "src",
-    "actions",
-    "locales",
-    "sounds",
-    "README.md"
-  ],
+  "files": ["dist", "src", "actions", "locales", "sounds", "README.md"],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "prepublishOnly": "npm run build"
   },
-  "keywords": [
-    "arere",
-    "arere-plugin",
-    "cli",
-    "launcher",
-    "timer",
-    "pomodoro"
-  ],
+  "keywords": ["arere", "arere-plugin", "cli", "launcher", "timer", "pomodoro"],
   "author": "SphereStacking <sphere.stacking@gmail.com>",
   "license": "MIT",
   "repository": {

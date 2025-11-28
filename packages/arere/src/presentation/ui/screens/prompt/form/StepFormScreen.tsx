@@ -2,7 +2,12 @@
  * StepFormScreen - Multi-step form (wizard) component
  */
 
-import type { FormField, FormFields, FormPage, StepFormOptions } from '@/infrastructure/prompt/form/types'
+import type {
+  FormField,
+  FormFields,
+  FormPage,
+  StepFormOptions,
+} from '@/infrastructure/prompt/form/types'
 import {
   ConfirmInput,
   MultiSelectInput,
@@ -15,7 +20,8 @@ import { useKeyBindingHints } from '@/presentation/ui/hooks/useKeyBindingHints'
 import { useKeyBindings } from '@/presentation/ui/hooks/useKeyBindings'
 import { usePageMeta } from '@/presentation/ui/hooks/usePageMeta'
 import { Box, Text, useInput } from 'ink'
-import React, { useCallback, useMemo, useState } from 'react'
+import React from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { StepIndicator, StepNavigation, useStepNavigation } from './components'
 
 export interface StepFormScreenProps {
@@ -105,10 +111,7 @@ export const StepFormScreen: React.FC<StepFormScreenProps> = ({
 
   // Current step's form definition
   const currentForm = steps[currentStep]
-  const fieldEntries = useMemo(
-    () => getFieldEntries(currentForm.fields),
-    [currentForm.fields],
-  )
+  const fieldEntries = useMemo(() => getFieldEntries(currentForm.fields), [currentForm.fields])
 
   // Focused field index within current step (-1 means navigation is focused)
   const [focusedIndex, setFocusedIndex] = useState(0)

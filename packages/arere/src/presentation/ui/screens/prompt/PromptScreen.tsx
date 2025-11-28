@@ -26,10 +26,7 @@ import { StepFormScreen } from './form/StepFormScreen'
 /**
  * Get hint based on prompt type
  */
-function getPromptHint(
-  type: string,
-  hints: ReturnType<typeof useKeyBindingHints>
-): string {
+function getPromptHint(type: string, hints: ReturnType<typeof useKeyBindingHints>): string {
   switch (type) {
     case 'text':
     case 'password':
@@ -201,13 +198,7 @@ export const PromptScreen: React.FC = () => {
       )
 
     case 'form':
-      return (
-        <FormScreen
-          form={promptRequest.form}
-          onSubmit={onSubmit}
-          onCancel={onCancel}
-        />
-      )
+      return <FormScreen form={promptRequest.form} onSubmit={onSubmit} onCancel={onCancel} />
 
     case 'stepForm':
       return (

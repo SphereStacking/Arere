@@ -9,9 +9,7 @@ export default defineNuxtConfig({
     },
   },
   fonts: {
-    families: [
-      { name: 'Press Start 2P', provider: 'google', global: true },
-    ],
+    families: [{ name: 'Press Start 2P', provider: 'google', global: true }],
   },
   llms: {
     domain: 'https://www.spherestacking.com/',

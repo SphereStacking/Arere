@@ -2,9 +2,9 @@
  * Sound playback utility for timer plugin
  */
 
-import { exec } from 'child_process'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import { exec } from 'node:child_process'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -13,7 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
  */
 function isWSL(): boolean {
   try {
-    const release = require('os').release().toLowerCase()
+    const release = require('node:os').release().toLowerCase()
     return release.includes('microsoft') || release.includes('wsl')
   } catch {
     return false
@@ -49,16 +49,18 @@ export function playAlarm(): Promise<void> {
       })
     } else {
       // Use play-sound for native Linux/Mac
-      import('play-sound').then(({ default: player }) => {
-        const audio = player()
-        audio.play(soundPath, (err) => {
-          if (err) {
-            process.stdout.write('\x07')
-          }
+      import('play-sound')
+        .then(({ default: player }) => {
+          const audio = player()
+          audio.play(soundPath, (err) => {
+            if (err) {
+              process.stdout.write('\x07')
+            }
+          })
         })
-      }).catch(() => {
-        process.stdout.write('\x07')
-      })
+        .catch(() => {
+          process.stdout.write('\x07')
+        })
     }
 
     resolve()

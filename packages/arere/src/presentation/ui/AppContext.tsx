@@ -2,8 +2,8 @@
  * Application context
  */
 
-import type { ArereConfig } from '@/infrastructure/config/schema'
 import type { KeyBindingsConfig } from '@/domain/keybindings'
+import type { ArereConfig } from '@/infrastructure/config/schema'
 import { defaultKeyBindings } from '@/infrastructure/keybindings'
 import { createContext } from 'react'
 

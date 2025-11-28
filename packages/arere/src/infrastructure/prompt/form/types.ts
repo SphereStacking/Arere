@@ -62,7 +62,9 @@ export interface NumberFormField extends FormFieldBase<number>, Omit<NumberOptio
 /**
  * Password input field
  */
-export interface PasswordFormField extends FormFieldBase<string>, Omit<PasswordOptions, 'validate'> {
+export interface PasswordFormField
+  extends FormFieldBase<string>,
+    Omit<PasswordOptions, 'validate'> {
   type: 'password'
 }
 
@@ -82,9 +84,7 @@ export interface SelectFormField<T = unknown>
 /**
  * Confirm (yes/no) field
  */
-export interface ConfirmFormField
-  extends FormFieldBase<boolean>,
-    Omit<ConfirmOptions, 'validate'> {
+export interface ConfirmFormField extends FormFieldBase<boolean>, Omit<ConfirmOptions, 'validate'> {
   type: 'confirm'
 }
 

@@ -6,10 +6,10 @@
  */
 
 // Import JSON files directly (resolveJsonModule: true in tsconfig)
-import cli from '../../../locales/en/cli.json'
-import common from '../../../locales/en/common.json'
-import errors from '../../../locales/en/errors.json'
-import ui from '../../../locales/en/ui.json'
+import type cli from '../../../locales/en/cli.json'
+import type common from '../../../locales/en/common.json'
+import type errors from '../../../locales/en/errors.json'
+import type ui from '../../../locales/en/ui.json'
 
 import type { NestedKeyOf } from './utils'
 

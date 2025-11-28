@@ -20,17 +20,13 @@ export interface StepIndicatorProps {
  *
  * Displays: Step 1/3 ◉○○ [Title]
  */
-export const StepIndicator: React.FC<StepIndicatorProps> = ({
-  currentStep,
-  totalSteps,
-  title,
-}) => {
+export const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep, totalSteps, title }) => {
   const { primaryColor } = useTheme()
 
   // Generate step dots: ◉ for current/completed, ○ for future
-  const dots = Array.from({ length: totalSteps }, (_, i) =>
-    i <= currentStep ? '◉' : '○',
-  ).join('-')
+  const dots = Array.from({ length: totalSteps }, (_, i) => (i <= currentStep ? '◉' : '○')).join(
+    '-',
+  )
 
   return (
     <Box gap={2}>

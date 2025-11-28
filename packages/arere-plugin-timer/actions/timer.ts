@@ -17,12 +17,15 @@ function parseDuration(input: string): number | null {
   // Try parsing as total seconds/minutes/hours
   const simpleMatch = normalized.match(/^(\d+)(h|m|s)$/)
   if (simpleMatch) {
-    const value = parseInt(simpleMatch[1], 10)
+    const value = Number.parseInt(simpleMatch[1], 10)
     const unit = simpleMatch[2]
     switch (unit) {
-      case 'h': return value * 60 * 60 * 1000
-      case 'm': return value * 60 * 1000
-      case 's': return value * 1000
+      case 'h':
+        return value * 60 * 60 * 1000
+      case 'm':
+        return value * 60 * 1000
+      case 's':
+        return value * 1000
     }
   }
 
@@ -32,9 +35,9 @@ function parseDuration(input: string): number | null {
   const minMatch = normalized.match(/(\d+)m/)
   const secMatch = normalized.match(/(\d+)s/)
 
-  if (hourMatch) totalMs += parseInt(hourMatch[1], 10) * 60 * 60 * 1000
-  if (minMatch) totalMs += parseInt(minMatch[1], 10) * 60 * 1000
-  if (secMatch) totalMs += parseInt(secMatch[1], 10) * 1000
+  if (hourMatch) totalMs += Number.parseInt(hourMatch[1], 10) * 60 * 60 * 1000
+  if (minMatch) totalMs += Number.parseInt(minMatch[1], 10) * 60 * 1000
+  if (secMatch) totalMs += Number.parseInt(secMatch[1], 10) * 1000
 
   return totalMs > 0 ? totalMs : null
 }
@@ -77,18 +80,15 @@ export default defineAction({
   tags: ['timer', 'countdown', 'productivity'],
   run: async ({ tui, t }) => {
     // Get duration from user
-    const durationInput = await tui.prompt.text(
-      t('plugin:timer.enterDuration'),
-      {
-        placeholder: t('plugin:timer.placeholder'),
-        validate: (value) => {
-          if (!value.trim()) return t('plugin:timer.invalidFormat')
-          const ms = parseDuration(value)
-          if (!ms) return t('plugin:timer.invalidFormat')
-          return true
-        },
+    const durationInput = await tui.prompt.text(t('plugin:timer.enterDuration'), {
+      placeholder: t('plugin:timer.placeholder'),
+      validate: (value) => {
+        if (!value.trim()) return t('plugin:timer.invalidFormat')
+        const ms = parseDuration(value)
+        if (!ms) return t('plugin:timer.invalidFormat')
+        return true
       },
-    )
+    })
 
     const durationMs = parseDuration(durationInput)
     if (!durationMs) return

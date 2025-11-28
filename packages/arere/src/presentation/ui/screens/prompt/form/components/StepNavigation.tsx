@@ -4,7 +4,8 @@
 
 import { useTheme } from '@/presentation/ui/hooks/useTheme'
 import { Box, Text } from 'ink'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 /** Button types for navigation */
 export type NavigationButton = 'back' | 'cancel' | 'next'
@@ -35,10 +36,7 @@ export interface StepNavigationProps {
 /**
  * Hook for managing step navigation state
  */
-export function useStepNavigation(
-  isFirstStep: boolean,
-  initialButton: NavigationButton = 'next',
-) {
+export function useStepNavigation(isFirstStep: boolean, initialButton: NavigationButton = 'next') {
   const [selectedButton, setSelectedButton] = useState<NavigationButton>(initialButton)
 
   // Available buttons based on current step
@@ -121,9 +119,7 @@ export const StepNavigation: React.FC<StepNavigationProps> = ({
     <Box gap={2}>
       {/* Back button */}
       {!isFirstStep && (
-        <Text {...getButtonStyle('back', canGoBack ? 'yellow' : 'gray')}>
-          [{backLabel}]
-        </Text>
+        <Text {...getButtonStyle('back', canGoBack ? 'yellow' : 'gray')}>[{backLabel}]</Text>
       )}
 
       {/* Cancel button */}

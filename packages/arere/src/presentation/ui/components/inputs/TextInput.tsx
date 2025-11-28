@@ -12,7 +12,8 @@ import { useKeyBindingHints } from '@/presentation/ui/hooks/useKeyBindingHints'
 import { useKeyBindings } from '@/presentation/ui/hooks/useKeyBindings'
 import { useTheme } from '@/presentation/ui/hooks/useTheme'
 import { Box, Text, useInput } from 'ink'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useEffect, useState } from 'react'
 
 export interface TextInputProps {
   /** Current value */
@@ -198,7 +199,8 @@ export const TextInput: React.FC<TextInputProps> = ({
       // Backspace/Delete
       if (kb.input.delete(input, key)) {
         if (cursorPosition > 0) {
-          const newValue = inputValue.slice(0, cursorPosition - 1) + inputValue.slice(cursorPosition)
+          const newValue =
+            inputValue.slice(0, cursorPosition - 1) + inputValue.slice(cursorPosition)
           updateValue(newValue, cursorPosition - 1)
         }
         return
@@ -216,7 +218,8 @@ export const TextInput: React.FC<TextInputProps> = ({
         }
 
         // Check max length
-        const newValue = inputValue.slice(0, cursorPosition) + sanitizedInput + inputValue.slice(cursorPosition)
+        const newValue =
+          inputValue.slice(0, cursorPosition) + sanitizedInput + inputValue.slice(cursorPosition)
         const fullNewValue = getFullValue(newValue)
         if (maxLength !== undefined && fullNewValue.length > maxLength) {
           return
@@ -282,7 +285,8 @@ export const TextInput: React.FC<TextInputProps> = ({
       {displayError && (
         <Box marginTop={mode === 'standalone' ? 1 : 0} marginLeft={mode === 'form' ? 2 : 0}>
           <Text color={errorColor || 'red'}>
-            {mode === 'standalone' ? '❌ ' : ''}{displayError}
+            {mode === 'standalone' ? '❌ ' : ''}
+            {displayError}
           </Text>
         </Box>
       )}

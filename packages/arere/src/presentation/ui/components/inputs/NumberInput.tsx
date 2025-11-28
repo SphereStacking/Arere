@@ -11,7 +11,8 @@ import { useKeyBindingHints } from '@/presentation/ui/hooks/useKeyBindingHints'
 import { useKeyBindings } from '@/presentation/ui/hooks/useKeyBindings'
 import { useTheme } from '@/presentation/ui/hooks/useTheme'
 import { Box, Text, useInput } from 'ink'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useEffect, useState } from 'react'
 
 export interface NumberInputProps {
   /** Current value (number or string for editing) */
@@ -103,7 +104,7 @@ export const NumberInput: React.FC<NumberInputProps> = ({
     setError(undefined)
 
     if (mode === 'form' && onChange) {
-      const parsed = parseFloat(newText) || 0
+      const parsed = Number.parseFloat(newText) || 0
       onChange(parsed)
     }
   }
@@ -112,8 +113,8 @@ export const NumberInput: React.FC<NumberInputProps> = ({
   const handleSubmit = () => {
     if (mode !== 'standalone' || !onSubmit) return
 
-    const numValue = parseFloat(inputText)
-    if (isNaN(numValue)) {
+    const numValue = Number.parseFloat(inputText)
+    if (Number.isNaN(numValue)) {
       setError(t('ui:prompts.errors.number_invalid'))
       return
     }
@@ -192,15 +193,16 @@ export const NumberInput: React.FC<NumberInputProps> = ({
         // Form mode: check bounds before accepting
         if (mode === 'form') {
           const newText = inputText + input
-          const parsed = parseFloat(newText)
-          if (!isNaN(parsed)) {
+          const parsed = Number.parseFloat(newText)
+          if (!Number.isNaN(parsed)) {
             if (min !== undefined && parsed < min) return
             if (max !== undefined && parsed > max) return
           }
           updateValue(newText)
         } else {
           // Standalone mode: insert at cursor
-          const newText = inputText.slice(0, cursorPosition) + input + inputText.slice(cursorPosition)
+          const newText =
+            inputText.slice(0, cursorPosition) + input + inputText.slice(cursorPosition)
           updateValue(newText)
           setCursorPosition(cursorPosition + 1)
         }
@@ -231,9 +233,7 @@ export const NumberInput: React.FC<NumberInputProps> = ({
   // Render simple value (form mode)
   const renderSimple = () => {
     return (
-      <Text color={isFocused ? primaryColor : undefined}>
-        {inputText || placeholder || '0'}
-      </Text>
+      <Text color={isFocused ? primaryColor : undefined}>{inputText || placeholder || '0'}</Text>
     )
   }
 
@@ -247,7 +247,8 @@ export const NumberInput: React.FC<NumberInputProps> = ({
         {mode === 'standalone' ? renderWithCursor() : renderSimple()}
         {(min !== undefined || max !== undefined) && (
           <Text dimColor>
-            {' '}({min ?? '-∞'} - {max ?? '∞'})
+            {' '}
+            ({min ?? '-∞'} - {max ?? '∞'})
           </Text>
         )}
       </Box>
@@ -261,7 +262,8 @@ export const NumberInput: React.FC<NumberInputProps> = ({
       {displayError && (
         <Box marginTop={mode === 'standalone' ? 1 : 0} marginLeft={mode === 'form' ? 2 : 0}>
           <Text color={errorColor || 'red'}>
-            {mode === 'standalone' ? '❌ ' : ''}{displayError}
+            {mode === 'standalone' ? '❌ ' : ''}
+            {displayError}
           </Text>
         </Box>
       )}

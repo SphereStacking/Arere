@@ -11,7 +11,8 @@ import { HEADER_HEIGHT } from '@/presentation/ui/components/Header'
 import { ScrollArea } from '@/presentation/ui/components/ScrollArea'
 import { useTerminalSize } from '@/presentation/ui/hooks/useTerminalSize'
 import { useSettingsStore } from '@/presentation/ui/stores/settingsStore'
-import React, { useState } from 'react'
+import React from 'react'
+import { useState } from 'react'
 
 /**
  * Home screen component

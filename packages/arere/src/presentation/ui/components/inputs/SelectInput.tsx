@@ -155,8 +155,8 @@ export const SelectInput = <T,>({
       }
 
       // Number key selection (1-9)
-      const num = parseInt(input)
-      if (!isNaN(num) && num >= 1 && num <= options.length) {
+      const num = Number.parseInt(input)
+      if (!Number.isNaN(num) && num >= 1 && num <= options.length) {
         setHighlightedIndex(num - 1)
         selectOption(num - 1)
       }
@@ -165,14 +165,15 @@ export const SelectInput = <T,>({
   )
 
   const displayLabel = label || message
-  const selectedIndex = valueIndex >= 0 ? valueIndex : (mode === 'standalone' ? highlightedIndex : -1)
+  const selectedIndex = valueIndex >= 0 ? valueIndex : mode === 'standalone' ? highlightedIndex : -1
 
   return (
     <Box flexDirection="column">
       {displayLabel && (
         <Box marginBottom={mode === 'standalone' ? 1 : 0}>
           <Text color={isActive ? primaryColor : 'white'}>
-            {displayLabel}{mode === 'form' ? ':' : ''}
+            {displayLabel}
+            {mode === 'form' ? ':' : ''}
           </Text>
         </Box>
       )}

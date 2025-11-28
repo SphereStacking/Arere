@@ -16,9 +16,6 @@ export default definePlugin({
     author: 'arere team',
     i18nNamespace: 'plugin-timer',
   },
-  actions: [
-    'actions/timer.ts',
-    'actions/pomodoro.ts',
-  ],
+  actions: ['actions/timer.ts', 'actions/pomodoro.ts'],
   locales: 'locales',
 })

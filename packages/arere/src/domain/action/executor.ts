@@ -2,11 +2,11 @@
  * Action executor
  */
 
-import type { VisualFeedback } from '@/domain/types/control'
 import type { LoadedPlugin } from '@/domain/plugin/types'
+import type { VisualFeedback } from '@/domain/types/control'
+import { FileConfigManager } from '@/infrastructure/config/manager'
 import type { ArereConfig } from '@/infrastructure/config/schema'
 import type { OutputCallback } from '@/infrastructure/output/collector'
-import { FileConfigManager } from '@/infrastructure/config/manager'
 import { formatError } from '@/shared/utils/error'
 import { logger } from '@/shared/utils/logger'
 import { type OutputCollector, createActionContext } from './context'
@@ -37,9 +37,7 @@ export interface RunActionOptions {
   /** Callback for real-time output streaming */
   onOutput?: OutputCallback
   /** Callback for visual feedback updates */
-  onVisualFeedback?: (
-    feedback: VisualFeedback | ((prev: VisualFeedback) => VisualFeedback),
-  ) => void
+  onVisualFeedback?: (feedback: VisualFeedback | ((prev: VisualFeedback) => VisualFeedback)) => void
 }
 
 /**

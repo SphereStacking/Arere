@@ -25,7 +25,6 @@ import { password } from '@/infrastructure/prompt/password'
 import { renderPrompt } from '@/infrastructure/prompt/renderer'
 import { select } from '@/infrastructure/prompt/select'
 import { text } from '@/infrastructure/prompt/text'
-import type { PromptAPI } from './types'
 import { createShellExecutor } from '@/infrastructure/shell/executor'
 import {
   createProgressControl,
@@ -36,6 +35,7 @@ import {
   waitForEnter,
   waitForKey,
 } from '@/presentation/ui/control/index'
+import type { PromptAPI } from './types'
 import type { ActionContext } from './types'
 
 // Re-export OutputCollector for use by executor

@@ -9,17 +9,18 @@ import { getNestedValue } from '@/infrastructure/config/utils'
 import { t } from '@/infrastructure/i18n/index'
 import { HEADER_HEIGHT } from '@/presentation/ui/components/Header'
 import { ScrollArea } from '@/presentation/ui/components/ScrollArea'
+import type { SelectOption } from '@/presentation/ui/components/inputs'
 import { useConfigManagement } from '@/presentation/ui/hooks/useConfigManagement'
 import { useKeyBindingHints } from '@/presentation/ui/hooks/useKeyBindingHints'
 import { useKeyBindings } from '@/presentation/ui/hooks/useKeyBindings'
 import { usePageMeta } from '@/presentation/ui/hooks/usePageMeta'
 import { usePluginManagement } from '@/presentation/ui/hooks/usePluginManagement'
 import { useTerminalSize } from '@/presentation/ui/hooks/useTerminalSize'
-import type { SelectOption } from '@/presentation/ui/components/inputs'
 import { useScreenStore } from '@/presentation/ui/stores/screenStore'
 import { useSettingsStore } from '@/presentation/ui/stores/settingsStore'
 import { Box, Text, useInput } from 'ink'
-import React, { useEffect, useMemo, useState } from 'react'
+import React from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { GeneralSettingsSection } from './components/GeneralSettingsSection'
 import { LayerSelector } from './components/LayerSelector'
 import { PluginSettingsSection } from './components/PluginSettingsSection'
@@ -130,11 +131,10 @@ export const SettingsScreen: React.FC = () => {
     if (selectedItem.section === 'general') {
       // General section: header(1) + margin(1) + item index
       return 2 + selectedItem.index
-    } else {
-      // Plugins section: general header(1) + margin(1) + items(3) + margin(1) + plugins header(1) + margin(1) + plugin items
-      const generalSectionLines = 2 + settingItems.length + 1 + 1 + 1
-      return generalSectionLines + selectedItem.index * PLUGIN_ITEM_HEIGHT
     }
+    // Plugins section: general header(1) + margin(1) + items(3) + margin(1) + plugins header(1) + margin(1) + plugin items
+    const generalSectionLines = 2 + settingItems.length + 1 + 1 + 1
+    return generalSectionLines + selectedItem.index * PLUGIN_ITEM_HEIGHT
   }, [selectedItem, settingItems.length])
 
   // Calculate visible height

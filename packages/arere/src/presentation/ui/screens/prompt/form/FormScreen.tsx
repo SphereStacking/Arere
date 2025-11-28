@@ -15,7 +15,8 @@ import { useKeyBindingHints } from '@/presentation/ui/hooks/useKeyBindingHints'
 import { useKeyBindings } from '@/presentation/ui/hooks/useKeyBindings'
 import { usePageMeta } from '@/presentation/ui/hooks/usePageMeta'
 import { Box, Text, useInput } from 'ink'
-import React, { useCallback, useMemo, useState } from 'react'
+import React from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 export interface FormScreenProps {
   /** Form definition */
@@ -163,7 +164,10 @@ export const FormScreen: React.FC<FormScreenProps> = ({ form, onSubmit, onCancel
     }
 
     // Submit (Ctrl+Enter or Enter on last field)
-    if (kb.form.submit(input, key) || (kb.input.submit(input, key) && focusedIndex === fieldEntries.length - 1)) {
+    if (
+      kb.form.submit(input, key) ||
+      (kb.input.submit(input, key) && focusedIndex === fieldEntries.length - 1)
+    ) {
       handleSubmit()
       return
     }

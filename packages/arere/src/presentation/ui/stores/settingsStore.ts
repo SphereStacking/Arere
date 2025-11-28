@@ -36,7 +36,7 @@ export interface SettingsStore {
     config: ArereConfig,
     plugins: LoadedPlugin[],
     actions: Action[],
-    onPluginReload: (config: ArereConfig) => Promise<Action[]>
+    onPluginReload: (config: ArereConfig) => Promise<Action[]>,
   ) => void
 }
 

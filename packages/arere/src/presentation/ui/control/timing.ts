@@ -66,4 +66,3 @@ export async function waitForKey(options?: WaitForKeyOptions): Promise<string> {
       'This function requires Ink rendering context to handle keyboard input.',
   )
 }
-

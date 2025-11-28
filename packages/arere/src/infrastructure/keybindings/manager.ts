@@ -5,12 +5,12 @@
  */
 
 import fs from 'node:fs'
-import type { ConfigLayer } from '@/infrastructure/config/types'
-import { getKeybindingsPath } from '@/infrastructure/config/paths'
 import type { KeyBindingsConfig, PartialKeyBindingsConfig } from '@/domain/keybindings'
-import { defaultKeyBindings } from './defaults'
-import { parseUserKeyBindings, type UserKeyBinding } from './parser'
+import { getKeybindingsPath } from '@/infrastructure/config/paths'
+import type { ConfigLayer } from '@/infrastructure/config/types'
 import { logger } from '@/shared/utils/logger'
+import { defaultKeyBindings } from './defaults'
+import { type UserKeyBinding, parseUserKeyBindings } from './parser'
 
 /**
  * ユーザー設定ファイルの形式（ネスト形式）
@@ -125,7 +125,7 @@ function parseUserKeybindingsFile(userFile: UserKeybindingsFile): PartialKeyBind
  */
 export function loadKeybindingsLayer(
   layer: ConfigLayer,
-  cwd: string = process.cwd()
+  cwd: string = process.cwd(),
 ): PartialKeyBindingsConfig | null {
   const filePath = getKeybindingsPath(layer, cwd)
 
@@ -152,7 +152,7 @@ export function loadKeybindingsLayer(
  */
 function mergeKeybindings(
   defaults: KeyBindingsConfig,
-  partial: PartialKeyBindingsConfig
+  partial: PartialKeyBindingsConfig,
 ): KeyBindingsConfig {
   return {
     global: {
