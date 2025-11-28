@@ -19,7 +19,7 @@ TypeScriptで型安全にアクションを作成し、ファジー検索で実�
   ---
   color: neutral
   size: xl
-  to: /ja/guides/getting-started
+  to: /guides/getting-started
   trailing-icon: i-lucide-arrow-right
   ---
   はじめる
@@ -106,7 +106,7 @@ TypeScriptで型安全にアクションを作成し、ファジー検索で実�
   ---
   icon: i-simple-icons-githubactions
   target: _blank
-  to: /ja/guides/github-actions-integration
+  to: /guides/github-actions-integration
   ---
   #title
   [CI/CD統合]{.text-primary}
