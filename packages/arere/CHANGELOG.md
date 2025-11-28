@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4] - 2025-11-29
+
+### Added
+
+#### ArereRender - Customizable Action List Format
+- **VSCode-style Template Syntax** - Use `${variable:modifier}` format strings for action list display
+- **Available Variables** - `selectIcon`, `bookmark`, `category`, `name`, `description`, `tags`, `plugin`, `source`
+- **Width Modifiers** - `:max` (align to max width), `:width(N)` (fixed width with truncation)
+- **Alignment Modifiers** - `:left`, `:right`, `:center`
+- **Stretch Modifiers** - `:grow` (fill remaining space), `:shrink` (truncate when needed)
+- **Style Modifiers** - `:dim` (dim when not selected), `:primary` (use primary color)
+- **Config Option** - `ui.actionListFormat` to customize action list appearance
+
+#### Bookmark Feature
+- **Action Bookmarking** - Toggle bookmarks with Tab key
+- **Bookmark Icon** - Configurable via `ui.bookmarkIcon` (default: `♥`)
+- **Persistent Bookmarks** - Stored in settings.json as `bookmarks` array
+
+### Changed
+- **Variable Rename** - `prefix` renamed to `selectIcon` for clarity
+- **Layout Margin** - Reduced from 5 to 2 for better scrollbar alignment
+
+### Technical
+- **1072 Tests Passing** - Comprehensive test coverage maintained
+- **Clean Architecture** - ArereRender follows domain-driven design with parser, layout engine, and types
+
 ## [0.1.0] - 2025-11-25
 
 ### Initial Release
