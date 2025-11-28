@@ -73,4 +73,3 @@ export function getTerminalSize(): TerminalSize {
 
   return { width, height }
 }
-

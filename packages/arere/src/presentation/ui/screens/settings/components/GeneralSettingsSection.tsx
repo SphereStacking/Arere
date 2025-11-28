@@ -4,17 +4,14 @@
  * Displays general settings (locale, logLevel, primaryColor) with override indicators.
  */
 
-import { t } from '@/infrastructure/i18n/index'
 import type { ConfigLayer } from '@/infrastructure/config/types'
+import { t } from '@/infrastructure/i18n/index'
 import type { SelectOption } from '@/presentation/ui/components/inputs'
 import { useTheme } from '@/presentation/ui/hooks/useTheme'
-import { OverrideIndicator } from './OverrideIndicator'
-import type {
-  SelectedItem,
-  SettingKey,
-} from '../hooks/useSettingsNavigation'
 import { Box, Text } from 'ink'
 import React from 'react'
+import type { SelectedItem, SettingKey } from '../hooks/useSettingsNavigation'
+import { OverrideIndicator } from './OverrideIndicator'
 
 export interface GeneralSettingsSectionProps {
   /** Current selected item */

@@ -109,7 +109,13 @@ export default defineAction({
         description: t('step2_desc'),
         fields: {
           email: { type: 'text', message: t('form_email'), placeholder: 'user@example.com' },
-          experience: { type: 'number', message: t('form_experience'), min: 0, max: 50, defaultValue: 3 },
+          experience: {
+            type: 'number',
+            message: t('form_experience'),
+            min: 0,
+            max: 50,
+            defaultValue: 3,
+          },
           pin: { type: 'password', message: t('form_pin') },
           country: {
             type: 'select',

@@ -10,8 +10,8 @@
  * Uses Zustand stores for state management.
  */
 
-import { type FormField, schemaToFields } from '@/presentation/ui/utils/schema-to-fields'
 import { useSettingsStore } from '@/presentation/ui/stores/settingsStore'
+import { type FormField, schemaToFields } from '@/presentation/ui/utils/schema-to-fields'
 import { useEffect, useState } from 'react'
 
 export type EditingState = null | {

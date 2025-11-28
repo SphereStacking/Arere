@@ -11,7 +11,8 @@ import { useKeyBindingHints } from '@/presentation/ui/hooks/useKeyBindingHints'
 import { useKeyBindings } from '@/presentation/ui/hooks/useKeyBindings'
 import { useTheme } from '@/presentation/ui/hooks/useTheme'
 import { Box, Text, useInput } from 'ink'
-import React, { useState } from 'react'
+import React from 'react'
+import { useState } from 'react'
 
 export interface ConfirmInputProps {
   /** Current value */

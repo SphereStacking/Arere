@@ -32,7 +32,7 @@ const CTRL_KEY_CHAR_CODES: Record<string, number> = {
   '\\': 28, // Ctrl+\ → ASCII 28 (File Separator)
   ']': 29, // Ctrl+] → ASCII 29 (Group Separator)
   '^': 30, // Ctrl+^ → ASCII 30 (Record Separator)
-  '_': 31, // Ctrl+_ → ASCII 31 (Unit Separator)
+  _: 31, // Ctrl+_ → ASCII 31 (Unit Separator)
 }
 
 /**
@@ -51,11 +51,7 @@ const CHAR_CODE_TO_CTRL_KEY: Record<number, string> = {
 /**
  * 単一のキーバインドがマッチするか判定
  */
-export function matchKey(
-  input: string,
-  key: InkKey,
-  binding: KeyBinding
-): boolean {
+export function matchKey(input: string, key: InkKey, binding: KeyBinding): boolean {
   // 制御文字が入力された場合、対応するCtrl+キーとして扱う
   // 多くのターミナルではCtrl+/などを押すとkey.ctrl=falseで制御文字が送られる
   const inputCharCode = input.length === 1 ? input.charCodeAt(0) : -1
@@ -115,11 +111,7 @@ export function matchKey(
 /**
  * 複数のキーバインドのいずれかにマッチするか判定
  */
-export function matchAny(
-  input: string,
-  key: InkKey,
-  bindings: KeyBinding[]
-): boolean {
+export function matchAny(input: string, key: InkKey, bindings: KeyBinding[]): boolean {
   return bindings.some((b) => matchKey(input, key, b))
 }
 

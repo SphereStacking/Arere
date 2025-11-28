@@ -15,11 +15,7 @@
       "default": "./dist/index.js"
     }
   },
-  "files": [
-    "dist",
-    "locales",
-    "CHANGELOG.md"
-  ],
+  "files": ["dist", "locales", "CHANGELOG.md"],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -29,15 +25,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
   },
-  "keywords": [
-    "cli",
-    "launcher",
-    "typescript",
-    "scripts",
-    "terminal",
-    "tui",
-    "interactive"
-  ],
+  "keywords": ["cli", "launcher", "typescript", "scripts", "terminal", "tui", "interactive"],
   "author": "SphereStacking <sphere.stacking@gmail.com>",
   "license": "MIT",
   "engines": {

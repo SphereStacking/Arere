@@ -12,7 +12,7 @@ import type { ArereConfig } from '@/infrastructure/config/schema'
 import { defaultKeyBindings } from '@/infrastructure/keybindings'
 import { clearPromptHandler, setPromptHandler } from '@/infrastructure/prompt/renderer'
 import type { PromptRequest } from '@/infrastructure/prompt/renderer'
-import { Header, HEADER_HEIGHT } from '@/presentation/ui/components/Header'
+import { HEADER_HEIGHT, Header } from '@/presentation/ui/components/Header'
 import { PageMetaContext, PageMetaProvider } from '@/presentation/ui/hooks/PageMetaContext'
 import { useKeyboardInput } from '@/presentation/ui/hooks/app/useKeyboardInput'
 import { useKeyBindingHints } from '@/presentation/ui/hooks/useKeyBindingHints'
@@ -48,7 +48,7 @@ function getPageMeta(
   screen: ScreenState,
   actionsCount: number,
   hints: ReturnType<typeof useKeyBindingHints>,
-  selectedActionName?: string
+  selectedActionName?: string,
 ) {
   switch (screen) {
     case 'list':
@@ -133,7 +133,7 @@ const AppMain: React.FC<AppProps> = ({
   // Create AppContext value that updates with currentConfig and keyBindings
   const appContextValue = useMemo(
     () => ({ config: currentConfig, keyBindings }),
-    [currentConfig, keyBindings]
+    [currentConfig, keyBindings],
   )
 
   // Get keybinding hints
@@ -142,7 +142,7 @@ const AppMain: React.FC<AppProps> = ({
   // Calculate page meta with memoization
   const pageMeta = useMemo(
     () => getPageMeta(screen, currentActions.length, hints, selectedAction?.meta.name),
-    [screen, currentActions.length, hints, selectedAction?.meta.name]
+    [screen, currentActions.length, hints, selectedAction?.meta.name],
   )
 
   // Set page meta for screens that don't use their own usePageMeta

@@ -11,7 +11,8 @@ import { useKeyBindingHints } from '@/presentation/ui/hooks/useKeyBindingHints'
 import { useKeyBindings } from '@/presentation/ui/hooks/useKeyBindings'
 import { useTheme } from '@/presentation/ui/hooks/useTheme'
 import { Box, Text, useInput } from 'ink'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useEffect, useState } from 'react'
 
 export interface PasswordInputProps {
   /** Current value */
@@ -151,7 +152,8 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
       // Backspace/Delete
       if (kb.input.delete(input, key)) {
         if (mode === 'standalone' && cursorPosition > 0) {
-          const newValue = inputValue.slice(0, cursorPosition - 1) + inputValue.slice(cursorPosition)
+          const newValue =
+            inputValue.slice(0, cursorPosition - 1) + inputValue.slice(cursorPosition)
           updateValue(newValue)
           setCursorPosition(cursorPosition - 1)
         } else if (mode === 'form') {
@@ -167,7 +169,8 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
         if (!sanitizedInput) return
 
         if (mode === 'standalone') {
-          const newValue = inputValue.slice(0, cursorPosition) + sanitizedInput + inputValue.slice(cursorPosition)
+          const newValue =
+            inputValue.slice(0, cursorPosition) + sanitizedInput + inputValue.slice(cursorPosition)
           updateValue(newValue)
           setCursorPosition(cursorPosition + sanitizedInput.length)
         } else {
@@ -202,9 +205,7 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
   const renderSimple = () => {
     const maskedValue = '*'.repeat(inputValue.length)
     return (
-      <Text color={isFocused ? primaryColor : undefined}>
-        {maskedValue || placeholder || ''}
-      </Text>
+      <Text color={isFocused ? primaryColor : undefined}>{maskedValue || placeholder || ''}</Text>
     )
   }
 
@@ -227,7 +228,8 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
       {displayError && (
         <Box marginTop={mode === 'standalone' ? 1 : 0} marginLeft={mode === 'form' ? 2 : 0}>
           <Text color={errorColor || 'red'}>
-            {mode === 'standalone' ? '❌ ' : ''}{displayError}
+            {mode === 'standalone' ? '❌ ' : ''}
+            {displayError}
           </Text>
         </Box>
       )}

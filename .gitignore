@@ -49,7 +49,7 @@ lerna-debug.log*
 .temp/
 
 # Runtime config (user-specific settings, not committed)
-.arere/
+**/.arere/settings.json
 .claude/settings.local.json
 
 # Development plans (internal use only)

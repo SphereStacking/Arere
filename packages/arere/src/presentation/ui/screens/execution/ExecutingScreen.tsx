@@ -41,62 +41,62 @@ export const ExecutingScreen: React.FC = () => {
     <ScrollArea height={visibleHeight} enableKeyboardScroll showScrollbar>
       <Box flexDirection="column" flexGrow={1} paddingY={2}>
         {/* Execution status header with default spinner */}
-      {showingDefault && (
-        <Box flexDirection="column" alignItems="center">
-          <Box>
-            <Text color={primaryColor}>
-              <Spinner type="dots" />
-            </Text>
-            <Text> {t('ui:executing.status')}</Text>
+        {showingDefault && (
+          <Box flexDirection="column" alignItems="center">
+            <Box>
+              <Text color={primaryColor}>
+                <Spinner type="dots" />
+              </Text>
+              <Text> {t('ui:executing.status')}</Text>
+            </Box>
+            <Box marginTop={1}>
+              <Text dimColor>{actionName}</Text>
+            </Box>
           </Box>
-          <Box marginTop={1}>
-            <Text dimColor>{actionName}</Text>
-          </Box>
-        </Box>
-      )}
+        )}
 
-      {/* Custom spinner from action */}
-      {showingSpinner && (
-        <Box flexDirection="column" alignItems="center">
-          <Box>
-            <Text color={primaryColor}>
-              <Spinner type={visualFeedback.spinner.type} />
-            </Text>
-            <Text> {visualFeedback.spinner.message}</Text>
-            {visualFeedback.spinner.status === 'success' && <Text color={successColor}> ✓</Text>}
-            {visualFeedback.spinner.status === 'error' && <Text color={errorColor}> ✗</Text>}
+        {/* Custom spinner from action */}
+        {showingSpinner && (
+          <Box flexDirection="column" alignItems="center">
+            <Box>
+              <Text color={primaryColor}>
+                <Spinner type={visualFeedback.spinner.type} />
+              </Text>
+              <Text> {visualFeedback.spinner.message}</Text>
+              {visualFeedback.spinner.status === 'success' && <Text color={successColor}> ✓</Text>}
+              {visualFeedback.spinner.status === 'error' && <Text color={errorColor}> ✗</Text>}
+            </Box>
+            <Box marginTop={1}>
+              <Text dimColor>{actionName}</Text>
+            </Box>
           </Box>
-          <Box marginTop={1}>
-            <Text dimColor>{actionName}</Text>
-          </Box>
-        </Box>
-      )}
+        )}
 
-      {/* Progress bar from action */}
-      {showingProgress && (
-        <Box flexDirection="column" alignItems="center">
-          <Box marginBottom={1}>
-            <Text>{visualFeedback.progress.message}</Text>
-            {visualFeedback.progress.status === 'success' && <Text color={successColor}> ✓</Text>}
-            {visualFeedback.progress.status === 'error' && <Text color={errorColor}> ✗</Text>}
+        {/* Progress bar from action */}
+        {showingProgress && (
+          <Box flexDirection="column" alignItems="center">
+            <Box marginBottom={1}>
+              <Text>{visualFeedback.progress.message}</Text>
+              {visualFeedback.progress.status === 'success' && <Text color={successColor}> ✓</Text>}
+              {visualFeedback.progress.status === 'error' && <Text color={errorColor}> ✗</Text>}
+            </Box>
+            <ProgressBar
+              percent={(visualFeedback.progress.value / visualFeedback.progress.total) * 100}
+            />
+            <Box marginTop={1}>
+              <Text dimColor>
+                {visualFeedback.progress.value} / {visualFeedback.progress.total}
+              </Text>
+            </Box>
           </Box>
-          <ProgressBar
-            percent={(visualFeedback.progress.value / visualFeedback.progress.total) * 100}
-          />
-          <Box marginTop={1}>
-            <Text dimColor>
-              {visualFeedback.progress.value} / {visualFeedback.progress.total}
-            </Text>
-          </Box>
-        </Box>
-      )}
+        )}
 
-      {/* Output messages */}
-      {outputMessages.length > 0 && (
-        <Box marginTop={1}>
-          <OutputRenderer messages={outputMessages} />
-        </Box>
-      )}
+        {/* Output messages */}
+        {outputMessages.length > 0 && (
+          <Box marginTop={1}>
+            <OutputRenderer messages={outputMessages} />
+          </Box>
+        )}
       </Box>
     </ScrollArea>
   )

@@ -65,7 +65,11 @@ export const Header: React.FC<HeaderProps> = ({ breadcrumb, hint }) => {
           </Box>
           {breadcrumb && breadcrumb.length > 0 && renderBreadcrumb(breadcrumb)}
         </Box>
-        {hint && <Text dimColor color={primaryColor}>{hint}</Text>}
+        {hint && (
+          <Text dimColor color={primaryColor}>
+            {hint}
+          </Text>
+        )}
       </Box>
     </Box>
   )

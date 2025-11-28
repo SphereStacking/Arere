@@ -16,7 +16,8 @@ import { useTheme } from '@/presentation/ui/hooks/useTheme'
 import { useScreenStore } from '@/presentation/ui/stores/screenStore'
 import { useSettingsStore } from '@/presentation/ui/stores/settingsStore'
 import { Box, Text, useInput } from 'ink'
-import React, { useState } from 'react'
+import React from 'react'
+import { useState } from 'react'
 
 /**
  * Plugin list screen component

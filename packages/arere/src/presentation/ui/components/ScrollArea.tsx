@@ -9,7 +9,8 @@
 
 import { Scrollbar } from '@/presentation/ui/components/Scrollbar'
 import { Box, type DOMElement, measureElement, useInput } from 'ink'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 /**
  * Keyboard scroll handler component
@@ -111,14 +112,17 @@ export const ScrollArea: React.FC<ScrollAreaProps> = ({
   }, [children])
 
   // Scroll handler (memoized for mouse scroll hook)
-  const handleScroll = useCallback((newScrollTop: number) => {
-    const clampedScrollTop = Math.max(0, Math.min(maxScrollTop, newScrollTop))
-    if (isControlled) {
-      onScroll?.(clampedScrollTop)
-    } else {
-      setInternalScrollTop(clampedScrollTop)
-    }
-  }, [maxScrollTop, isControlled, onScroll])
+  const handleScroll = useCallback(
+    (newScrollTop: number) => {
+      const clampedScrollTop = Math.max(0, Math.min(maxScrollTop, newScrollTop))
+      if (isControlled) {
+        onScroll?.(clampedScrollTop)
+      } else {
+        setInternalScrollTop(clampedScrollTop)
+      }
+    },
+    [maxScrollTop, isControlled, onScroll],
+  )
 
   // Follow index (selection tracking for lists)
   useEffect(() => {
@@ -136,7 +140,6 @@ export const ScrollArea: React.FC<ScrollAreaProps> = ({
       handleScroll(itemBottom - height)
     }
   }, [followIndex, itemHeight, scrollTop, height, handleScroll])
-
 
   // Determine if scrollbar should be shown
   const isScrollable = innerHeight > height
@@ -159,11 +162,7 @@ export const ScrollArea: React.FC<ScrollAreaProps> = ({
           </Box>
         </Box>
         {shouldShowScrollbar && (
-          <Scrollbar
-            height={height}
-            scrollTop={scrollTop}
-            contentHeight={innerHeight}
-          />
+          <Scrollbar height={height} scrollTop={scrollTop} contentHeight={innerHeight} />
         )}
       </Box>
     </>

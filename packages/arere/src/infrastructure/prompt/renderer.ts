@@ -2,6 +2,7 @@
  * Prompt renderer - bridges prompt API with UI components
  */
 
+import type { FormFields, FormPage, StepFormOptions } from './form/types'
 import type {
   ConfirmOptions,
   MultiSelectOptions,
@@ -11,7 +12,6 @@ import type {
   SelectOptions,
   TextOptions,
 } from './types'
-import type { FormFields, FormPage, StepFormOptions } from './form/types'
 
 /**
  * Prompt request types

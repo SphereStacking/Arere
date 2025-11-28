@@ -2,8 +2,8 @@
  * キーバインド取得・マッチング用フック
  */
 
+import { type KeyMatcher, createKeyMatcher } from '@/infrastructure/keybindings'
 import { useContext, useMemo } from 'react'
-import { createKeyMatcher, type KeyMatcher } from '@/infrastructure/keybindings'
 import { AppContext } from '../AppContext'
 
 /**

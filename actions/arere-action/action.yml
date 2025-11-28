@@ -16,7 +16,7 @@ inputs:
   node-version:
     description: 'Node.js version to use'
     required: false
-    default: '18'
+    default: '20'
 
 runs:
   using: 'composite'
@@ -40,7 +40,20 @@ runs:
           npm install
         fi
 
+    - name: Build packages (if monorepo)
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        if [ -d "packages/arere" ]; then
+          npm run build
+        fi
+
     - name: Run Arere Action
       shell: bash
       working-directory: ${{ inputs.working-directory }}
-      run: npx arere run ${{ inputs.action }}
+      run: |
+        if [ -d "packages/arere" ]; then
+          node packages/arere/dist/cli.js run ${{ inputs.action }}
+        else
+          npx arere run ${{ inputs.action }}
+        fi

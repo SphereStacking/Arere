@@ -9,7 +9,8 @@
       "recommended": true,
       "suspicious": {
         "noExplicitAny": "warn",
-        "noArrayIndexKey": "warn"
+        "noArrayIndexKey": "warn",
+        "noControlCharactersInRegex": "warn"
       },
       "correctness": {
         "useExhaustiveDependencies": "warn"
@@ -39,5 +40,17 @@
   },
   "files": {
     "ignore": ["node_modules", "dist", "coverage", ".nuxt", "**/tests/**"]
-  }
+  },
+  "overrides": [
+    {
+      "include": ["**/*.tsx"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useImportType": "off"
+          }
+        }
+      }
+    }
+  ]
 }

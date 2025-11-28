@@ -6,17 +6,14 @@
  */
 
 import { createActionContext } from '@/domain/action/context'
+import type { Action } from '@/domain/action/types'
 import { defaultConfig } from '@/infrastructure/config/schema'
 import { useActionExecution } from '@/presentation/ui/hooks/useActionExecution'
 import { useKeyBindings } from '@/presentation/ui/hooks/useKeyBindings'
 import { useTerminalSize } from '@/presentation/ui/hooks/useTerminalSize'
 import { useTheme } from '@/presentation/ui/hooks/useTheme'
 import { useSettingsStore } from '@/presentation/ui/stores/settingsStore'
-import {
-  evaluateDescription,
-  formatCategoryLabel,
-} from '@/presentation/ui/utils/action'
-import type { Action } from '@/domain/action/types'
+import { evaluateDescription, formatCategoryLabel } from '@/presentation/ui/utils/action'
 import { Box, Text, useInput } from 'ink'
 import React, { useEffect, useState } from 'react'
 
@@ -39,10 +36,10 @@ export interface ActionListProps {
  * Layout constants for ActionList
  */
 const LAYOUT = {
-  prefix: 2,           // "❯ " or "  "
+  prefix: 2, // "❯ " or "  "
   categoryBrackets: 2, // "[]"
-  categoryPadding: 2,  // "  " after category
-  margin: 4,           // Safety margin for terminal
+  categoryPadding: 2, // "  " after category
+  margin: 4, // Safety margin for terminal
 }
 
 /**
@@ -60,7 +57,7 @@ function truncateText(text: string, maxWidth: number): string {
   if (maxWidth <= 0) return ''
   if (text.length <= maxWidth) return text
   if (maxWidth <= 1) return '…'
-  return text.slice(0, maxWidth - 1) + '…'
+  return `${text.slice(0, maxWidth - 1)}…`
 }
 
 /** Prepared item data for rendering */
@@ -105,9 +102,10 @@ export const ActionList: React.FC<ActionListProps> = ({
 
     // Calculate fixed widths
     // Category width: "[label]" + 2 spaces, or 0 if no categories
-    const categoryWidth = maxCategoryLength > 0
-      ? maxCategoryLength + LAYOUT.categoryBrackets + LAYOUT.categoryPadding
-      : 0
+    const categoryWidth =
+      maxCategoryLength > 0
+        ? maxCategoryLength + LAYOUT.categoryBrackets + LAYOUT.categoryPadding
+        : 0
 
     // Line fixed width: prefix + category + name + space before description
     const fixedWidth = LAYOUT.prefix + categoryWidth + maxNameLength + 1
@@ -200,7 +198,11 @@ export const ActionList: React.FC<ActionListProps> = ({
         )
       }
       if (item.maxCategoryLength > 0) {
-        return <Text>{' '.repeat(item.maxCategoryLength + LAYOUT.categoryBrackets + LAYOUT.categoryPadding)}</Text>
+        return (
+          <Text>
+            {' '.repeat(item.maxCategoryLength + LAYOUT.categoryBrackets + LAYOUT.categoryPadding)}
+          </Text>
+        )
       }
       return null
     }
@@ -220,13 +222,12 @@ export const ActionList: React.FC<ActionListProps> = ({
         {renderCategory()}
         {renderName()}
         <Box flexGrow={1}>
-          <Text color={isSelected ? primaryColor : undefined}>
-            {' '}{item.description}
-          </Text>
+          <Text color={isSelected ? primaryColor : undefined}> {item.description}</Text>
         </Box>
         {item.tagsText && (
           <Text color={isSelected ? primaryColor : inactiveColor} dimColor={!isSelected}>
-            {' '}{item.tagsText}
+            {' '}
+            {item.tagsText}
           </Text>
         )}
         <Text> </Text>

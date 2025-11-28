@@ -5,10 +5,10 @@
  */
 
 import { t } from '@/infrastructure/i18n/index'
-import { useMemo } from 'react'
-import { useKeyBindings } from './useKeyBindings'
 import { defaultKeyBindings } from '@/infrastructure/keybindings'
-import { formatHints, type HintItem } from '../utils/keybindingHints'
+import { useMemo } from 'react'
+import { type HintItem, formatHints } from '../utils/keybindingHints'
+import { useKeyBindings } from './useKeyBindings'
 
 /**
  * キーバインディングヒントを生成するフック
@@ -60,7 +60,10 @@ export function useKeyBindingHints() {
        */
       result: (): string => {
         const items: HintItem[] = [
-          { bindings: [...bindings.global.confirm, ...bindings.global.back], label: t('ui:keybinding.labels.back') },
+          {
+            bindings: [...bindings.global.confirm, ...bindings.global.back],
+            label: t('ui:keybinding.labels.back'),
+          },
         ]
         return formatHints(items)
       },
@@ -109,7 +112,7 @@ export function useKeyBindingHints() {
           { bindings: bindings.global.back, label: t('ui:keybinding.labels.back') },
         ]
         // カスタムフォーマット: ↑↓: 移動 | Enter: 選択 | ←→: レイヤー | Space: 切替 | Esc: 戻る
-        return formatHints(items.filter(item => item.label !== ''))
+        return formatHints(items.filter((item) => item.label !== ''))
       },
 
       /**
@@ -117,7 +120,10 @@ export function useKeyBindingHints() {
        */
       pluginList: (): string => {
         const items: HintItem[] = [
-          { bindings: [...bindings.list.up, ...bindings.list.down], label: t('ui:keybinding.labels.navigate') },
+          {
+            bindings: [...bindings.list.up, ...bindings.list.down],
+            label: t('ui:keybinding.labels.navigate'),
+          },
           { bindings: bindings.list.toggle, label: t('ui:keybinding.labels.toggle') },
           { bindings: bindings.list.select, label: t('ui:keybinding.labels.configure') },
           { bindings: bindings.global.back, label: t('ui:keybinding.labels.back') },
@@ -130,7 +136,10 @@ export function useKeyBindingHints() {
        */
       pluginDetail: (): string => {
         const items: HintItem[] = [
-          { bindings: [...bindings.list.up, ...bindings.list.down], label: t('ui:keybinding.labels.navigate') },
+          {
+            bindings: [...bindings.list.up, ...bindings.list.down],
+            label: t('ui:keybinding.labels.navigate'),
+          },
           { bindings: bindings.list.select, label: t('ui:keybinding.labels.edit') },
           { bindings: bindings.global.back, label: t('ui:keybinding.labels.back') },
         ]
@@ -163,7 +172,10 @@ export function useKeyBindingHints() {
        */
       editingSelect: (): string => {
         const items: HintItem[] = [
-          { bindings: [...bindings.list.up, ...bindings.list.down], label: t('ui:keybinding.labels.navigate') },
+          {
+            bindings: [...bindings.list.up, ...bindings.list.down],
+            label: t('ui:keybinding.labels.navigate'),
+          },
           { bindings: bindings.input.submit, label: t('ui:keybinding.labels.confirm') },
           { bindings: bindings.input.cancel, label: t('ui:keybinding.labels.cancel') },
         ]
@@ -175,7 +187,10 @@ export function useKeyBindingHints() {
        */
       confirm: (): string => {
         const items: HintItem[] = [
-          { bindings: [...bindings.confirm.yes, ...bindings.confirm.no], label: t('ui:keybinding.labels.select') },
+          {
+            bindings: [...bindings.confirm.yes, ...bindings.confirm.no],
+            label: t('ui:keybinding.labels.select'),
+          },
           { bindings: bindings.input.submit, label: t('ui:keybinding.labels.confirm') },
           { bindings: bindings.input.cancel, label: t('ui:keybinding.labels.cancel') },
         ]
@@ -240,7 +255,10 @@ export function useKeyBindingHints() {
        */
       multiSelect: (): string => {
         const items: HintItem[] = [
-          { bindings: [...bindings.list.up, ...bindings.list.down], label: t('ui:keybinding.labels.select') },
+          {
+            bindings: [...bindings.list.up, ...bindings.list.down],
+            label: t('ui:keybinding.labels.select'),
+          },
           { bindings: bindings.input.toggle, label: t('ui:keybinding.labels.toggle') },
           { bindings: bindings.input.submit, label: t('ui:keybinding.labels.confirm') },
           { bindings: bindings.input.cancel, label: t('ui:keybinding.labels.cancel') },
@@ -254,8 +272,14 @@ export function useKeyBindingHints() {
        */
       form: (): string => {
         const items: HintItem[] = [
-          { bindings: [...bindings.form.prevField, ...bindings.form.nextField], label: t('ui:keybinding.labels.navigate') },
-          { bindings: [...bindings.list.up, ...bindings.list.down], label: t('ui:keybinding.labels.change') },
+          {
+            bindings: [...bindings.form.prevField, ...bindings.form.nextField],
+            label: t('ui:keybinding.labels.navigate'),
+          },
+          {
+            bindings: [...bindings.list.up, ...bindings.list.down],
+            label: t('ui:keybinding.labels.change'),
+          },
           { bindings: bindings.input.toggle, label: t('ui:keybinding.labels.toggle') },
           { bindings: bindings.input.submit, label: t('ui:keybinding.labels.submit') },
           { bindings: bindings.input.cancel, label: t('ui:keybinding.labels.cancel') },
@@ -269,8 +293,14 @@ export function useKeyBindingHints() {
        */
       stepForm: (isFirstStep: boolean, isLastStep: boolean): string => {
         const items: HintItem[] = [
-          { bindings: [...bindings.form.prevField, ...bindings.form.nextField], label: t('ui:keybinding.labels.navigate') },
-          { bindings: [...bindings.list.up, ...bindings.list.down], label: t('ui:keybinding.labels.change') },
+          {
+            bindings: [...bindings.form.prevField, ...bindings.form.nextField],
+            label: t('ui:keybinding.labels.navigate'),
+          },
+          {
+            bindings: [...bindings.list.up, ...bindings.list.down],
+            label: t('ui:keybinding.labels.change'),
+          },
           { bindings: bindings.input.toggle, label: t('ui:keybinding.labels.toggle') },
         ]
         if (!isFirstStep) {
@@ -289,7 +319,10 @@ export function useKeyBindingHints() {
        */
       default: (): string => {
         const items: HintItem[] = [
-          { bindings: [...bindings.list.up, ...bindings.list.down], label: t('ui:keybinding.labels.select') },
+          {
+            bindings: [...bindings.list.up, ...bindings.list.down],
+            label: t('ui:keybinding.labels.select'),
+          },
           { bindings: bindings.list.select, label: t('ui:keybinding.labels.run') },
           { bindings: bindings.global.exit, label: t('ui:keybinding.labels.quit') },
         ]

@@ -103,9 +103,8 @@ export const MultiSelectInput = <T,>({
   const isActive = mode === 'standalone' || isFocused
 
   // Get current selected values
-  const selectedValues = mode === 'form' && externalValue !== undefined
-    ? externalValue
-    : Array.from(internalSelected)
+  const selectedValues =
+    mode === 'form' && externalValue !== undefined ? externalValue : Array.from(internalSelected)
 
   const isSelected = (value: T) => selectedValues.some((v) => v === value)
 
@@ -178,8 +177,8 @@ export const MultiSelectInput = <T,>({
       }
 
       // Number key toggle (1-9)
-      const num = parseInt(input)
-      if (!isNaN(num) && num >= 1 && num <= options.length) {
+      const num = Number.parseInt(input)
+      if (!Number.isNaN(num) && num >= 1 && num <= options.length) {
         setHighlightedIndex(num - 1)
         toggleSelection(options[num - 1].value)
       }
@@ -195,7 +194,8 @@ export const MultiSelectInput = <T,>({
       {displayLabel && (
         <Box marginBottom={mode === 'standalone' ? 1 : 0}>
           <Text color={isActive ? primaryColor : 'white'}>
-            {displayLabel}{mode === 'form' ? ':' : ''}
+            {displayLabel}
+            {mode === 'form' ? ':' : ''}
           </Text>
           <Text dimColor>
             {mode === 'standalone'
@@ -212,12 +212,9 @@ export const MultiSelectInput = <T,>({
 
           return (
             <Box key={index}>
-              <Text
-                color={isHighlighted || selected ? primaryColor : undefined}
-                bold={selected}
-              >
-                {mode === 'standalone' && (isHighlighted ? '> ' : '  ')}
-                [{selected ? 'x' : ' '}] {option.label}
+              <Text color={isHighlighted || selected ? primaryColor : undefined} bold={selected}>
+                {mode === 'standalone' && (isHighlighted ? '> ' : '  ')}[{selected ? 'x' : ' '}]{' '}
+                {option.label}
               </Text>
               {option.description && <Text dimColor> - {option.description}</Text>}
             </Box>

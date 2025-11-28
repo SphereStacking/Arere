@@ -6,9 +6,9 @@
 
 import type { LoadedPlugin } from '@/domain/plugin/types'
 import { t } from '@/infrastructure/i18n/index'
-import type { SelectedItem } from '../hooks/useSettingsNavigation'
 import { Box, Text } from 'ink'
 import React from 'react'
+import type { SelectedItem } from '../hooks/useSettingsNavigation'
 import { PluginRow } from './PluginRow'
 
 export interface PluginSettingsSectionProps {

@@ -6,9 +6,9 @@
 
 import { t } from '@/infrastructure/i18n/index'
 import { SelectInput, type SelectOption } from '@/presentation/ui/components/inputs'
-import type { SettingKey } from '../hooks/useSettingsNavigation'
 import { Box } from 'ink'
 import React from 'react'
+import type { SettingKey } from '../hooks/useSettingsNavigation'
 
 export interface SettingEditModeProps {
   editingKey: SettingKey
