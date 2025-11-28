@@ -2,7 +2,8 @@
  * Action-related utility functions for UI components
  */
 
-import type { ActionContext } from '@/domain/action/types'
+import type { Action, ActionContext } from '@/domain/action/types'
+import type { RenderData } from '@/domain/arereRender/types'
 import type { PluginMeta } from '@/domain/plugin/types'
 import { logger } from '@/shared/utils/logger'
 
@@ -99,4 +100,75 @@ export function getCategoryColor(): {
 } {
   // Uniform color for all categories
   return { bg: 'bgCyan', fg: 'black' }
+}
+
+/**
+ * Format tags for display (with # prefix)
+ */
+export function formatTags(tags?: string[]): string {
+  if (!tags || tags.length === 0) return ''
+  return tags.map((tag) => `#${tag}`).join(' ')
+}
+
+/**
+ * Options for creating RenderData from an Action
+ */
+export interface ActionToRenderDataOptions {
+  /** Action to convert */
+  action: Action
+  /** Action context for description evaluation */
+  context: ActionContext
+  /** Whether the action is selected */
+  isSelected?: boolean
+  /** Whether the action is bookmarked */
+  isBookmarked?: boolean
+  /** Bookmark icon to display */
+  bookmarkIcon?: string
+}
+
+/**
+ * Create RenderData from an Action for use with ArereRender
+ *
+ * @param options - Conversion options
+ * @returns RenderData object for ArereRender
+ *
+ * @example
+ * ```typescript
+ * const data = actionToRenderData({
+ *   action,
+ *   context,
+ *   isSelected: true,
+ *   isBookmarked: false,
+ *   bookmarkIcon: '🔖',
+ * })
+ * // → { selectIcon: '❯ ', name: 'my-action', description: '...', ... }
+ * ```
+ */
+export function actionToRenderData(options: ActionToRenderDataOptions): RenderData {
+  const { action, context, isSelected = false, isBookmarked = false, bookmarkIcon = '🔖' } = options
+
+  const description = evaluateDescription(action.meta.description, context, action.meta.name)
+  const categoryLabel = formatCategoryLabel(action.meta.category, action.pluginMeta)
+  const tagsText = formatTags(action.meta.tags)
+
+  // Determine source type
+  let source = ''
+  if (action.meta.category?.startsWith('plugin:')) {
+    source = 'plugin'
+  } else if (action.meta.category === 'global') {
+    source = 'global'
+  } else if (action.meta.category === 'project') {
+    source = 'project'
+  }
+
+  return {
+    selectIcon: isSelected ? '❯' : '',
+    bookmark: isBookmarked ? bookmarkIcon : '',
+    category: categoryLabel,
+    name: action.meta.name,
+    description,
+    tags: tagsText,
+    plugin: action.pluginMeta?.name ?? '',
+    source,
+  }
 }

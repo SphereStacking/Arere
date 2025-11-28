@@ -3,22 +3,23 @@
  *
  * Uses Zustand stores for state and useActionExecution hook for selection.
  * ScrollArea is handled by parent Screen component.
+ * Uses ArereRender for customizable display format.
  */
 
 import { createActionContext } from '@/domain/action/context'
 import type { Action } from '@/domain/action/types'
+import { parseFormat } from '@/domain/arereRender/parser'
 import { createBookmarkId, isBookmarked } from '@/domain/bookmark/utils'
-import { defaultConfig } from '@/infrastructure/config/schema'
 import { useActionExecution } from '@/presentation/ui/hooks/useActionExecution'
 import { useConfigManagement } from '@/presentation/ui/hooks/useConfigManagement'
 import { useKeyBindings } from '@/presentation/ui/hooks/useKeyBindings'
 import { useTerminalSize } from '@/presentation/ui/hooks/useTerminalSize'
 import { useTheme } from '@/presentation/ui/hooks/useTheme'
 import { useSettingsStore } from '@/presentation/ui/stores/settingsStore'
-import { evaluateDescription, formatCategoryLabel } from '@/presentation/ui/utils/action'
-import { Box, Text, useInput } from 'ink'
-import React, { useEffect, useState } from 'react'
-import stringWidth from 'string-width'
+import { actionToRenderData } from '@/presentation/ui/utils/action'
+import { Box, useInput } from 'ink'
+import React, { useEffect, useMemo, useState } from 'react'
+import { ArereRender, calculateMaxWidths } from './ArereRender'
 
 /** Scroll info for parent ScrollArea */
 export interface ActionListScrollInfo {
@@ -36,43 +37,9 @@ export interface ActionListProps {
 }
 
 /**
- * Layout constants for ActionList
+ * Layout margin for terminal (scrollbar + safety)
  */
-const LAYOUT = {
-  prefix: 2, // "❯ " or "  "
-  categoryBrackets: 2, // "[]"
-  categoryPadding: 2, // "  " after category
-  margin: 4, // Safety margin for terminal
-}
-
-/**
- * Format tags for display (with # prefix)
- */
-function formatTags(tags?: string[]): string {
-  if (!tags || tags.length === 0) return ''
-  return tags.map((tag) => `#${tag}`).join(' ')
-}
-
-/**
- * Truncate text to fit within maxWidth, adding ellipsis if needed
- */
-function truncateText(text: string, maxWidth: number): string {
-  if (maxWidth <= 0) return ''
-  if (text.length <= maxWidth) return text
-  if (maxWidth <= 1) return '…'
-  return `${text.slice(0, maxWidth - 1)}…`
-}
-
-/** Prepared item data for rendering */
-interface ActionItem {
-  action: Action
-  categoryLabel: string
-  maxCategoryLength: number
-  maxNameLength: number
-  description: string
-  tagsText: string
-  isBookmarked: boolean
-}
+const LAYOUT_MARGIN = 2
 
 export const ActionList: React.FC<ActionListProps> = ({
   actions: propActions,
@@ -80,13 +47,16 @@ export const ActionList: React.FC<ActionListProps> = ({
   onScrollInfoChange,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
-  const { primaryColor, inactiveColor } = useTheme()
+  const { primaryColor } = useTheme()
   const storeActions = useSettingsStore((s) => s.currentActions)
   const getBookmarks = useSettingsStore((s) => s.getBookmarks)
   const toggleBookmark = useSettingsStore((s) => s.toggleBookmark)
   const currentLayer = useSettingsStore((s) => s.currentLayer)
   const currentConfig = useSettingsStore((s) => s.currentConfig)
-  const bookmarkIcon = currentConfig.ui?.bookmarkIcon ?? defaultConfig.ui?.bookmarkIcon ?? '⭐'
+  // currentConfig is already merged with defaultConfig via loadMerged()
+  // So ui.bookmarkIcon and ui.actionListFormat are guaranteed to exist
+  const bookmarkIcon = currentConfig.ui?.bookmarkIcon ?? '🔖'
+  const format = currentConfig.ui?.actionListFormat ?? '${name}'
   const { runAction } = useActionExecution()
   const { saveConfig } = useConfigManagement()
   const { columns } = useTerminalSize()
@@ -101,63 +71,37 @@ export const ActionList: React.FC<ActionListProps> = ({
   // Use actions directly without sorting
   const actions = rawActions
 
-  // Calculate items with memoization to avoid re-evaluation on every render
-  const items = React.useMemo((): ActionItem[] => {
-    // Calculate the maximum category label length for padding
-    const categoryLabels = actions.map((action) =>
-      formatCategoryLabel(action.meta.category, action.pluginMeta),
-    )
-    const maxCategoryLength = Math.max(0, ...categoryLabels.map((label) => label.length))
+  // Parse format string once (memoized)
+  const tokens = useMemo(() => parseFormat(format), [format])
 
-    // Calculate the maximum name length for padding
-    const maxNameLength = Math.max(0, ...actions.map((action) => action.meta.name.length))
+  // Calculate available width
+  const availableWidth = columns - LAYOUT_MARGIN
 
-    // Available width for content (minus scrollbar width of 1)
-    const SCROLLBAR_WIDTH = 1
-    // Bookmark icon width: space + icon (auto-calculated)
-    const bookmarkIconWidth = 1 + stringWidth(bookmarkIcon)
-    const availableWidth = columns - LAYOUT.margin - SCROLLBAR_WIDTH
-
-    // Calculate fixed widths
-    // Category width: "[label]" + 2 spaces, or 0 if no categories
-    const categoryWidth =
-      maxCategoryLength > 0
-        ? maxCategoryLength + LAYOUT.categoryBrackets + LAYOUT.categoryPadding
-        : 0
-
-    // Line fixed width: prefix + category + name + space before description + bookmark icon
-    const fixedWidth = LAYOUT.prefix + categoryWidth + maxNameLength + 1 + bookmarkIconWidth
-
-    // Space available for description + tags
-    const descriptionSpace = availableWidth - fixedWidth
-
-    return actions.map((action, index) => {
+  // Prepare render data for all actions (for maxWidths calculation)
+  const allRenderData = useMemo(() => {
+    return actions.map((action) => {
       const { context } = createActionContext({
         actionName: action.meta.name,
-        config: defaultConfig,
+        config: currentConfig,
         pluginNamespace: action.pluginNamespace,
       })
-      const categoryLabel = categoryLabels[index]
-      const description = evaluateDescription(action.meta.description, context, action.meta.name)
-      const tagsText = formatTags(action.meta.tags)
       const bookmarked = isBookmarked(action, bookmarks)
 
-      // Truncate description and tags to fit available space
-      const tagsWidth = tagsText ? tagsText.length + 1 : 0 // +1 for space before tags
-      const descriptionMaxWidth = Math.max(0, descriptionSpace - tagsWidth)
-      const truncatedDescription = truncateText(description, descriptionMaxWidth)
-
-      return {
+      return actionToRenderData({
         action,
-        categoryLabel,
-        maxCategoryLength,
-        maxNameLength,
-        description: truncatedDescription,
-        tagsText,
+        context,
+        isSelected: false, // Selection state doesn't affect maxWidths
         isBookmarked: bookmarked,
-      }
+        bookmarkIcon,
+      })
     })
-  }, [actions, columns, bookmarks, bookmarkIcon])
+  }, [actions, bookmarks, bookmarkIcon, currentConfig])
+
+  // Calculate max widths for :max tokens
+  const maxWidths = useMemo(
+    () => calculateMaxWidths(tokens, allRenderData),
+    [tokens, allRenderData],
+  )
 
   const kb = useKeyBindings()
 
@@ -177,16 +121,16 @@ export const ActionList: React.FC<ActionListProps> = ({
 
       // Select
       if (kb.list.select(input, key)) {
-        if (items[selectedIndex]) {
-          handleSelect(items[selectedIndex].action)
+        if (actions[selectedIndex]) {
+          handleSelect(actions[selectedIndex])
         }
         return
       }
 
       // Toggle bookmark
       if (kb.list.bookmark(input, key)) {
-        if (items[selectedIndex]) {
-          const bookmarkId = createBookmarkId(items[selectedIndex].action)
+        if (actions[selectedIndex]) {
+          const bookmarkId = createBookmarkId(actions[selectedIndex])
           const currentBookmarks = getBookmarks()
           const newBookmarks = currentBookmarks.includes(bookmarkId)
             ? currentBookmarks.filter((b) => b !== bookmarkId)
@@ -212,70 +156,37 @@ export const ActionList: React.FC<ActionListProps> = ({
     onScrollInfoChange?.({ selectedIndex, itemHeight })
   }, [selectedIndex, itemHeight, onScrollInfoChange])
 
-  // Render a single action item (always 1 line)
-  const renderItem = (item: ActionItem, index: number) => {
-    const isSelected = index === selectedIndex
-    const categoryPadding =
-      item.maxCategoryLength > 0 ? item.maxCategoryLength - item.categoryLabel.length : 0
-
-    const renderPrefix = () => (
-      <Text color={isSelected ? primaryColor : undefined} bold={isSelected}>
-        {isSelected ? '❯ ' : '  '}
-      </Text>
-    )
-
-    const renderCategory = () => {
-      if (item.categoryLabel) {
-        return (
-          <>
-            <Text color={isSelected ? primaryColor : undefined} bold={isSelected}>
-              [{item.categoryLabel}]
-            </Text>
-            <Text>{' '.repeat(categoryPadding + LAYOUT.categoryPadding)}</Text>
-          </>
-        )
-      }
-      if (item.maxCategoryLength > 0) {
-        return (
-          <Text>
-            {' '.repeat(item.maxCategoryLength + LAYOUT.categoryBrackets + LAYOUT.categoryPadding)}
-          </Text>
-        )
-      }
-      return null
-    }
-
-    const renderName = () => {
-      const paddedName = item.action.meta.name.padEnd(item.maxNameLength, ' ')
-      return (
-        <Text color={isSelected ? primaryColor : undefined} bold={isSelected}>
-          {paddedName}
-        </Text>
-      )
-    }
-
-    return (
-      <Box key={item.action.meta.name}>
-        {renderPrefix()}
-        {renderCategory()}
-        {renderName()}
-        <Box flexGrow={1}>
-          <Text color={isSelected ? primaryColor : undefined}> {item.description}</Text>
-        </Box>
-        {item.tagsText && (
-          <Text color={isSelected ? primaryColor : inactiveColor} dimColor={!isSelected}>
-            {' '}
-            {item.tagsText}
-          </Text>
-        )}
-        <Text color={primaryColor}>{item.isBookmarked ? ` ${bookmarkIcon}` : '  '}</Text>
-      </Box>
-    )
-  }
-
   return (
     <Box flexDirection="column" flexGrow={1}>
-      {items.map((item, index) => renderItem(item, index))}
+      {actions.map((action, index) => {
+        const isSelected = index === selectedIndex
+        const bookmarked = isBookmarked(action, bookmarks)
+        const { context } = createActionContext({
+          actionName: action.meta.name,
+          config: currentConfig,
+          pluginNamespace: action.pluginNamespace,
+        })
+
+        const data = actionToRenderData({
+          action,
+          context,
+          isSelected,
+          isBookmarked: bookmarked,
+          bookmarkIcon,
+        })
+
+        return (
+          <ArereRender
+            key={action.meta.name}
+            format={format}
+            data={data}
+            width={availableWidth}
+            maxWidths={maxWidths}
+            isSelected={isSelected}
+            primaryColor={primaryColor}
+          />
+        )
+      })}
     </Box>
   )
 }

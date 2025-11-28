@@ -2,7 +2,7 @@
  * Tests for configuration merging (VSCode-style 2-layer system)
  */
 
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
+import { defaultConfig, type ArereConfig } from '@/infrastructure/config/schema.js'
 import type { LayeredConfig } from '@/infrastructure/config/types.js'
 import { type PluginConfigValue, mergeConfigs } from '@/infrastructure/config/utils.js'
 import { describe, expect, it } from 'vitest'
@@ -17,16 +17,7 @@ describe('mergeConfigs', () => {
 
       const result = mergeConfigs(layered)
 
-      expect(result).toEqual({
-        actionsDir: './.arere',
-        logLevel: 'info',
-        theme: {
-          primaryColor: 'green',
-        },
-        ui: {
-          bookmarkIcon: '🔖',
-        },
-      })
+      expect(result).toEqual(defaultConfig)
     })
 
     it('should merge user config with defaults', () => {

@@ -35,6 +35,16 @@ export const configSchema = z.object({
       dynamicKaomoji: z.boolean().optional(),
       /** Bookmark icon displayed in action list */
       bookmarkIcon: z.string().optional(),
+      /** Format template for action list items (VSCode-style syntax)
+       * Variables: ${selectIcon}, ${bookmark}, ${category}, ${name}, ${description}, ${tags}, ${plugin}, ${source}
+       * Modifiers:
+       *   - Width: :max (align to max width), :width(N) (fixed width)
+       *   - Alignment: :left (default), :right, :center
+       *   - Stretch: :grow (flex-grow), :shrink (truncate)
+       *   - Style: :dim (dim when not selected), :primary (primary color)
+       * Example: "${selectIcon}[${category:max}] ${name:max} ${description:grow} ${tags:max:dim:right}"
+       */
+      actionListFormat: z.string().optional(),
     })
     .optional(),
 
@@ -70,6 +80,8 @@ export const defaultConfig: ArereConfig = {
     primaryColor: 'green',
   },
   ui: {
-    bookmarkIcon: '🔖',
+    bookmarkIcon: '♥',
+    actionListFormat:
+      '${selectIcon:width(2)}[${category:max}] ${name:max} ${description:grow} ${tags:max:dim:right} ${bookmark:width(2)}',
   },
 }
