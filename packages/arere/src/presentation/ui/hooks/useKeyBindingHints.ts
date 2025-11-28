@@ -30,12 +30,13 @@ export function useKeyBindingHints() {
     return {
       /**
        * list画面用ヒント
-       * "q: 終了 | /: 検索 | ?: ヘルプ | s: 設定"
+       * "q: 終了 | /: 検索 | Tab: ブックマーク | ?: ヘルプ | s: 設定"
        */
       list: (): string => {
         const items: HintItem[] = [
           { bindings: bindings.global.exit, label: t('ui:keybinding.labels.quit') },
           { bindings: bindings.global.search, label: t('ui:keybinding.labels.search') },
+          { bindings: bindings.list.bookmark, label: t('ui:keybinding.labels.bookmark') },
           { bindings: bindings.global.help, label: t('ui:keybinding.labels.help') },
           { bindings: bindings.global.settings, label: t('ui:keybinding.labels.settings') },
         ]

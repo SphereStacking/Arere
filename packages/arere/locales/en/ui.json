@@ -81,6 +81,7 @@
       "actionsDir": "Actions Directory",
       "primaryColor": "Primary Color",
       "logLevel": "Log Level",
+      "bookmarkIcon": "Bookmark Icon",
       "plugins": "Plugins",
       "plugins_description": "Configure installed plugins"
     },
@@ -114,7 +115,8 @@
     "locale": "Language",
     "actionsDir": "Actions Directory",
     "logLevel": "Log Level",
-    "theme.primaryColor": "Primary Color"
+    "theme.primaryColor": "Primary Color",
+    "ui.bookmarkIcon": "Bookmark Icon"
   },
   "keybinding": {
     "labels": {
@@ -126,6 +128,7 @@
       "navigate": "navigate",
       "select": "select",
       "toggle": "toggle",
+      "bookmark": "bookmark",
       "layer": "layer",
       "configure": "configure",
       "edit": "edit",

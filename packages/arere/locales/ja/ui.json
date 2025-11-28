@@ -81,6 +81,7 @@
       "actionsDir": "アクションディレクトリ",
       "primaryColor": "プライマリカラー",
       "logLevel": "ログレベル",
+      "bookmarkIcon": "ブックマークアイコン",
       "plugins": "プラグイン",
       "plugins_description": "インストール済みプラグインを設定"
     },
@@ -114,7 +115,8 @@
     "locale": "言語",
     "actionsDir": "アクションディレクトリ",
     "logLevel": "ログレベル",
-    "theme.primaryColor": "プライマリカラー"
+    "theme.primaryColor": "プライマリカラー",
+    "ui.bookmarkIcon": "ブックマークアイコン"
   },
   "keybinding": {
     "labels": {
@@ -126,6 +128,7 @@
       "navigate": "移動",
       "select": "選択",
       "toggle": "切替",
+      "bookmark": "ブックマーク",
       "layer": "レイヤー",
       "configure": "設定",
       "edit": "編集",

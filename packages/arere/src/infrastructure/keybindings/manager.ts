@@ -29,6 +29,7 @@ export interface UserKeybindingsFile {
     down?: UserKeyBinding[]
     select?: UserKeyBinding[]
     toggle?: UserKeyBinding[]
+    bookmark?: UserKeyBinding[]
   }
   input?: {
     submit?: UserKeyBinding[]
@@ -78,6 +79,7 @@ function parseUserKeybindingsFile(userFile: UserKeybindingsFile): PartialKeyBind
     if (userFile.list.down) result.list.down = parseUserKeyBindings(userFile.list.down)
     if (userFile.list.select) result.list.select = parseUserKeyBindings(userFile.list.select)
     if (userFile.list.toggle) result.list.toggle = parseUserKeyBindings(userFile.list.toggle)
+    if (userFile.list.bookmark) result.list.bookmark = parseUserKeyBindings(userFile.list.bookmark)
   }
 
   if (userFile.input) {
@@ -168,6 +170,7 @@ function mergeKeybindings(
       down: partial.list?.down ?? defaults.list.down,
       select: partial.list?.select ?? defaults.list.select,
       toggle: partial.list?.toggle ?? defaults.list.toggle,
+      bookmark: partial.list?.bookmark ?? defaults.list.bookmark,
     },
     input: {
       submit: partial.input?.submit ?? defaults.input.submit,

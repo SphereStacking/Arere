@@ -3,6 +3,7 @@
  */
 
 import type { Action } from '@/domain/action/types'
+import type { BookmarkId } from '@/domain/bookmark/types'
 import type { LoadedPlugin } from '@/domain/plugin/types'
 import type { ArereConfig } from '@/infrastructure/config/schema'
 import type { ConfigLayer } from '@/infrastructure/config/types'
@@ -19,6 +20,10 @@ export interface SettingsStore {
   workspaceLayerConfig: Partial<ArereConfig> | null
   onPluginReload: ((config: ArereConfig) => Promise<Action[]>) | null
 
+  // Derived state helpers
+  getBookmarks: () => BookmarkId[]
+  isBookmarked: (id: BookmarkId) => boolean
+
   // Actions
   setCurrentConfig: (config: ArereConfig) => void
   setCurrentPlugins: (plugins: LoadedPlugin[]) => void
@@ -27,6 +32,11 @@ export interface SettingsStore {
   setCurrentLayer: (layer: ConfigLayer) => void
   setUserLayerConfig: (config: Partial<ArereConfig> | null) => void
   setWorkspaceLayerConfig: (config: Partial<ArereConfig> | null) => void
+
+  // Bookmark actions (updates local state only, persistence handled separately)
+  addBookmark: (id: BookmarkId) => void
+  removeBookmark: (id: BookmarkId) => void
+  toggleBookmark: (id: BookmarkId) => void
 
   // Async actions
   reloadLayerConfigs: () => Promise<void>
@@ -40,7 +50,7 @@ export interface SettingsStore {
   ) => void
 }
 
-export const useSettingsStore = create<SettingsStore>((set) => ({
+export const useSettingsStore = create<SettingsStore>((set, get) => ({
   // Initial state (will be initialized via initialize())
   currentConfig: {} as ArereConfig,
   currentPlugins: [],
@@ -51,6 +61,13 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
   workspaceLayerConfig: null,
   onPluginReload: null,
 
+  // Derived state helpers
+  getBookmarks: () => (get().currentConfig.bookmarks ?? []) as BookmarkId[],
+  isBookmarked: (id) => {
+    const bookmarks = get().currentConfig.bookmarks ?? []
+    return bookmarks.includes(id)
+  },
+
   // Actions
   setCurrentConfig: (config) => set({ currentConfig: config }),
   setCurrentPlugins: (plugins) => set({ currentPlugins: plugins }),
@@ -59,6 +76,44 @@ export const useSettingsStore = create<SettingsStore>((set) => ({
   setCurrentLayer: (layer) => set({ currentLayer: layer }),
   setUserLayerConfig: (config) => set({ userLayerConfig: config }),
   setWorkspaceLayerConfig: (config) => set({ workspaceLayerConfig: config }),
+
+  // Bookmark actions (updates local state only)
+  addBookmark: (id) =>
+    set((state) => {
+      const bookmarks = state.currentConfig.bookmarks ?? []
+      if (bookmarks.includes(id)) return state
+      return {
+        currentConfig: {
+          ...state.currentConfig,
+          bookmarks: [...bookmarks, id],
+        },
+      }
+    }),
+
+  removeBookmark: (id) =>
+    set((state) => {
+      const bookmarks = state.currentConfig.bookmarks ?? []
+      return {
+        currentConfig: {
+          ...state.currentConfig,
+          bookmarks: bookmarks.filter((b) => b !== id),
+        },
+      }
+    }),
+
+  toggleBookmark: (id) =>
+    set((state) => {
+      const bookmarks = state.currentConfig.bookmarks ?? []
+      const newBookmarks = bookmarks.includes(id)
+        ? bookmarks.filter((b) => b !== id)
+        : [...bookmarks, id]
+      return {
+        currentConfig: {
+          ...state.currentConfig,
+          bookmarks: newBookmarks,
+        },
+      }
+    }),
 
   // Async actions
   reloadLayerConfigs: async () => {

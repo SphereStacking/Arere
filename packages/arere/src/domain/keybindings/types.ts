@@ -34,6 +34,7 @@ export interface ListKeyBindings {
   down: KeyBinding[]
   select: KeyBinding[]
   toggle: KeyBinding[]
+  bookmark: KeyBinding[]
 }
 
 /**
