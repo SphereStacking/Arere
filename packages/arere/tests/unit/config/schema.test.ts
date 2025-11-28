@@ -2,7 +2,7 @@
  * Tests for configuration schema
  */
 
-import { configSchema } from '@/infrastructure/config/schema.js'
+import { configSchema, defaultConfig } from '@/infrastructure/config/schema.js'
 import { describe, expect, it } from 'vitest'
 
 describe('Configuration schema', () => {
@@ -60,5 +60,45 @@ describe('Configuration schema', () => {
       const result = configSchema.safeParse(config)
       expect(result.success).toBe(true)
     }
+  })
+
+  describe('ui.actionListFormat', () => {
+    it('should accept valid format string', () => {
+      const config = {
+        ui: {
+          actionListFormat: '${prefix}[${category:max}] ${name:max} ${description:grow}',
+        },
+      }
+
+      const result = configSchema.safeParse(config)
+      expect(result.success).toBe(true)
+    })
+
+    it('should reject non-string format', () => {
+      const config = {
+        ui: {
+          actionListFormat: 123,
+        },
+      }
+
+      const result = configSchema.safeParse(config)
+      expect(result.success).toBe(false)
+    })
+
+    it('should have default format in defaultConfig', () => {
+      const format = defaultConfig.ui?.actionListFormat
+      expect(format).toBeDefined()
+      expect(typeof format).toBe('string')
+    })
+
+    it('should have valid default format with ArereRender variables', () => {
+      const format = defaultConfig.ui!.actionListFormat!
+      expect(format).toContain('${selectIcon:width(2)}')
+      expect(format).toContain('${category:max}')
+      expect(format).toContain('${name:max}')
+      expect(format).toContain('${description:grow}')
+      expect(format).toContain('${tags:max:dim:right}')
+      expect(format).toContain('${bookmark:width(2)}')
+    })
   })
 })

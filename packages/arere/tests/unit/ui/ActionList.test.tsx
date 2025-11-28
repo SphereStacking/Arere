@@ -5,7 +5,7 @@
 import type { Action, ActionLocation } from '@/domain/action/types.js'
 import { ActionList } from '@/presentation/ui/components/ActionList.js'
 import { useSettingsStore } from '@/presentation/ui/stores/settingsStore.js'
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
+import { defaultConfig, type ArereConfig } from '@/infrastructure/config/schema.js'
 import { render } from 'ink-testing-library'
 import React, { act } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -57,11 +57,12 @@ describe('ActionList', () => {
     capturedHandler = null
     mockColumns = 120 // Reset to wide terminal
     vi.clearAllMocks()
-    // Reset settingsStore with no bookmarks
+    // Reset settingsStore with defaultConfig (includes ui.actionListFormat, etc.)
     useSettingsStore.setState({
       currentConfig: {
+        ...defaultConfig,
         bookmarks: [],
-      } as ArereConfig,
+      },
       currentPlugins: [],
       currentActions: [],
       selectedPlugin: null,
@@ -476,8 +477,9 @@ describe('ActionList', () => {
     it('should display bookmark icon for bookmarked actions', () => {
       useSettingsStore.setState({
         currentConfig: {
+          ...defaultConfig,
           bookmarks: ['local:action1'],
-        } as ArereConfig,
+        },
       })
 
       const actions = [
@@ -489,16 +491,17 @@ describe('ActionList', () => {
       const { lastFrame } = render(<ActionList actions={actions} onSelect={onSelect} />)
       const output = lastFrame() ?? ''
 
-      // Should contain bookmark icon (default is 🔖)
-      expect(output).toContain('🔖')
+      // Should contain bookmark icon (default is ♥)
+      expect(output).toContain('♥')
     })
 
     it('should not display bookmark icon for non-bookmarked actions only', () => {
       // No bookmarks set
       useSettingsStore.setState({
         currentConfig: {
+          ...defaultConfig,
           bookmarks: [],
-        } as ArereConfig,
+        },
       })
 
       const actions = [

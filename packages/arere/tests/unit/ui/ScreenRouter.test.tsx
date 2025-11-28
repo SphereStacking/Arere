@@ -7,7 +7,7 @@
 
 import type { Action } from '@/domain/action/types.js'
 import type { LoadedPlugin } from '@/domain/plugin/types.js'
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
+import { defaultConfig, type ArereConfig } from '@/infrastructure/config/schema.js'
 import type { PromptRequest } from '@/infrastructure/prompt/renderer.js'
 import { ScreenRouter } from '@/presentation/ui/routing/ScreenRouter.js'
 import { useExecutionStore } from '@/presentation/ui/stores/executionStore.js'
@@ -30,6 +30,7 @@ describe('ScreenRouter', () => {
   }
 
   const mockConfig: ArereConfig = {
+    ...defaultConfig,
     actionsDir: '.arere',
     logLevel: 'info',
     locale: 'en',
