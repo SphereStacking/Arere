@@ -20,7 +20,7 @@ Create type-safe actions in TypeScript and execute them with fuzzy search. A per
   ---
   color: neutral
   size: xl
-  to: /en/guides/getting-started
+  to: /guides/getting-started
   trailing-icon: i-lucide-arrow-right
   ---
   Get Started
@@ -108,7 +108,7 @@ Feature-Rich Out of the Box
   ---
   icon: i-simple-icons-githubactions
   target: _blank
-  to: /en/guides/github-actions/overview
+  to: /guides/github-actions/overview
   ---
   #title
   [CI/CD Integration]{.text-primary}
