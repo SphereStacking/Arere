@@ -9,6 +9,7 @@ import type { Action } from '@/domain/action/types'
 import type { KeyBindingsConfig } from '@/domain/keybindings'
 import type { LoadedPlugin } from '@/domain/plugin/types'
 import type { ArereConfig } from '@/infrastructure/config/schema'
+import { t } from '@/infrastructure/i18n'
 import { defaultKeyBindings } from '@/infrastructure/keybindings'
 import { clearPromptHandler, setPromptHandler } from '@/infrastructure/prompt/renderer'
 import type { PromptRequest } from '@/infrastructure/prompt/renderer'
@@ -43,6 +44,7 @@ export { AppContext, type AppContextValue } from './AppContext'
 
 /**
  * Helper function to get page meta for screens that don't have their own usePageMeta
+ * Breadcrumb items are already translated here
  */
 function getPageMeta(
   screen: ScreenState,
@@ -50,26 +52,28 @@ function getPageMeta(
   hints: ReturnType<typeof useKeyBindingHints>,
   selectedActionName?: string,
 ) {
+  const homeBreadcrumb = t('ui:breadcrumb.home')
+
   switch (screen) {
     case 'list':
       return {
-        breadcrumb: ['home'],
+        breadcrumb: [homeBreadcrumb],
         hint: actionsCount > 0 ? hints.list() : hints.listNoActions(),
       }
     case 'search':
       return {
-        breadcrumb: ['home', 'search'],
+        breadcrumb: [homeBreadcrumb, t('ui:breadcrumb.search')],
         hint: hints.search(),
       }
     case 'executing':
       return {
-        breadcrumb: selectedActionName ? ['home', selectedActionName] : ['home'],
+        breadcrumb: selectedActionName ? [homeBreadcrumb, selectedActionName] : [homeBreadcrumb],
         hint: hints.executing(),
       }
     case 'success':
     case 'error':
       return {
-        breadcrumb: selectedActionName ? ['home', selectedActionName] : ['home'],
+        breadcrumb: selectedActionName ? [homeBreadcrumb, selectedActionName] : [homeBreadcrumb],
         hint: hints.result(),
       }
     case 'input':

@@ -2,7 +2,6 @@
  * Header component
  */
 
-import { translationManager } from '@/infrastructure/i18n/manager'
 import { useKaomoji } from '@/presentation/ui/hooks/useKaomoji'
 import { useTheme } from '@/presentation/ui/hooks/useTheme'
 import { Box, Text } from 'ink'
@@ -18,6 +17,7 @@ export interface HeaderProps {
 
 /**
  * Render breadcrumb navigation
+ * Items should already be translated by the caller
  */
 function renderBreadcrumb(items: string[]): React.ReactNode {
   if (items.length === 0) {
@@ -26,16 +26,10 @@ function renderBreadcrumb(items: string[]): React.ReactNode {
 
   return items.map((item, index) => {
     const isLast = index === items.length - 1
-    // Try to translate the item using breadcrumb namespace
-    // If translation doesn't exist, use the original value (e.g., plugin names, field names)
-    const translatedItem = translationManager.t(`breadcrumb.${item}`, {
-      ns: 'ui',
-      defaultValue: item,
-    })
 
     return (
       <React.Fragment key={`${item}-${index}`}>
-        <Text dimColor={!isLast}>{translatedItem}</Text>
+        <Text dimColor={!isLast}>{item}</Text>
         {!isLast && <Text dimColor> {'>'} </Text>}
       </React.Fragment>
     )

@@ -70,8 +70,13 @@ export const PluginDetailScreen: React.FC = () => {
   // Set page meta based on editing state
   usePageMeta({
     breadcrumb: editingState
-      ? ['home', 'plugins', plugin.meta.name, editingState.field.name]
-      : ['home', 'plugins', plugin.meta.name],
+      ? [
+          t('ui:breadcrumb.home'),
+          t('ui:breadcrumb.plugins'),
+          plugin.meta.name,
+          editingState.field.name,
+        ]
+      : [t('ui:breadcrumb.home'), t('ui:breadcrumb.plugins'), plugin.meta.name],
     hint: hasConfig
       ? editingState
         ? editingState.type === 'text'
@@ -236,12 +241,7 @@ export const PluginDetailScreen: React.FC = () => {
 
         {/* Configuration form */}
         {hasConfig ? (
-          <PluginConfigForm
-            plugin={plugin}
-            fields={fields}
-            values={values}
-            focusedFieldIndex={focusedFieldIndex}
-          />
+          <PluginConfigForm fields={fields} values={values} focusedFieldIndex={focusedFieldIndex} />
         ) : (
           <PluginNoConfig />
         )}

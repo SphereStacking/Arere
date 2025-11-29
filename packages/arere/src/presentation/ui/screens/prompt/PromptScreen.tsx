@@ -64,7 +64,7 @@ export const PromptScreen: React.FC = () => {
     breadcrumb:
       promptRequest?.type === 'form' || promptRequest?.type === 'stepForm'
         ? undefined
-        : ['home', 'input'],
+        : [t('ui:breadcrumb.home'), t('ui:breadcrumb.input')],
     hint:
       promptRequest?.type === 'form' || promptRequest?.type === 'stepForm'
         ? undefined

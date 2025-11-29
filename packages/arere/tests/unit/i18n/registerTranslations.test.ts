@@ -6,15 +6,8 @@ import { changeLocale, initI18n, registerTranslations } from '@/infrastructure/i
 import { translationManager } from '@/infrastructure/i18n/manager.js'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-// Helper for tests: use translationManager directly for dynamic keys with : notation support
+// Helper for tests: use translationManager directly for namespace:key format
 const t = (key: string, options?: Record<string, unknown>) => {
-  // Parse namespace prefix (e.g., 'namespace:key')
-  if (key.includes(':')) {
-    const colonIndex = key.indexOf(':')
-    const namespace = key.slice(0, colonIndex)
-    const actualKey = key.slice(colonIndex + 1)
-    return translationManager.t(actualKey, { ...options, ns: namespace })
-  }
   return translationManager.t(key, options)
 }
 
@@ -37,8 +30,8 @@ describe('registerTranslations', () => {
     })
 
     // Verify English translations
-    expect(t('greeting', { ns: 'test-namespace' })).toBe('Hello!')
-    expect(t('farewell', { ns: 'test-namespace' })).toBe('Goodbye!')
+    expect(t('test-namespace:greeting')).toBe('Hello!')
+    expect(t('test-namespace:farewell')).toBe('Goodbye!')
   })
 
   it('should support nested translation keys', () => {
@@ -101,10 +94,10 @@ describe('registerTranslations', () => {
     await changeLocale('ja')
 
     // 'greeting' should use Japanese
-    expect(t('greeting', { ns: 'fallback-test' })).toBe('こんにちは!')
+    expect(t('fallback-test:greeting')).toBe('こんにちは!')
 
     // 'farewell' should fallback to English
-    expect(t('farewell', { ns: 'fallback-test' })).toBe('Goodbye!')
+    expect(t('fallback-test:farewell')).toBe('Goodbye!')
 
     // Switch back to English
     await changeLocale('en')
@@ -121,15 +114,15 @@ describe('registerTranslations', () => {
     })
 
     // Check English
-    expect(t('message', { ns: 'multi-locale' })).toBe('English message')
+    expect(t('multi-locale:message')).toBe('English message')
 
     // Switch to Japanese
     await changeLocale('ja')
-    expect(t('message', { ns: 'multi-locale' })).toBe('日本語メッセージ')
+    expect(t('multi-locale:message')).toBe('日本語メッセージ')
 
     // Switch back to English
     await changeLocale('en')
-    expect(t('message', { ns: 'multi-locale' })).toBe('English message')
+    expect(t('multi-locale:message')).toBe('English message')
   })
 
   it('should allow overwriting existing translations', () => {
@@ -140,7 +133,7 @@ describe('registerTranslations', () => {
       },
     })
 
-    expect(t('message', { ns: 'overwrite-test' })).toBe('First message')
+    expect(t('overwrite-test:message')).toBe('First message')
 
     // Overwrite with new translations
     registerTranslations('overwrite-test', {
@@ -149,7 +142,7 @@ describe('registerTranslations', () => {
       },
     })
 
-    expect(t('message', { ns: 'overwrite-test' })).toBe('Second message')
+    expect(t('overwrite-test:message')).toBe('Second message')
   })
 
   it('should handle multiple namespaces independently', () => {
@@ -166,8 +159,8 @@ describe('registerTranslations', () => {
     })
 
     // Each namespace should have its own translations
-    expect(t('greeting', { ns: 'namespace-1' })).toBe('Hello from namespace 1!')
-    expect(t('greeting', { ns: 'namespace-2' })).toBe('Hello from namespace 2!')
+    expect(t('namespace-1:greeting')).toBe('Hello from namespace 1!')
+    expect(t('namespace-2:greeting')).toBe('Hello from namespace 2!')
   })
 
   it('should merge with existing translations in the same namespace', () => {
@@ -185,8 +178,8 @@ describe('registerTranslations', () => {
     })
 
     // Both translations should be available
-    expect(t('greeting', { ns: 'merge-test' })).toBe('Hello!')
-    expect(t('farewell', { ns: 'merge-test' })).toBe('Goodbye!')
+    expect(t('merge-test:greeting')).toBe('Hello!')
+    expect(t('merge-test:farewell')).toBe('Goodbye!')
   })
 
   it('should handle empty translation objects', () => {
@@ -196,8 +189,8 @@ describe('registerTranslations', () => {
     })
 
     // Should not throw, but key won't exist
-    const result = t('non-existent', { ns: 'empty-test' })
-    expect(result).toBeTruthy() // i18next returns the key if translation not found
+    const result = t('empty-test:non-existent')
+    expect(result).toBeTruthy() // returns the key if translation not found
   })
 
   it('should handle complex nested structures', () => {

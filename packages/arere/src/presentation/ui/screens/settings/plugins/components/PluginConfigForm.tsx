@@ -2,38 +2,19 @@
  * PluginConfigForm - Plugin configuration form list
  *
  * Displays list of configuration fields with focus navigation.
+ * Uses field.description directly from Zod schema.
  */
 
-import type { LoadedPlugin } from '@/domain/plugin/types'
-import { t } from '@/infrastructure/i18n/index'
-import { translationManager } from '@/infrastructure/i18n/manager'
+import { t } from '@/infrastructure/i18n'
 import { useTheme } from '@/presentation/ui/hooks/useTheme'
 import type { FormField } from '@/presentation/ui/utils/schema-to-fields'
 import { Box, Text } from 'ink'
 import React from 'react'
 
 export interface PluginConfigFormProps {
-  plugin: LoadedPlugin
   fields: FormField[]
   values: Record<string, unknown>
   focusedFieldIndex: number
-}
-
-/**
- * Get translated description or fallback to schema description
- */
-function getDescription(plugin: LoadedPlugin, field: FormField): string {
-  if (!plugin.i18nNamespace) {
-    return field.description || ''
-  }
-
-  const translationKey = `config.${field.name}.description`
-  const translated = translationManager.t(translationKey, { ns: plugin.i18nNamespace })
-
-  if (translated !== translationKey) {
-    return translated
-  }
-  return field.description || translationKey
 }
 
 /**
@@ -54,7 +35,6 @@ function formatValue(field: FormField, value: unknown): string {
  * @example
  * ```tsx
  * <PluginConfigForm
- *   plugin={plugin}
  *   fields={fields}
  *   values={values}
  *   focusedFieldIndex={0}
@@ -62,7 +42,7 @@ function formatValue(field: FormField, value: unknown): string {
  * ```
  */
 export const PluginConfigForm: React.FC<PluginConfigFormProps> = React.memo(
-  ({ plugin, fields, values, focusedFieldIndex }) => {
+  ({ fields, values, focusedFieldIndex }) => {
     const { primaryColor, successColor } = useTheme()
 
     // Calculate column widths
@@ -77,7 +57,8 @@ export const PluginConfigForm: React.FC<PluginConfigFormProps> = React.memo(
         {fields.map((field, index) => {
           const isFocused = focusedFieldIndex === index
           const value = formatValue(field, values[field.name])
-          const description = getDescription(plugin, field)
+          // Use field.description directly from Zod schema
+          const description = field.description || ''
 
           const namePadded = field.name.padEnd(maxNameWidth + 2)
           const valuePadded = value.padEnd(maxValueWidth + 2)
