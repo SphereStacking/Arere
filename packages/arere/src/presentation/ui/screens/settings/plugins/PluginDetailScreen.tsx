@@ -241,11 +241,7 @@ export const PluginDetailScreen: React.FC = () => {
 
         {/* Configuration form */}
         {hasConfig ? (
-          <PluginConfigForm
-            fields={fields}
-            values={values}
-            focusedFieldIndex={focusedFieldIndex}
-          />
+          <PluginConfigForm fields={fields} values={values} focusedFieldIndex={focusedFieldIndex} />
         ) : (
           <PluginNoConfig />
         )}
