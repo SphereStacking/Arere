@@ -2,11 +2,11 @@
  * PluginFieldEditor - Field editing screen
  *
  * Displays text input or select input for editing a field value.
+ * Uses field.description directly from Zod schema.
  */
 
 import type { LoadedPlugin } from '@/domain/plugin/types'
-import { t } from '@/infrastructure/i18n/index'
-import { translationManager } from '@/infrastructure/i18n/manager'
+import { t } from '@/infrastructure/i18n'
 import { SelectInput, type SelectOption, TextInput } from '@/presentation/ui/components/inputs'
 import { useTheme } from '@/presentation/ui/hooks/useTheme'
 import type { FormField } from '@/presentation/ui/utils/schema-to-fields'
@@ -22,25 +22,6 @@ export interface PluginFieldEditorProps {
   onTextCancel: () => void
   onSelectSubmit: (value: unknown) => void
   onSelectCancel: () => void
-}
-
-/**
- * Get translated description or fallback to schema description
- */
-function getDescription(plugin: LoadedPlugin, field: FormField): string {
-  if (!plugin.i18nNamespace) {
-    return field.description || ''
-  }
-
-  const translationKey = `config.${field.name}.description`
-  const fullKey = `${plugin.i18nNamespace}:${translationKey}`
-  const translated = translationManager.t(fullKey)
-
-  // If translation found (not returning the key itself), use it
-  if (translated !== fullKey) {
-    return translated
-  }
-  return field.description || ''
 }
 
 /**
@@ -71,7 +52,8 @@ export const PluginFieldEditor: React.FC<PluginFieldEditorProps> = React.memo(
     onSelectSubmit,
     onSelectCancel,
   }) => {
-    const description = getDescription(plugin, field)
+    // Use field.description directly from Zod schema
+    const description = field.description || ''
     const { primaryColor } = useTheme()
 
     if (type === 'text') {

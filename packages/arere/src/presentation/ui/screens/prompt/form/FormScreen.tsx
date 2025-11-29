@@ -2,6 +2,7 @@
  * FormScreen - Multi-field form prompt component
  */
 
+import { t } from '@/infrastructure/i18n'
 import type { FormField, FormFields, FormPage } from '@/infrastructure/prompt/form/types'
 import {
   ConfirmInput,
@@ -66,7 +67,9 @@ export const FormScreen: React.FC<FormScreenProps> = ({ form, onSubmit, onCancel
 
   // Set page meta for form
   usePageMeta({
-    breadcrumb: form.title ? ['home', 'form', form.title] : ['home', 'form'],
+    breadcrumb: form.title
+      ? [t('ui:breadcrumb.home'), t('ui:breadcrumb.form'), form.title]
+      : [t('ui:breadcrumb.home'), t('ui:breadcrumb.form')],
     hint: hints.form(),
   })
 

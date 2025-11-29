@@ -16,7 +16,7 @@ export const HelpScreen: React.FC = () => {
   const { rows } = useTerminalSize()
 
   usePageMeta({
-    breadcrumb: ['home', 'help'],
+    breadcrumb: [t('ui:breadcrumb.home'), t('ui:breadcrumb.help')],
     hint: t('ui:help.hint'),
   })
 

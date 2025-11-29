@@ -67,7 +67,9 @@ export const SettingsScreen: React.FC = () => {
   // Set page meta based on mode
   usePageMeta({
     breadcrumb:
-      mode === 'edit' && editingKey ? ['home', 'settings', editingKey] : ['home', 'settings'],
+      mode === 'edit' && editingKey
+        ? [t('ui:breadcrumb.home'), t('ui:breadcrumb.settings'), editingKey]
+        : [t('ui:breadcrumb.home'), t('ui:breadcrumb.settings')],
     hint: kbHints.settings(),
   })
 

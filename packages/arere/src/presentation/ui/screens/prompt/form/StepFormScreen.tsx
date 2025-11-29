@@ -2,6 +2,7 @@
  * StepFormScreen - Multi-step form (wizard) component
  */
 
+import { t } from '@/infrastructure/i18n'
 import type {
   FormField,
   FormFields,
@@ -99,8 +100,8 @@ export const StepFormScreen: React.FC<StepFormScreenProps> = ({
   // Set page meta for step form
   usePageMeta({
     breadcrumb: currentFormForMeta?.title
-      ? ['home', 'form', currentFormForMeta.title]
-      : ['home', 'form'],
+      ? [t('ui:breadcrumb.home'), t('ui:breadcrumb.form'), currentFormForMeta.title]
+      : [t('ui:breadcrumb.home'), t('ui:breadcrumb.form')],
     hint: hints.stepForm(isFirstStep, isLastStep),
   })
 

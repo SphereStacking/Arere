@@ -39,7 +39,7 @@ export const PluginListScreen: React.FC = () => {
   const PLUGIN_ITEM_HEIGHT = 4
 
   usePageMeta({
-    breadcrumb: ['home', 'plugins'],
+    breadcrumb: [t('ui:breadcrumb.home'), t('ui:breadcrumb.plugins')],
     hint: kbHints.pluginList(),
   })
 
