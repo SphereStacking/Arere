@@ -56,7 +56,7 @@ export function createScopedT(
       // Handle 'plugin:' prefix (maps to first allowed namespace)
       if (prefix === 'plugin') {
         if (allowedNamespaces.length > 0) {
-          return manager.t(actualKey, { ...options, ns: allowedNamespaces[0] })
+          return manager.t(`${allowedNamespaces[0]}:${actualKey}`, options)
         }
         // No plugin namespace available
         return key
@@ -64,7 +64,7 @@ export function createScopedT(
 
       // Handle 'common:' or explicit namespace prefix
       if (allowed.has(prefix)) {
-        return manager.t(actualKey, { ...options, ns: prefix })
+        return manager.t(`${prefix}:${actualKey}`, options)
       }
 
       // Unauthorized namespace
@@ -72,6 +72,6 @@ export function createScopedT(
     }
 
     // No prefix → use own namespace
-    return manager.t(key, { ...options, ns: namespace })
+    return manager.t(`${namespace}:${key}`, options)
   }
 }

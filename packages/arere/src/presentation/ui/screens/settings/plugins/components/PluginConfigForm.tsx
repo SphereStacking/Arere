@@ -28,12 +28,14 @@ function getDescription(plugin: LoadedPlugin, field: FormField): string {
   }
 
   const translationKey = `config.${field.name}.description`
-  const translated = translationManager.t(translationKey, { ns: plugin.i18nNamespace })
+  const fullKey = `${plugin.i18nNamespace}:${translationKey}`
+  const translated = translationManager.t(fullKey)
 
-  if (translated !== translationKey) {
+  // If translation found (not returning the key itself), use it
+  if (translated !== fullKey) {
     return translated
   }
-  return field.description || translationKey
+  return field.description || ''
 }
 
 /**

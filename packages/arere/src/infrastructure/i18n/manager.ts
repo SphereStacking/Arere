@@ -41,33 +41,46 @@ export class TranslationManager {
   /**
    * Translate a key with optional variable interpolation
    *
-   * @param key - Translation key (dot notation)
-   * @param options - Options object with ns (namespace) and variables
-   * @returns Translated string, or the key itself if not found
+   * @param key - Translation key in `namespace:key` format (e.g., 'ui:breadcrumb.home')
+   *              or just `key` for default namespace (common)
+   * @param options - Options object with variables and optional defaultValue
+   * @returns Translated string, defaultValue if not found and provided, or the key itself
    *
    * @example
    * ```typescript
-   * t('greeting.hello')                          // Uses default namespace
-   * t('common:name')                  // Specify namespace
-   * t('welcome', { name: 'World' })              // With interpolation
-   * t('errors:error.message', { code: 404 }) // Both
-   * t('missing.key')                             // Returns 'missing.key' if not found
+   * t('common:greeting')                         // From 'common' namespace
+   * t('ui:breadcrumb.home')                      // From 'ui' namespace
+   * t('greeting')                                // From default namespace (common)
+   * t('ui:welcome', { name: 'World' })           // With interpolation
+   * t('ui:missing.key', { defaultValue: 'fallback' }) // Returns 'fallback' if not found
    * ```
    */
   t(key: string, options?: Record<string, unknown>): string {
-    const ns = (options?.ns as string) || 'common'
+    let ns = 'common'
+    let actualKey = key
+
+    // Parse namespace:key format (e.g., 'ui:breadcrumb.home')
+    if (key.includes(':')) {
+      const colonIndex = key.indexOf(':')
+      ns = key.slice(0, colonIndex)
+      actualKey = key.slice(colonIndex + 1)
+    }
+
     const locale = this.currentLocale
 
     // Try current locale first
-    let value = this.getValue(locale, ns, key)
+    let value = this.getValue(locale, ns, actualKey)
 
     // Fallback to fallback locale if not found
     if (value === undefined && locale !== this.fallbackLocale) {
-      value = this.getValue(this.fallbackLocale, ns, key)
+      value = this.getValue(this.fallbackLocale, ns, actualKey)
     }
 
-    // If still not found, return the key itself
+    // If still not found, use defaultValue or return the key itself
     if (value === undefined) {
+      if (options?.defaultValue !== undefined) {
+        return String(options.defaultValue)
+      }
       return key
     }
 

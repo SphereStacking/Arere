@@ -146,15 +146,8 @@ export async function initI18n(configLocale?: string): Promise<void> {
  * ```
  */
 export function t(key: GlobalTranslationKey, options?: Record<string, unknown>): string {
-  // Parse namespace prefix (e.g., 'common:app_name' -> namespace='common', key='app_name')
-  if (key.includes(':')) {
-    const colonIndex = key.indexOf(':')
-    const namespace = key.slice(0, colonIndex)
-    const actualKey = key.slice(colonIndex + 1)
-    return translationManager.t(actualKey, { ...options, ns: namespace })
-  }
-
-  // Fallback: no prefix (shouldn't happen with GlobalTranslationKey type)
+  // key is already in namespace:key format (e.g., 'common:app_name')
+  // TranslationManager.t() now handles this format directly
   return translationManager.t(key, options)
 }
 

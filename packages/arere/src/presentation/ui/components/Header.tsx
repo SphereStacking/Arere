@@ -28,8 +28,7 @@ function renderBreadcrumb(items: string[]): React.ReactNode {
     const isLast = index === items.length - 1
     // Try to translate the item using breadcrumb namespace
     // If translation doesn't exist, use the original value (e.g., plugin names, field names)
-    const translatedItem = translationManager.t(`breadcrumb.${item}`, {
-      ns: 'ui',
+    const translatedItem = translationManager.t(`ui:breadcrumb.${item}`, {
       defaultValue: item,
     })
 
