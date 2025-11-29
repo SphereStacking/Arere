@@ -128,7 +128,8 @@ const AppMain: React.FC<AppProps> = ({
 
   const { showPrompt } = usePromptStore()
 
-  // Initialize stores on mount
+  // Initialize stores on mount (intentionally empty deps - run once on mount)
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Intentional - initialization should only run once
   useEffect(() => {
     initializeSettings(config, plugins, actions, onPluginReload)
     reloadLayerConfigs()
@@ -162,7 +163,8 @@ const AppMain: React.FC<AppProps> = ({
     onExit,
   })
 
-  // Set up prompt handler on mount
+  // Set up prompt handler on mount (intentionally empty deps - handler setup should only run once)
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Intentional - handler setup should only run once
   useEffect(() => {
     const handler = async (request: PromptRequest): Promise<unknown> => {
       setScreen('input')

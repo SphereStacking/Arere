@@ -47,7 +47,7 @@ export function createReadLineBackend() {
           return await handleWaitForKey(rl, request.message, request.keys, request.caseInsensitive)
 
         default:
-          throw new Error(`Unknown prompt type: ${(request as any).type}`)
+          throw new Error(`Unknown prompt type: ${(request as { type: string }).type}`)
       }
     } finally {
       rl.close()

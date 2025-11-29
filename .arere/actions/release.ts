@@ -1,6 +1,6 @@
-import { defineAction } from 'arere'
-import { readdirSync, readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
+import { defineAction } from 'arere'
 
 interface PackageInfo {
   name: string
@@ -82,7 +82,7 @@ export default defineAction({
     const packageNames = selectedPackages.map((p: PackageInfo) => p.name).join(',')
 
     console.log('')
-    console.log(`🚀 Triggering release workflow...`)
+    console.log('🚀 Triggering release workflow...')
     console.log(`   Packages: ${packageNames}`)
     console.log(`   Version: ${version}`)
     console.log(`   Dry run: ${dryRun}`)

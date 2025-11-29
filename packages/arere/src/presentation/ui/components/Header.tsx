@@ -28,6 +28,7 @@ function renderBreadcrumb(items: string[]): React.ReactNode {
     const isLast = index === items.length - 1
 
     return (
+      // biome-ignore lint/suspicious/noArrayIndexKey: Breadcrumb items may have duplicate names, index ensures uniqueness
       <React.Fragment key={`${item}-${index}`}>
         <Text dimColor={!isLast}>{item}</Text>
         {!isLast && <Text dimColor> {'>'} </Text>}

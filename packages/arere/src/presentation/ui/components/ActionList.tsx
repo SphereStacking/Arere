@@ -154,7 +154,7 @@ export const ActionList: React.FC<ActionListProps> = ({
   // Notify parent of scroll info changes
   useEffect(() => {
     onScrollInfoChange?.({ selectedIndex, itemHeight })
-  }, [selectedIndex, itemHeight, onScrollInfoChange])
+  }, [selectedIndex, onScrollInfoChange])
 
   return (
     <Box flexDirection="column" flexGrow={1}>

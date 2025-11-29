@@ -104,7 +104,8 @@ export const ScrollArea: React.FC<ScrollAreaProps> = ({
   // Calculate max scroll position
   const maxScrollTop = Math.max(0, innerHeight - height)
 
-  // Measure inner content height
+  // Measure inner content height (children triggers re-measurement when content changes)
+  // biome-ignore lint/correctness/useExhaustiveDependencies: children is used to trigger re-measurement when content changes
   useEffect(() => {
     if (!innerRef.current) return
     const dimensions = measureElement(innerRef.current)
