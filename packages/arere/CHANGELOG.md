@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.5] - 2025-11-29
+
+### Changed
+
+#### i18n System Improvements
+- **Unified API** - All translation keys now use `namespace:key` format (e.g., `ui:breadcrumb.home`)
+- **defaultValue Support** - Added `defaultValue` option for fallback when translation is missing
+- **Removed `ns` Option** - Deprecated `ns` option in favor of unified `namespace:key` format
+
+### Fixed
+
+#### Clean Architecture Compliance
+- **Layer Violation Fix** - Removed direct `translationManager` imports from Presentation layer
+- **Breadcrumb Refactor** - Translation responsibility moved to callers, Header now just displays values
+- **Plugin Config** - Uses Zod schema `description` directly instead of dynamic translation lookup
+
+### Technical
+- **1072 Tests Passing** - All tests updated and passing
+- **Simplified i18n** - Reduced complexity in scoped translation function
+
 ## [0.1.4] - 2025-11-29
 
 ### Added
