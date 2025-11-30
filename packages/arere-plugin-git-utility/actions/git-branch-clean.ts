@@ -63,10 +63,7 @@ export default defineAction({
     // Ask user to select branches to delete
     const selectedBranches = await tui.prompt.multiSelect(
       t('plugin:branchClean.selectBranches'),
-      mergedBranches.map((branch) => ({
-        label: branch,
-        value: branch,
-      })),
+      mergedBranches,
     )
 
     if (selectedBranches.length === 0) {

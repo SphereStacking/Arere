@@ -108,10 +108,7 @@ export default defineAction({
     // Ask which hooks to create
     const selectedHooks = await tui.prompt.multiSelect(
       t('plugin:hooksSetup.selectHooks'),
-      HOOK_TYPES.map((hook) => ({
-        label: hook,
-        value: hook,
-      })),
+      HOOK_TYPES,
     )
 
     if (selectedHooks.length > 0) {
