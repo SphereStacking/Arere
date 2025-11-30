@@ -31,12 +31,10 @@ exit 0
 export default defineAction({
   description: 'plugin:actions.git-hooks-setup.description',
   run: async ({ $, tui, t }) => {
-    const { prompt, output } = tui
-
     // Check if we're in a git repository
     const gitCheck = await $`git rev-parse --is-inside-work-tree`
     if (gitCheck.exitCode !== 0) {
-      output.error(t('plugin:notGitRepository'))
+      tui.output.error(t('plugin:notGitRepository'))
       return
     }
 
@@ -49,14 +47,14 @@ export default defineAction({
     const currentPath = currentConfig.stdout.trim()
 
     if (currentPath) {
-      output.info(t('plugin:hooksSetup.currentPath', { path: currentPath }))
+      tui.output.info(t('plugin:hooksSetup.currentPath', { path: currentPath }))
     } else {
-      output.info(t('plugin:hooksSetup.currentPathDefault'))
+      tui.output.info(t('plugin:hooksSetup.currentPathDefault'))
     }
-    output.newline()
+    tui.output.newline()
 
     // Select action
-    const action = await prompt.select(t('plugin:hooksSetup.selectAction'), [
+    const action = await tui.prompt.select(t('plugin:hooksSetup.selectAction'), [
       { label: t('plugin:hooksSetup.options.setup'), value: 'setup' },
       { label: t('plugin:hooksSetup.options.change'), value: 'change' },
       { label: t('plugin:hooksSetup.options.reset'), value: 'reset' },
@@ -65,15 +63,15 @@ export default defineAction({
     if (action === 'reset') {
       const result = await $`git config --unset core.hooksPath`
       if (result.exitCode !== 0 && result.exitCode !== 5) {
-        output.error(t('plugin:hooksSetup.resetFailed'))
+        tui.output.error(t('plugin:hooksSetup.resetFailed'))
         return
       }
-      output.success(t('plugin:hooksSetup.resetSuccess'))
+      tui.output.success(t('plugin:hooksSetup.resetSuccess'))
       return
     }
 
     // Select hooks directory
-    const selected = await prompt.select(t('plugin:hooksSetup.selectDirectory'), [
+    const selected = await tui.prompt.select(t('plugin:hooksSetup.selectDirectory'), [
       { label: './githooks', value: './githooks' },
       { label: './.githooks', value: './.githooks' },
       { label: './.husky', value: './.husky' },
@@ -82,17 +80,17 @@ export default defineAction({
 
     const hooksPath: string =
       selected === '__custom__'
-        ? await prompt.text(t('plugin:hooksSetup.enterCustomPath'))
+        ? await tui.prompt.text(t('plugin:hooksSetup.enterCustomPath'))
         : selected
 
     if (action === 'change') {
       // Just change the path
       const result = await $`git config core.hooksPath ${hooksPath}`
       if (result.exitCode !== 0) {
-        output.error(t('plugin:hooksSetup.setPathFailed'))
+        tui.output.error(t('plugin:hooksSetup.setPathFailed'))
         return
       }
-      output.success(t('plugin:hooksSetup.setPathSuccess', { path: hooksPath }))
+      tui.output.success(t('plugin:hooksSetup.setPathSuccess', { path: hooksPath }))
       return
     }
 
@@ -102,13 +100,13 @@ export default defineAction({
     // Create directory if it doesn't exist
     if (!existsSync(fullHooksPath)) {
       mkdirSync(fullHooksPath, { recursive: true })
-      output.success(t('plugin:hooksSetup.createdDirectory', { path: hooksPath }))
+      tui.output.success(t('plugin:hooksSetup.createdDirectory', { path: hooksPath }))
     } else {
-      output.info(t('plugin:hooksSetup.directoryExists', { path: hooksPath }))
+      tui.output.info(t('plugin:hooksSetup.directoryExists', { path: hooksPath }))
     }
 
     // Ask which hooks to create
-    const selectedHooks = await prompt.multiSelect(
+    const selectedHooks = await tui.prompt.multiSelect(
       t('plugin:hooksSetup.selectHooks'),
       HOOK_TYPES.map((hook) => ({
         label: hook,
@@ -122,21 +120,21 @@ export default defineAction({
         const hookPath = join(fullHooksPath, hookName)
 
         if (existsSync(hookPath)) {
-          output.warn(t('plugin:hooksSetup.skippedExists', { name: hookName }))
+          tui.output.warn(t('plugin:hooksSetup.skippedExists', { name: hookName }))
           continue
         }
 
         const template = generateHookTemplate(hookName)
         writeFileSync(hookPath, template)
         chmodSync(hookPath, 0o755)
-        output.success(t('plugin:hooksSetup.created', { name: hookName }))
+        tui.output.success(t('plugin:hooksSetup.created', { name: hookName }))
       }
     }
 
     // Set core.hooksPath
     await $`git config core.hooksPath ${hooksPath}`
-    output.newline()
-    output.success(t('plugin:hooksSetup.setPathSuccess', { path: hooksPath }))
-    output.info(t('plugin:hooksSetup.editHooksIn', { path: hooksPath }))
+    tui.output.newline()
+    tui.output.success(t('plugin:hooksSetup.setPathSuccess', { path: hooksPath }))
+    tui.output.info(t('plugin:hooksSetup.editHooksIn', { path: hooksPath }))
   },
 })

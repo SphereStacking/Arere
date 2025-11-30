@@ -3,12 +3,10 @@ import { defineAction } from 'arere'
 export default defineAction({
   description: 'plugin:actions.git-branch-clean.description',
   run: async ({ $, tui, t }) => {
-    const { prompt, output } = tui
-
     // Check if we're in a git repository
     const gitCheck = await $`git rev-parse --is-inside-work-tree`
     if (gitCheck.exitCode !== 0) {
-      output.error(t('plugin:notGitRepository'))
+      tui.output.error(t('plugin:notGitRepository'))
       return
     }
 
@@ -23,26 +21,26 @@ export default defineAction({
       defaultBranch = defaultBranchResult.stdout.trim().replace('refs/remotes/origin/', '')
     }
 
-    output.info(t('plugin:branchClean.currentBranch', { branch: currentBranch }))
-    output.info(t('plugin:branchClean.defaultBranch', { branch: defaultBranch }))
-    output.newline()
+    tui.output.info(t('plugin:branchClean.currentBranch', { branch: currentBranch }))
+    tui.output.info(t('plugin:branchClean.defaultBranch', { branch: defaultBranch }))
+    tui.output.newline()
 
     // Step 1: Fetch and prune remote tracking branches
-    output.section(t('plugin:branchClean.fetchingPruning'))
+    tui.output.section(t('plugin:branchClean.fetchingPruning'))
     const fetchResult = await $`git fetch --prune`
     if (fetchResult.exitCode !== 0) {
-      output.warn(t('plugin:branchClean.fetchFailed'))
+      tui.output.warn(t('plugin:branchClean.fetchFailed'))
     } else {
-      output.success(t('plugin:branchClean.fetchSuccess'))
+      tui.output.success(t('plugin:branchClean.fetchSuccess'))
     }
-    output.newline()
+    tui.output.newline()
 
     // Step 2: Find merged local branches
-    output.section(t('plugin:branchClean.findingMerged'))
+    tui.output.section(t('plugin:branchClean.findingMerged'))
 
     const mergedResult = await $`git branch --merged ${defaultBranch}`
     if (mergedResult.exitCode !== 0) {
-      output.error(t('plugin:branchClean.getMergedFailed'))
+      tui.output.error(t('plugin:branchClean.getMergedFailed'))
       return
     }
 
@@ -54,16 +52,16 @@ export default defineAction({
       )
 
     if (mergedBranches.length === 0) {
-      output.success(t('plugin:branchClean.noMergedBranches'))
+      tui.output.success(t('plugin:branchClean.noMergedBranches'))
       return
     }
 
-    output.info(t('plugin:branchClean.foundBranches', { count: mergedBranches.length }))
-    output.list(mergedBranches)
-    output.newline()
+    tui.output.info(t('plugin:branchClean.foundBranches', { count: mergedBranches.length }))
+    tui.output.list(mergedBranches)
+    tui.output.newline()
 
     // Ask user to select branches to delete
-    const selectedBranches = await prompt.multiSelect(
+    const selectedBranches = await tui.prompt.multiSelect(
       t('plugin:branchClean.selectBranches'),
       mergedBranches.map((branch) => ({
         label: branch,
@@ -72,32 +70,32 @@ export default defineAction({
     )
 
     if (selectedBranches.length === 0) {
-      output.info(t('plugin:branchClean.noBranchesSelected'))
+      tui.output.info(t('plugin:branchClean.noBranchesSelected'))
       return
     }
 
     // Confirm deletion
-    const confirm = await prompt.confirm(
+    const confirm = await tui.prompt.confirm(
       t('plugin:branchClean.confirmDelete', { count: selectedBranches.length }),
     )
 
     if (!confirm) {
-      output.info(t('plugin:cancelled'))
+      tui.output.info(t('plugin:cancelled'))
       return
     }
 
     // Delete selected branches
-    output.newline()
+    tui.output.newline()
     for (const branch of selectedBranches) {
       const deleteResult = await $`git branch -d ${branch}`
       if (deleteResult.exitCode === 0) {
-        output.success(t('plugin:branchClean.deleted', { branch }))
+        tui.output.success(t('plugin:branchClean.deleted', { branch }))
       } else {
-        output.error(t('plugin:branchClean.deleteFailed', { branch }))
+        tui.output.error(t('plugin:branchClean.deleteFailed', { branch }))
       }
     }
 
-    output.newline()
-    output.success(t('plugin:branchClean.complete'))
+    tui.output.newline()
+    tui.output.success(t('plugin:branchClean.complete'))
   },
 })
