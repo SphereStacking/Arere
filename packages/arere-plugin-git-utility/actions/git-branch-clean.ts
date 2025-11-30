@@ -63,12 +63,13 @@ export default defineAction({
     output.newline()
 
     // Ask user to select branches to delete
-    const selectedBranches = await prompt.multiSelect(t('plugin:branchClean.selectBranches'), {
-      options: mergedBranches.map((branch) => ({
+    const selectedBranches = await prompt.multiSelect(
+      t('plugin:branchClean.selectBranches'),
+      mergedBranches.map((branch) => ({
         label: branch,
         value: branch,
       })),
-    })
+    )
 
     if (selectedBranches.length === 0) {
       output.info(t('plugin:branchClean.noBranchesSelected'))

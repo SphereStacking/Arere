@@ -56,13 +56,11 @@ export default defineAction({
     output.newline()
 
     // Select action
-    const action = await prompt.select(t('plugin:hooksSetup.selectAction'), {
-      options: [
-        { label: t('plugin:hooksSetup.options.setup'), value: 'setup' },
-        { label: t('plugin:hooksSetup.options.change'), value: 'change' },
-        { label: t('plugin:hooksSetup.options.reset'), value: 'reset' },
-      ],
-    })
+    const action = await prompt.select(t('plugin:hooksSetup.selectAction'), [
+      { label: t('plugin:hooksSetup.options.setup'), value: 'setup' },
+      { label: t('plugin:hooksSetup.options.change'), value: 'change' },
+      { label: t('plugin:hooksSetup.options.reset'), value: 'reset' },
+    ])
 
     if (action === 'reset') {
       const result = await $`git config --unset core.hooksPath`
@@ -75,16 +73,14 @@ export default defineAction({
     }
 
     // Select hooks directory
-    const selected = await prompt.select(t('plugin:hooksSetup.selectDirectory'), {
-      options: [
-        { label: './githooks', value: './githooks' },
-        { label: './.githooks', value: './.githooks' },
-        { label: './.husky', value: './.husky' },
-        { label: t('plugin:hooksSetup.options.custom'), value: '__custom__' },
-      ],
-    })
+    const selected = await prompt.select(t('plugin:hooksSetup.selectDirectory'), [
+      { label: './githooks', value: './githooks' },
+      { label: './.githooks', value: './.githooks' },
+      { label: './.husky', value: './.husky' },
+      { label: t('plugin:hooksSetup.options.custom'), value: '__custom__' },
+    ])
 
-    const hooksPath =
+    const hooksPath: string =
       selected === '__custom__'
         ? await prompt.text(t('plugin:hooksSetup.enterCustomPath'))
         : selected
@@ -112,12 +108,13 @@ export default defineAction({
     }
 
     // Ask which hooks to create
-    const selectedHooks = await prompt.multiSelect(t('plugin:hooksSetup.selectHooks'), {
-      options: HOOK_TYPES.map((hook) => ({
+    const selectedHooks = await prompt.multiSelect(
+      t('plugin:hooksSetup.selectHooks'),
+      HOOK_TYPES.map((hook) => ({
         label: hook,
         value: hook,
       })),
-    })
+    )
 
     if (selectedHooks.length > 0) {
       // Create selected hooks
