@@ -74,7 +74,8 @@ function bumpVersion(version: string, type: 'patch' | 'minor' | 'major'): string
 
 export default defineAction({
   description: ({ t }) => t('description'),
-  category: 'dev',
+  category: 'arere-dev',
+  tags: ['release', 'github', 'workflow'],
   translations,
   async run({ tui, $, t }) {
     const cwd = process.cwd()
@@ -112,7 +113,9 @@ export default defineAction({
     tui.output.newline()
 
     // Confirm
-    const dryRun = await tui.prompt.confirm(t('dryRunConfirm'), { defaultValue: false })
+    const dryRun = await tui.prompt.confirm(t('dryRunConfirm'), {
+      defaultValue: false,
+    })
 
     // Package names for workflow
     const packageNames = selectedPackageInfos.map((p) => p.name).join(',')
@@ -133,7 +136,9 @@ export default defineAction({
       tui.output.newline()
 
       // Watch workflow progress
-      const watchConfirm = await tui.prompt.confirm(t('watchConfirm'), { defaultValue: true })
+      const watchConfirm = await tui.prompt.confirm(t('watchConfirm'), {
+        defaultValue: true,
+      })
 
       if (watchConfirm) {
         tui.output.info(t('watchingWorkflow'))
