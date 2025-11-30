@@ -29,7 +29,8 @@ exit 0
 }
 
 export default defineAction({
-  description: 'plugin:actions.git-hooks-setup.description',
+  description: ({ t }) => t('plugin:actions.git-hooks-setup.description'),
+  tags: ['git', 'hooks', 'setup'],
   run: async ({ $, tui, t }) => {
     // Check if we're in a git repository
     const gitCheck = await $`git rev-parse --is-inside-work-tree`
