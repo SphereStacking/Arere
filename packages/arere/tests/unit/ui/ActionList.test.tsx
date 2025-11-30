@@ -147,7 +147,6 @@ describe('ActionList', () => {
       location: { plugin: 'example' },
       pluginMeta: {
         name: 'Example Plugin',
-        version: '1.0.0',
         description: 'An example plugin',
       },
       run: async () => {},

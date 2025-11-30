@@ -11,7 +11,6 @@ import { definePlugin } from 'arere'
 export default definePlugin({
   meta: {
     name: 'arere-plugin-timer',
-    version: '1.0.0',
     description: 'Timer plugin - countdown, pomodoro',
     author: 'arere team',
     i18nNamespace: 'plugin-timer',

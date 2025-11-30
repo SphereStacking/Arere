@@ -14,7 +14,6 @@ const __dirname = dirname(__filename)
 export default definePlugin({
   meta: {
     name: 'arere-plugin-generator',
-    version: '1.0.0',
     description: 'Action generator plugin for Arere - Create new actions interactively',
     author: 'Arere Contributors',
     i18nNamespace: 'plugin-generator',

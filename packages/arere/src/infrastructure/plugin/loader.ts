@@ -76,10 +76,6 @@ export async function loadPlugin(
       throw new Error('Plugin must have a "meta.name" field')
     }
 
-    if (!pluginDefinition.meta.version || typeof pluginDefinition.meta.version !== 'string') {
-      throw new Error('Plugin must have a "meta.version" field')
-    }
-
     if (!Array.isArray(pluginDefinition.actions)) {
       throw new Error('Plugin must have an "actions" array')
     }
@@ -125,8 +121,14 @@ export async function loadPlugin(
       }
     }
 
+    // Get version from package.json
+    const version = packageInfo.packageJson.version || '0.0.0'
+
     const loadedPlugin: LoadedPlugin = {
-      meta: pluginDefinition.meta,
+      meta: {
+        ...pluginDefinition.meta,
+        version,
+      },
       path: packageInfo.path,
       actionPaths: actionPaths.filter(existsSync),
       localesPath,
