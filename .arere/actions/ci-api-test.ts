@@ -3,7 +3,8 @@ import { defineAction } from 'arere'
 export default defineAction({
   name: 'ci-api-test',
   description: ({ t }) => t('description'),
-  category: 'integration',
+  category: 'arere-dev',
+  tags: ['ci', 'test', 'api'],
   translations: {
     en: {
       description: 'Comprehensive CI API verification test',
@@ -142,7 +143,10 @@ export default defineAction({
     // progress test (non-blocking in CI)
     if (!isCI) {
       tui.output.log(t('progressTest'))
-      const progress = tui.control.progress({ total: 100, message: 'Processing...' })
+      const progress = tui.control.progress({
+        total: 100,
+        message: 'Processing...',
+      })
       progress.start()
       for (let i = 0; i <= 100; i += 20) {
         progress.update(i)
@@ -162,10 +166,14 @@ export default defineAction({
 
     if (!isCI) {
       // Interactive mode - actually run prompts
-      const name = await tui.prompt.text('Enter your name:', { defaultValue: 'Tester' })
+      const name = await tui.prompt.text('Enter your name:', {
+        defaultValue: 'Tester',
+      })
       tui.output.log(`Received: ${name}`)
 
-      const confirmed = await tui.prompt.confirm('Continue?', { defaultValue: true })
+      const confirmed = await tui.prompt.confirm('Continue?', {
+        defaultValue: true,
+      })
       tui.output.log(`Confirmed: ${confirmed}`)
     } else {
       // CI mode - skip all prompts
