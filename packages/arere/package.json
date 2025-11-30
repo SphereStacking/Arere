@@ -1,6 +1,6 @@
 {
   "name": "arere",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Persistent terminal launcher with fuzzy search, plugins, and i18n support",
   "type": "module",
   "main": "./dist/index.js",
