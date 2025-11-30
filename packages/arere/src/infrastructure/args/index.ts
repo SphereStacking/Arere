@@ -20,3 +20,10 @@ export {
 } from './validator'
 
 export { createPromptAPIWithArgs } from './prompt-wrapper'
+
+export {
+  analyzeActionArgs,
+  formatArgsHelp,
+  type ArgMeta,
+  type ActionArgsMeta,
+} from './analyzer'
