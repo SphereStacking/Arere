@@ -70,7 +70,7 @@ jobs:
             # Find package directory
             PKG_DIR=$(find packages -maxdepth 1 -type d -name "*" -exec sh -c '
               if [ -f "$1/package.json" ]; then
-                name=$(node -p "require(\"$1/package.json\").name")
+                name=$(node -p "require(\"./$1/package.json\").name")
                 if [ "$name" = "'"$pkg"'" ]; then
                   echo "$1"
                 fi
@@ -108,7 +108,7 @@ jobs:
           for pkg in "${PKG_ARRAY[@]}"; do
             PKG_DIR=$(find packages -maxdepth 1 -type d -exec sh -c '
               if [ -f "$1/package.json" ]; then
-                name=$(node -p "require(\"$1/package.json\").name")
+                name=$(node -p "require(\"./$1/package.json\").name")
                 if [ "$name" = "'"$pkg"'" ]; then
                   echo "$1"
                 fi
@@ -178,7 +178,7 @@ jobs:
           for pkg in "${PKG_ARRAY[@]}"; do
             PKG_DIR=$(find packages -maxdepth 1 -type d -exec sh -c '
               if [ -f "$1/package.json" ]; then
-                name=$(node -p "require(\"$1/package.json\").name")
+                name=$(node -p "require(\"./$1/package.json\").name")
                 if [ "$name" = "'"$pkg"'" ]; then
                   echo "$1"
                 fi
