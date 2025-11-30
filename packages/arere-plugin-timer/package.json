@@ -9,6 +9,7 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
   "keywords": ["arere", "arere-plugin", "cli", "launcher", "timer", "pomodoro"],
