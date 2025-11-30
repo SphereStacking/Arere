@@ -10,6 +10,7 @@ import type {
   VisualFeedback,
   WaitForKeyOptions,
 } from '@/domain/types/control'
+import { createPromptAPIWithArgs } from '@/infrastructure/args'
 import type { ArereConfig } from '@/infrastructure/config/schema'
 import { createScopedT } from '@/infrastructure/i18n/index'
 import {
@@ -17,14 +18,7 @@ import {
   type OutputCollector,
   createOutputAPI,
 } from '@/infrastructure/output/collector'
-import { confirm } from '@/infrastructure/prompt/confirm'
-import { form } from '@/infrastructure/prompt/form'
-import { multiSelect } from '@/infrastructure/prompt/multiSelect'
-import { number } from '@/infrastructure/prompt/number'
-import { password } from '@/infrastructure/prompt/password'
 import { renderPrompt } from '@/infrastructure/prompt/renderer'
-import { select } from '@/infrastructure/prompt/select'
-import { text } from '@/infrastructure/prompt/text'
 import { createShellExecutor } from '@/infrastructure/shell/executor'
 import {
   createProgressControl,
@@ -32,10 +26,7 @@ import {
   delay,
   getTerminalSize,
   isInteractive,
-  waitForEnter,
-  waitForKey,
 } from '@/presentation/ui/control/index'
-import type { PromptAPI } from './types'
 import type { ActionContext } from './types'
 
 // Re-export OutputCollector for use by executor
@@ -115,15 +106,8 @@ export function createActionContext<TKeys extends string = string>(
   // Create output API and collector with optional real-time callback
   const { api: outputAPI, collector: outputCollector } = createOutputAPI(onOutput)
 
-  // Create callable prompt API with shorthand methods
-  const promptAPI: PromptAPI = Object.assign(form, {
-    text,
-    number,
-    password,
-    select,
-    confirm,
-    multiSelect,
-  })
+  // Create callable prompt API with argument resolution support
+  const promptAPI = createPromptAPIWithArgs(args, isInteractive)
 
   const context: ActionContext<TKeys> = {
     tui: {
