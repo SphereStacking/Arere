@@ -65,19 +65,13 @@ export function formatCategoryLabel(category: string | undefined, pluginMeta?: P
   if (category === 'project') return 'Project'
   if (category === 'global') return 'Global'
 
-  // plugin:xxx → Use plugin.meta.name
+  // plugin:xxx → Use plugin.meta.name (with arere-plugin- prefix removed)
   if (category.startsWith('plugin:')) {
     const pluginName = category.replace('plugin:', '')
-    // Get from pluginMeta (if provided)
-    if (pluginMeta?.name) {
-      return pluginMeta.name
-    }
-    // Fallback: Infer from plugin name
-    return pluginName
-      .replace('arere-plugin-', '')
-      .split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ')
+    // Get display name: prefer pluginMeta.name, fallback to pluginName
+    const displayName = pluginMeta?.name ?? pluginName
+    // Remove arere-plugin- prefix for cleaner display
+    return displayName.replace(/^arere-plugin-/, '')
   }
 
   return category
