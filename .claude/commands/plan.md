@@ -5,7 +5,7 @@
 ## 重要
 
 - 実装は明確に開始の合図があるまでは、プランニングを続けてください。
-- リリース前のため大胆な設計変更が可能です
+- v1リリース前のため大胆な設計変更が可能です
 - 設計変更に伴う後方互換は必要ありません。クリーンな実装をお願いします。
 
 
@@ -123,6 +123,14 @@ PR作成前に以下を確認すること：
 - [ ] 意味のある単位でコミットが分かれている
 - [ ] 不要なfixupコミットがまとめられている
 
+### 型定義変更時
+- [ ] stubsテンプレートも更新されている（`packages/arere-plugin-create/stubs/`）
+- [ ] テストのモックデータも更新されている
+
+### リリース時
+- [ ] 影響を受ける全パッケージをリリース
+- [ ] グローバルインストール (`npm i -g`) で動作確認
+
 ## 依存関係
 - **前提**: フェーズX完了
 - **ブロッカー**: なし
@@ -208,6 +216,50 @@ TDD原則に従い、テストを含めたタスクを計画：
 ```
 
 ## 注意事項
+
+### アクション定義の注意点
+
+アクションで翻訳を使う場合：
+- **正しいキー**: `translations`（型定義で定義されている）
+- **間違い**: `i18n`（プラグインでは使えるがアクションでは使えない）
+
+```typescript
+// ✅ 正しい
+export default defineAction({
+  description: ({ t }) => t('description'),
+  translations: {
+    en: { description: 'English description' },
+    ja: { description: '日本語の説明' },
+  },
+})
+
+// ❌ 間違い - descriptionが翻訳されない
+export default defineAction({
+  description: ({ t }) => t('description'),
+  i18n: { ... },  // アクションでは認識されない
+})
+```
+
+### コミット整理の手順
+
+複数のfixupコミットを整理する方法：
+
+```bash
+# 方法1: soft resetして再コミット
+git reset --soft origin/main
+git add <file1>
+git commit -m "feat: 機能A"
+git add <file2>
+git commit -m "fix: 修正B"
+
+# 方法2: interactive rebase
+git rebase -i origin/main
+# エディタでpick/fixup/squashを編集
+```
+
+意味のある単位の例：
+- 新機能追加 + その機能のi18n対応 → 1コミット
+- 既存ファイルの修正（カテゴリ変更など） → 別コミット
 
 ### アーキテクチャ変更時
 - アーキテクチャガイドを先に更新
