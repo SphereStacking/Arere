@@ -1,10 +1,7 @@
 {
   "actions": {
-    "git-hooks-path": {
-      "description": "git hooks パスを設定"
-    },
-    "git-hooks-init": {
-      "description": "git hooks ディレクトリを初期化"
+    "git-hooks-setup": {
+      "description": "git hooks ディレクトリをセットアップ"
     }
   }
 }
