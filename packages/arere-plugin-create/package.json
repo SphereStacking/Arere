@@ -1,18 +1,32 @@
 {
   "name": "arere-plugin-create",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Create new Arere actions and plugins from interactive prompts",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist", "src", "actions", "stubs", "locales"],
+  "files": [
+    "dist",
+    "src",
+    "actions",
+    "stubs",
+    "locales"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["arere", "plugin", "create", "scaffold", "action", "cli", "developer-experience"],
+  "keywords": [
+    "arere",
+    "plugin",
+    "create",
+    "scaffold",
+    "action",
+    "cli",
+    "developer-experience"
+  ],
   "author": "SphereStacking <sphere.stacking@gmail.com>",
   "license": "MIT",
   "repository": {

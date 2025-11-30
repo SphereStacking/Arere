@@ -1,18 +1,30 @@
 {
   "name": "arere-plugin-tutorial",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Tutorial plugin for 'arere' - demonstrates i18n and external dependencies",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
-  "files": ["dist", "actions", "locales", "README.md", "TEMPLATE.md"],
+  "files": [
+    "dist",
+    "actions",
+    "locales",
+    "README.md",
+    "TEMPLATE.md"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["arere", "arere-plugin", "cli", "launcher", "tutorial"],
+  "keywords": [
+    "arere",
+    "arere-plugin",
+    "cli",
+    "launcher",
+    "tutorial"
+  ],
   "author": "SphereStacking <sphere.stacking@gmail.com>",
   "license": "MIT",
   "repository": {
