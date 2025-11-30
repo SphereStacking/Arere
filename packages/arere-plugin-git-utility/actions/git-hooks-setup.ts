@@ -2,7 +2,7 @@ import { chmodSync, existsSync, mkdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { defineAction } from 'arere'
 
-const HOOK_TYPES = [
+const HOOK_TYPES: string[] = [
   'pre-commit',
   'pre-push',
   'commit-msg',
@@ -10,7 +10,7 @@ const HOOK_TYPES = [
   'post-commit',
   'post-checkout',
   'post-merge',
-] as const
+]
 
 function generateHookTemplate(hookName: string): string {
   return `#!/bin/sh
