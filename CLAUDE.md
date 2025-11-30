@@ -414,6 +414,42 @@ Hardcoding is allowed only in these cases:
 3. **Monorepo command context** → running tests from root vs package gives different results
 4. **Plugin naming** → must start with `arere-plugin-` for auto-detection
 5. **Not handling shell executor errors** → `$` returns result with `exitCode`, doesn't throw
+
+## 🔍 Implementation Rules
+
+### Type Definition Verification Required
+
+**CRITICAL**: Before implementing new features or APIs, **always verify type definitions first**.
+
+**❌ Bad**: Assuming API structure from memory or past code
+```typescript
+// Bad - Assuming prompt is directly in context
+run: async ({ $, tui, prompt, t }) => {
+  await prompt.select(...)  // ❌ prompt doesn't exist here!
+}
+```
+
+**✅ Good**: Check type definitions before implementation
+```typescript
+// 1. First check: packages/arere/src/domain/action/types.ts
+// 2. Verify ActionContext interface structure
+// 3. Then implement correctly:
+run: async ({ $, tui, t }) => {
+  const { prompt, output } = tui  // ✅ prompt is inside tui
+  await prompt.select(...)
+}
+```
+
+**Key Type Definition Files**:
+- `packages/arere/src/domain/action/types.ts` - ActionContext, PromptAPI, TuiAPI
+- `packages/arere/src/domain/plugin/types.ts` - Plugin types
+- `packages/arere/src/infrastructure/config/schema.ts` - Config schema
+
+**When to Verify**:
+- When writing action `run` functions
+- When using prompt/output/control APIs
+- When accessing config or plugin features
+- When implementing new plugin actions
 ## Directory Conventions
 
 ### User-Facing Directories
