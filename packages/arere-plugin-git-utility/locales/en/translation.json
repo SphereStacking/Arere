@@ -1,0 +1,10 @@
+{
+  "actions": {
+    "git-hooks-path": {
+      "description": "Configure git hooks path"
+    },
+    "git-hooks-init": {
+      "description": "Initialize git hooks directory"
+    }
+  }
+}
