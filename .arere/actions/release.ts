@@ -8,6 +8,41 @@ interface PackageInfo {
   path: string
 }
 
+const translations = {
+  en: {
+    description: 'Trigger GitHub Actions release workflow',
+    selectPackages: 'Select packages to release:',
+    noPackagesSelected: 'No packages selected. Aborting.',
+    selectVersionType: 'Select version bump type:',
+    releasePreview: 'Release preview:',
+    dryRunConfirm: 'Dry run? (skip actual publish)',
+    triggeringWorkflow: 'Triggering release workflow...',
+    packages: 'Packages',
+    version: 'Version',
+    dryRun: 'Dry run',
+    workflowTriggered: 'Workflow triggered successfully!',
+    watchConfirm: 'Watch workflow progress?',
+    watchingWorkflow: 'Watching workflow progress...',
+    workflowFailed: 'Failed to trigger workflow',
+  },
+  ja: {
+    description: 'GitHub Actions のリリースワークフローを実行',
+    selectPackages: 'リリースするパッケージを選択:',
+    noPackagesSelected: 'パッケージが選択されていません。中止します。',
+    selectVersionType: 'バージョンの種類を選択:',
+    releasePreview: 'リリースプレビュー:',
+    dryRunConfirm: 'ドライラン？（実際の公開をスキップ）',
+    triggeringWorkflow: 'リリースワークフローを実行中...',
+    packages: 'パッケージ',
+    version: 'バージョン',
+    dryRun: 'ドライラン',
+    workflowTriggered: 'ワークフローが正常に開始されました！',
+    watchConfirm: 'ワークフローの進捗を監視しますか？',
+    watchingWorkflow: 'ワークフローの進捗を監視中...',
+    workflowFailed: 'ワークフローの実行に失敗しました',
+  },
+}
+
 function getPackages(cwd: string): PackageInfo[] {
   const packagesDir = join(cwd, 'packages')
   const dirs = readdirSync(packagesDir, { withFileTypes: true })
@@ -38,71 +73,83 @@ function bumpVersion(version: string, type: 'patch' | 'minor' | 'major'): string
 }
 
 export default defineAction({
-  name: 'release',
-  description: 'Trigger GitHub Actions release workflow',
+  description: ({ t }) => t('description'),
   category: 'dev',
-  async run({ tui, $ }) {
+  translations,
+  async run({ tui, $, t }) {
     const cwd = process.cwd()
     const packages = getPackages(cwd)
 
     // Select packages to release
-    const selectedPackages = await tui.prompt.multiSelect<PackageInfo>(
-      'Select packages to release:',
-      packages.map((pkg) => ({
-        label: `${pkg.name} (v${pkg.version})`,
-        value: pkg,
-      })),
+    const selectedPackages = await tui.prompt.multiSelect(
+      t('selectPackages'),
+      packages.map((pkg) => `${pkg.name} (v${pkg.version})`),
     )
 
     if (selectedPackages.length === 0) {
-      console.log('No packages selected. Aborting.')
+      tui.output.warn(t('noPackagesSelected'))
       return
     }
 
+    // Map selected labels back to PackageInfo
+    const selectedPackageInfos = packages.filter((pkg) =>
+      selectedPackages.includes(`${pkg.name} (v${pkg.version})`),
+    )
+
     // Select version type
-    const version = await tui.prompt.select('Select version bump type:', [
-      { label: 'patch', value: 'patch' as const },
-      { label: 'minor', value: 'minor' as const },
-      { label: 'major', value: 'major' as const },
-    ])
+    const versionType = await tui.prompt.select<'patch' | 'minor' | 'major'>(
+      t('selectVersionType'),
+      ['patch', 'minor', 'major'],
+    )
 
     // Show preview
-    console.log('')
-    console.log('📦 Release preview:')
-    for (const pkg of selectedPackages) {
-      const newVersion = bumpVersion(pkg.version, version)
-      console.log(`   ${pkg.name}: ${pkg.version} → ${newVersion}`)
+    tui.output.newline()
+    tui.output.section(t('releasePreview'))
+    for (const pkg of selectedPackageInfos) {
+      const newVersion = bumpVersion(pkg.version, versionType)
+      tui.output.info(`${pkg.name}: ${pkg.version} → ${newVersion}`)
     }
-    console.log('')
+    tui.output.newline()
 
     // Confirm
-    const dryRun = await tui.prompt.confirm('Dry run? (skip actual publish)', false)
+    const dryRun = await tui.prompt.confirm(t('dryRunConfirm'), { defaultValue: false })
 
     // Package names for workflow
-    const packageNames = selectedPackages.map((p: PackageInfo) => p.name).join(',')
+    const packageNames = selectedPackageInfos.map((p) => p.name).join(',')
 
-    console.log('')
-    console.log('🚀 Triggering release workflow...')
-    console.log(`   Packages: ${packageNames}`)
-    console.log(`   Version: ${version}`)
-    console.log(`   Dry run: ${dryRun}`)
-    console.log('')
+    tui.output.newline()
+    tui.output.section(t('triggeringWorkflow'))
+    tui.output.info(`${t('packages')}: ${packageNames}`)
+    tui.output.info(`${t('version')}: ${versionType}`)
+    tui.output.info(`${t('dryRun')}: ${dryRun}`)
+    tui.output.newline()
 
     // Trigger GitHub Actions workflow
     const result =
-      await $`gh workflow run release.yml -f version=${version} -f dry_run=${dryRun} -f packages=${packageNames}`
+      await $`gh workflow run release.yml -f version=${versionType} -f dry_run=${dryRun} -f packages=${packageNames}`
 
     if (result.exitCode === 0) {
-      console.log('✅ Workflow triggered successfully!')
-      console.log('')
-      console.log('👀 Watch progress:')
-      console.log('   gh run watch')
-      console.log('')
-      console.log('🔗 Or open in browser:')
-      console.log('   gh run list --workflow=release.yml')
+      tui.output.success(t('workflowTriggered'))
+      tui.output.newline()
+
+      // Watch workflow progress
+      const watchConfirm = await tui.prompt.confirm(t('watchConfirm'), { defaultValue: true })
+
+      if (watchConfirm) {
+        tui.output.info(t('watchingWorkflow'))
+        tui.output.newline()
+
+        // Get latest run ID
+        const listResult = await $`gh run list --workflow=release.yml --limit=1 --json databaseId --jq '.[0].databaseId'`
+        if (listResult.exitCode === 0 && listResult.stdout.trim()) {
+          const runId = listResult.stdout.trim()
+          // Watch the run (this will stream output)
+          await $`gh run watch ${runId}`
+        }
+      }
     } else {
-      console.error('❌ Failed to trigger workflow')
-      console.error(result.stderr)
+      tui.output.error(t('workflowFailed'))
+      tui.output.error(result.stderr)
     }
   },
 })
