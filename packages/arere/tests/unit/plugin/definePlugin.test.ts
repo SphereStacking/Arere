@@ -12,7 +12,6 @@ describe('definePlugin', () => {
       const plugin = definePlugin({
         meta: {
           name: 'arere-plugin-test',
-          version: '1.0.0',
         },
         actions: ['actions/hello.ts'],
       })
@@ -20,7 +19,6 @@ describe('definePlugin', () => {
       expect(plugin).toEqual({
         meta: {
           name: 'arere-plugin-test',
-          version: '1.0.0',
         },
         actions: ['actions/hello.ts'],
         locales: undefined,
@@ -36,7 +34,6 @@ describe('definePlugin', () => {
       const plugin = definePlugin({
         meta: {
           name: 'arere-plugin-full',
-          version: '2.0.0',
           description: 'Full plugin',
           author: 'Test Author',
           i18nNamespace: 'test-ns',
@@ -59,7 +56,6 @@ describe('definePlugin', () => {
       const plugin = definePlugin({
         meta: {
           name: 'arere-plugin-multi-word-name',
-          version: '1.0.0',
         },
         actions: ['actions/test.ts'],
       })
@@ -71,7 +67,6 @@ describe('definePlugin', () => {
       const plugin = definePlugin({
         meta: {
           name: 'arere-plugin-test123',
-          version: '1.0.0',
         },
         actions: ['actions/test.ts'],
       })
@@ -92,23 +87,10 @@ describe('definePlugin', () => {
     it('should throw error if meta.name is missing', () => {
       expect(() =>
         definePlugin({
-          meta: {
-            version: '1.0.0',
-          },
+          meta: {},
           actions: ['actions/test.ts'],
         } as any),
       ).toThrow('Plugin meta.name is required')
-    })
-
-    it('should throw error if meta.version is missing', () => {
-      expect(() =>
-        definePlugin({
-          meta: {
-            name: 'arere-plugin-test',
-          },
-          actions: ['actions/test.ts'],
-        } as any),
-      ).toThrow('Plugin meta.version is required')
     })
 
     it('should throw error if actions is missing', () => {
@@ -116,7 +98,6 @@ describe('definePlugin', () => {
         definePlugin({
           meta: {
             name: 'arere-plugin-test',
-            version: '1.0.0',
           },
         } as any),
       ).toThrow('Plugin actions array is required')
@@ -129,7 +110,6 @@ describe('definePlugin', () => {
         definePlugin({
           meta: {
             name: 'my-plugin',
-            version: '1.0.0',
           },
           actions: ['actions/test.ts'],
         }),
@@ -141,7 +121,6 @@ describe('definePlugin', () => {
         definePlugin({
           meta: {
             name: 'arere-plugin-MyPlugin',
-            version: '1.0.0',
           },
           actions: ['actions/test.ts'],
         }),
@@ -153,7 +132,6 @@ describe('definePlugin', () => {
         definePlugin({
           meta: {
             name: 'arere-plugin-my_plugin',
-            version: '1.0.0',
           },
           actions: ['actions/test.ts'],
         }),
@@ -165,7 +143,6 @@ describe('definePlugin', () => {
         definePlugin({
           meta: {
             name: 'arere-plugin-test@plugin',
-            version: '1.0.0',
           },
           actions: ['actions/test.ts'],
         }),
@@ -179,7 +156,6 @@ describe('definePlugin', () => {
         definePlugin({
           meta: {
             name: 'arere-plugin-test',
-            version: '1.0.0',
           },
           actions: 'actions/test.ts' as any,
         }),
@@ -191,7 +167,6 @@ describe('definePlugin', () => {
         definePlugin({
           meta: {
             name: 'arere-plugin-test',
-            version: '1.0.0',
           },
           actions: [],
         }),
@@ -203,7 +178,6 @@ describe('definePlugin', () => {
         definePlugin({
           meta: {
             name: 'arere-plugin-test',
-            version: '1.0.0',
           },
           actions: [123 as any],
         }),
@@ -217,7 +191,6 @@ describe('definePlugin', () => {
         definePlugin({
           meta: {
             name: 'arere-plugin-test',
-            version: '1.0.0',
           },
           actions: ['actions/test.ts'],
           locales: 123 as any,

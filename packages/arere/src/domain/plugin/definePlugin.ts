@@ -16,12 +16,10 @@ import type { ArerePlugin } from './types'
  * @example Basic plugin
  * ```typescript
  * import { definePlugin } from 'arere'
- * import { z } from 'zod'
  *
  * export default definePlugin({
  *   meta: {
  *     name: 'arere-plugin-example',
- *     version: '1.0.0',
  *     description: 'Example plugin',
  *     author: 'Your Name',
  *   },
@@ -34,10 +32,11 @@ import type { ArerePlugin } from './types'
  *
  * @example Plugin with i18n and config schema
  * ```typescript
+ * import { z } from 'zod'
+ *
  * export default definePlugin({
  *   meta: {
  *     name: 'arere-plugin-example',
- *     version: '1.0.0',
  *     description: 'Example plugin with i18n',
  *     i18nNamespace: 'example',
  *   },
@@ -49,6 +48,8 @@ import type { ArerePlugin } from './types'
  *   }),
  * })
  * ```
+ *
+ * Note: version is automatically read from package.json at load time
  */
 export function definePlugin(config: ArerePlugin): ArerePlugin {
   // Validate required fields
@@ -58,10 +59,6 @@ export function definePlugin(config: ArerePlugin): ArerePlugin {
 
   if (!config.meta.name) {
     throw new Error('Plugin meta.name is required')
-  }
-
-  if (!config.meta.version) {
-    throw new Error('Plugin meta.version is required')
   }
 
   // Validate plugin name format (must start with 'arere-plugin-')

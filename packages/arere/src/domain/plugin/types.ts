@@ -5,19 +5,25 @@
 import type { z } from 'zod'
 
 /**
- * Plugin metadata
+ * Plugin metadata (defined in plugin source)
  */
 export interface PluginMeta {
   /** Plugin name (must start with 'arere-plugin-') */
   name: string
-  /** Plugin version */
-  version: string
   /** Plugin description */
   description?: string
   /** Plugin author */
   author?: string
   /** i18n namespace (defaults to plugin name if not specified) */
   i18nNamespace?: string
+}
+
+/**
+ * Plugin metadata with version (after loading from package.json)
+ */
+export interface LoadedPluginMeta extends PluginMeta {
+  /** Plugin version (from package.json) */
+  version: string
 }
 
 /**
@@ -38,8 +44,8 @@ export interface ArerePlugin {
  * Loaded plugin with resolved paths
  */
 export interface LoadedPlugin {
-  /** Plugin metadata */
-  meta: PluginMeta
+  /** Plugin metadata (with version from package.json) */
+  meta: LoadedPluginMeta
   /** Absolute path to plugin directory */
   path: string
   /** Absolute paths to action files */

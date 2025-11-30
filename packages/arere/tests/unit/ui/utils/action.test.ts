@@ -121,7 +121,7 @@ describe('actionToRenderData', () => {
   it('formats category label for plugin actions', () => {
     const action = createMockAction({
       meta: { name: 'test', description: 'Test', category: 'plugin:arere-plugin-demo' },
-      pluginMeta: { name: 'Demo Plugin', version: '1.0.0', description: 'Demo' },
+      pluginMeta: { name: 'Demo Plugin', description: 'Demo' },
     })
     const context = createMockContext()
 
