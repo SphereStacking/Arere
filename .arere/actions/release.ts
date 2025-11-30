@@ -139,6 +139,9 @@ export default defineAction({
         tui.output.info(t('watchingWorkflow'))
         tui.output.newline()
 
+        // Wait a bit for the run to be created
+        await new Promise((resolve) => setTimeout(resolve, 2000))
+
         // Get latest run ID
         const listResult = await $`gh run list --workflow=release.yml --limit=1 --json databaseId --jq '.[0].databaseId'`
         if (listResult.exitCode === 0 && listResult.stdout.trim()) {
