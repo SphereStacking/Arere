@@ -163,34 +163,38 @@ npm test                   # Run tests
 ```
 
 ### Creating a New Plugin
-1. Create package in `packages/arere-plugin-{name}/`
-2. Set up `package.json` with `arere` as peerDependency
-3. Use `definePlugin()` helper in `src/index.ts`:
-   ```typescript
-   import { definePlugin } from 'arere'
-   import { z } from 'zod'
 
-   export default definePlugin({
-     meta: {
-       name: 'arere-plugin-{name}',
-       version: '1.0.0',
-       description: 'Your plugin description',
-     },
-     actions: ['actions/hello.ts'],
-     locales: 'locales',  // Optional
-     configSchema: z.object({  // Optional
-       apiKey: z.string(),
-     }),
-   })
-   ```
-4. Add action files in `actions/` directory
-5. Optional: Add `locales/` for i18n
-6. Build and link: `npm run build && npm link`
+**IMPORTANT**: Always use `arere-plugin-create` to create new plugins. Do NOT create manually.
 
-### Adding a New Action to Core
-1. Create `.ts` file in `packages/arere/.arere/` (for testing)
-2. Use `defineAction()` helper
-3. Run `arere` from package root to test
+```bash
+# Run from monorepo root
+npx arere create:plugin
+```
+
+This ensures:
+- Correct directory structure
+- `typecheck` script included in package.json
+- Proper tsconfig.json configuration
+- i18n setup (if selected)
+
+**Available templates:**
+- `minimal` - Basic plugin with single action
+- `standard` - Plugin with i18n support
+- `full` - Complete plugin with tests, config schema, and multiple example actions
+
+### Adding a New Action
+
+**IMPORTANT**: Always use `arere-plugin-create` to create new actions. Do NOT create manually.
+
+```bash
+# Run from monorepo root or plugin directory
+npx arere create:action
+```
+
+**Available templates:**
+- `basic` - Simple action
+- `with-i18n` - Action with inline translations
+- `advanced` - Action with prompts, shell commands, and i18n
 
 ### Updating i18n
 1. Edit JSON in `packages/arere/locales/{locale}/{namespace}.json`
@@ -414,6 +418,42 @@ Hardcoding is allowed only in these cases:
 3. **Monorepo command context** → running tests from root vs package gives different results
 4. **Plugin naming** → must start with `arere-plugin-` for auto-detection
 5. **Not handling shell executor errors** → `$` returns result with `exitCode`, doesn't throw
+
+## 🔍 Implementation Rules
+
+### Type Definition Verification Required
+
+**CRITICAL**: Before implementing new features or APIs, **always verify type definitions first**.
+
+**❌ Bad**: Assuming API structure from memory or past code
+```typescript
+// Bad - Assuming prompt is directly in context
+run: async ({ $, tui, prompt, t }) => {
+  await prompt.select(...)  // ❌ prompt doesn't exist here!
+}
+```
+
+**✅ Good**: Check type definitions before implementation
+```typescript
+// 1. First check: packages/arere/src/domain/action/types.ts
+// 2. Verify ActionContext interface structure
+// 3. Then implement correctly:
+run: async ({ $, tui, t }) => {
+  const { prompt, output } = tui  // ✅ prompt is inside tui
+  await prompt.select(...)
+}
+```
+
+**Key Type Definition Files**:
+- `packages/arere/src/domain/action/types.ts` - ActionContext, PromptAPI, TuiAPI
+- `packages/arere/src/domain/plugin/types.ts` - Plugin types
+- `packages/arere/src/infrastructure/config/schema.ts` - Config schema
+
+**When to Verify**:
+- When writing action `run` functions
+- When using prompt/output/control APIs
+- When accessing config or plugin features
+- When implementing new plugin actions
 ## Directory Conventions
 
 ### User-Facing Directories

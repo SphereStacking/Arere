@@ -1,4 +1,5 @@
 {
+  "greeting": "Hello from tutorial plugin (locales)!",
   "config": {
     "greeting": {
       "description": "Greeting message to use"

@@ -1,0 +1,32 @@
+{
+  "name": "arere-plugin-git-utility",
+  "version": "0.1.0",
+  "description": "Git utility actions for arere",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "actions", "locales", "README.md"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "arere",
+    "arere-plugin",
+    "git",
+    "hooks"
+  ],
+  "author": "SphereStacking <sphere.stacking@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SphereStacking/Arere.git",
+    "directory": "packages/arere-plugin-git-utility"
+  },
+  "peerDependencies": {
+    "arere": "^0.1.0"
+  },
+  "devDependencies": {}
+}
