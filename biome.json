@@ -39,7 +39,7 @@
     }
   },
   "files": {
-    "ignore": ["node_modules", "dist", "coverage", ".nuxt", "**/tests/**"]
+    "ignore": ["node_modules", "dist", "coverage", ".nuxt", "**/tests/**", "**/package*.json"]
   },
   "overrides": [
     {

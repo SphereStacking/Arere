@@ -267,8 +267,34 @@ capturedHandler?.('', { downArrow: true })  // Down arrow
 - Changes to JSON files are immediately reflected in types
 
 ### Configuration
-- VSCode-style 2-layer system: workspace (`.arere/settings.json`) + user (`~/.arere/settings.json`)
-- Priority: workspace → user → defaults
+
+**⚠️ IMPORTANT**: The configuration file format is **`.arere/settings.json`** (JSON only).
+- **NO** `arere.config.ts` or `arere.config.js` - these do NOT exist
+- **NO** TypeScript/JavaScript config files for arere settings
+
+**File Locations**:
+- Workspace: `.arere/settings.json` (project-specific)
+- User: `~/.arere/settings.json` (global)
+
+**Priority**: workspace → user → defaults
+
+**Example** (plugin configuration):
+```json
+{
+  "locale": "ja",
+  "plugins": {
+    "arere-plugin-githooks": {
+      "hooks": {
+        "pre-commit": {
+          "actions": ["lint", "typecheck"],
+          "enabled": true
+        }
+      }
+    }
+  }
+}
+```
+
 - Changes validated against Zod schema
 
 ## 🚫 Hardcoding Prohibition Rules
