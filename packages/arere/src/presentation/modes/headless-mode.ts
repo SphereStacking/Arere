@@ -25,7 +25,7 @@ import type { ExecutionMode } from './types'
 export class HeadlessMode implements ExecutionMode {
   constructor(private config: ArereConfig) {}
 
-  async run(actionName?: string): Promise<void> {
+  async run(actionName?: string, args: string[] = []): Promise<void> {
     if (!actionName) {
       console.error('Error: Action name is required in headless mode')
       console.error('Usage: arere run <action-name>')
@@ -121,7 +121,7 @@ export class HeadlessMode implements ExecutionMode {
       console.log() // Empty line for separation
 
       // Run action and collect output
-      const result = await runAction(action)
+      const result = await runAction(action, { args })
 
       // Render collected output using PlainTextRenderer
       const renderer = new PlainTextRenderer()

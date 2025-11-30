@@ -50,6 +50,7 @@ function showHelp(): void {
   const tagline = t('common:app_tagline')
   const usage = t('cli:help.usage')
   const cmdDefault = t('cli:help.commands.default')
+  const cmdRun = t('cli:help.commands.run')
   const cmdVersion = t('cli:help.commands.version')
   const cmdHelp = t('cli:help.commands.help')
   const versionLabel = t('cli:help.version_label')
@@ -58,10 +59,10 @@ function showHelp(): void {
 ${appName} - ${tagline}
 
 ${usage}:
-  arere                    ${cmdDefault}
-  arere run <action>       Run action in headless mode (for CI/CD)
-  arere --version          ${cmdVersion}
-  arere --help             ${cmdHelp}
+  arere                         ${cmdDefault}
+  arere run <action> [args...]  ${cmdRun}
+  arere --version               ${cmdVersion}
+  arere --help                  ${cmdHelp}
 
 ${versionLabel}: ${version}
   `)
@@ -71,43 +72,48 @@ ${versionLabel}: ${version}
  * Show help message for 'arere run' command
  */
 function showRunHelp(): void {
+  const title = t('cli:run_help.title')
+  const usage = t('cli:run_help.usage')
+  const usageLine = t('cli:run_help.usage_line')
+  const arguments_ = t('cli:run_help.arguments')
+  const argAction = t('cli:run_help.arg_action')
+  const argArgs = t('cli:run_help.arg_args')
+  const options = t('cli:run_help.options')
+  const optHelp = t('cli:run_help.opt_help')
+  const examples = t('cli:run_help.examples')
+  const exampleBasic = t('cli:run_help.example_basic')
+  const exampleWithArg = t('cli:run_help.example_with_arg')
+  const exampleWithFlags = t('cli:run_help.example_with_flags')
+  const accessingArgs = t('cli:run_help.accessing_args')
+
   console.log(`
-arere run - Run an action in headless mode (for CI/CD)
+${title}
 
-Usage:
-  arere run <action>       Run the specified action
+${usage}:
+  ${usageLine}
 
-Arguments:
-  <action>                 Name of the action to run (e.g., 'deploy', 'test')
+${arguments_}:
+  <action>                 ${argAction}
+  [args...]                ${argArgs}
 
-Options:
-  --help, -h               Show this help message
+${options}:
+  --help, -h               ${optHelp}
 
-Examples:
-  arere run deploy         Run the 'deploy' action
-  arere run test           Run the 'test' action
-  arere run build          Run the 'build' action
+${examples}:
+  arere run deploy                      ${exampleBasic}
+  arere run deploy production           ${exampleWithArg}
+  arere run deploy production --force   ${exampleWithFlags}
 
-Environment Variables:
-  Actions can read environment variables via 'env' in the run context:
-
-    async run({ env }) {
-      const target = env.DEPLOY_TARGET || 'staging'
+${accessingArgs}:
+  export default defineAction({
+    name: 'deploy',
+    description: 'Deploy to target environment',
+    async run({ args, tui }) {
+      const target = args[0] || 'staging'
+      const force = args.includes('--force')
+      tui.output.info(\`Deploying to \${target}...\`)
     }
-
-  Pass environment variables in your shell:
-    DEPLOY_TARGET=production arere run deploy
-
-GitHub Actions:
-  - uses: ./actions/arere-action
-    with:
-      action: deploy
-    env:
-      API_KEY: \${{ secrets.API_KEY }}
-
-Note:
-  Interactive prompts (prompt.text, prompt.select, etc.) are NOT available
-  in headless mode. Use environment variables for input instead.
+  })
   `)
 }
 
@@ -142,17 +148,18 @@ async function main() {
         return
       }
 
-      // Headless mode: arere run <action>
+      // Headless mode: arere run <action> [args...]
       const actionName = args[1]
+      const actionArgs = args.slice(2) // Everything after action name
 
       if (!actionName) {
         console.error('Error: Action name is required')
-        console.error('Usage: arere run <action-name>')
+        console.error('Usage: arere run <action-name> [args...]')
         process.exit(1)
       }
 
       const mode = new HeadlessMode(config)
-      await mode.run(actionName)
+      await mode.run(actionName, actionArgs)
     } else {
       // Handle --help (only for non-subcommand usage)
       if (args.includes('--help') || args.includes('-h')) {

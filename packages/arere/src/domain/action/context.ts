@@ -59,6 +59,8 @@ export interface CreateActionContextOptions {
   ) => void
   /** Optional callback for real-time output streaming */
   onOutput?: OutputCallback
+  /** Command line arguments passed to the action (defaults to []) */
+  args?: string[]
 }
 
 /**
@@ -95,7 +97,15 @@ export function createActionContext<TKeys extends string = string>(
   context: ActionContext<TKeys>
   outputCollector: OutputCollector
 } {
-  const { actionName, config, pluginNamespace, pluginConfig, setVisualFeedback, onOutput } = options
+  const {
+    actionName,
+    config,
+    pluginNamespace,
+    pluginConfig,
+    setVisualFeedback,
+    onOutput,
+    args = [],
+  } = options
 
   // Create scoped t function
   // For plugin actions, allow access to both action namespace and plugin namespace
@@ -170,6 +180,7 @@ export function createActionContext<TKeys extends string = string>(
     env: process.env as Record<string, string | undefined>,
     pluginConfig,
     config,
+    args,
   }
 
   return { context, outputCollector }

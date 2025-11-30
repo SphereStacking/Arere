@@ -317,6 +317,33 @@ export interface ActionContext<TKeys extends string = string> {
    * ```
    */
   config: import('@/infrastructure/config/schema').ArereConfig
+
+  /**
+   * Command line arguments passed to the action
+   *
+   * @remarks
+   * - Available when running via CLI: `arere run <action> [args...]`
+   * - Empty array `[]` when running from TUI or when no args provided
+   *
+   * @example Basic usage
+   * ```typescript
+   * export default defineAction({
+   *   name: 'deploy',
+   *   description: 'Deploy to target environment',
+   *   async run({ args, tui }) {
+   *     const target = args[0] || 'staging'
+   *     tui.output.info(`Deploying to ${target}...`)
+   *   }
+   * })
+   * ```
+   *
+   * @example With flags
+   * ```bash
+   * arere run deploy production --force --verbose
+   * # args = ['production', '--force', '--verbose']
+   * ```
+   */
+  args: string[]
 }
 
 /**

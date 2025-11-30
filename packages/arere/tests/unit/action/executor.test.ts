@@ -82,4 +82,64 @@ describe('runAction', () => {
 
     expect(result.duration).toBeGreaterThanOrEqual(10)
   })
+
+  describe('args option', () => {
+    it('should pass empty args by default', async () => {
+      const runFn = vi.fn().mockResolvedValue(undefined)
+      const action: Action = {
+        meta: {
+          name: 'test-action',
+          description: 'Test action',
+        },
+        filePath: '/test/action.ts',
+        run: runFn,
+      }
+
+      await runAction(action)
+
+      expect(runFn).toHaveBeenCalledWith(
+        expect.objectContaining({
+          args: [],
+        }),
+      )
+    })
+
+    it('should pass args to action context', async () => {
+      const runFn = vi.fn().mockResolvedValue(undefined)
+      const action: Action = {
+        meta: {
+          name: 'test-action',
+          description: 'Test action',
+        },
+        filePath: '/test/action.ts',
+        run: runFn,
+      }
+
+      await runAction(action, { args: ['production', '--force'] })
+
+      expect(runFn).toHaveBeenCalledWith(
+        expect.objectContaining({
+          args: ['production', '--force'],
+        }),
+      )
+    })
+
+    it('should allow action to access args', async () => {
+      let capturedArgs: string[] = []
+      const action: Action = {
+        meta: {
+          name: 'test-action',
+          description: 'Test action',
+        },
+        filePath: '/test/action.ts',
+        run: async (ctx) => {
+          capturedArgs = ctx.args
+        },
+      }
+
+      await runAction(action, { args: ['arg1', 'arg2', '--flag'] })
+
+      expect(capturedArgs).toEqual(['arg1', 'arg2', '--flag'])
+    })
+  })
 })

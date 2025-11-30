@@ -42,6 +42,7 @@ describe('actionToRenderData', () => {
     cwd: '/test',
     config: {},
     pluginConfig: {},
+    args: [],
   })
 
   it('creates RenderData with selectIcon for selected item', () => {
