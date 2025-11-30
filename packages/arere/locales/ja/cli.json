@@ -3,10 +3,26 @@
     "usage": "使い方",
     "commands": {
       "default": "アクションランチャーを表示",
+      "run": "ヘッドレスモードでアクションを実行（CI/CD用）",
       "version": "バージョンを表示",
       "help": "このヘルプを表示"
     },
     "version_label": "バージョン"
+  },
+  "run_help": {
+    "title": "arere run - ヘッドレスモードでアクションを実行（CI/CD用）",
+    "usage": "使い方",
+    "usage_line": "arere run <action> [args...]  指定したアクションをオプション引数付きで実行",
+    "arguments": "引数",
+    "arg_action": "実行するアクションの名前（例: 'deploy', 'test'）",
+    "arg_args": "ctx.args 経由でアクションに渡されるオプション引数",
+    "options": "オプション",
+    "opt_help": "このヘルプメッセージを表示",
+    "examples": "例",
+    "example_basic": "'deploy' アクションを実行",
+    "example_with_arg": "args: ['production'] で実行",
+    "example_with_flags": "args: ['production', '--force'] で実行",
+    "accessing_args": "アクション内での引数へのアクセス"
   },
   "loading": {
     "actions": "アクションを読み込み中..."

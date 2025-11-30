@@ -38,6 +38,8 @@ export interface RunActionOptions {
   onOutput?: OutputCallback
   /** Callback for visual feedback updates */
   onVisualFeedback?: (feedback: VisualFeedback | ((prev: VisualFeedback) => VisualFeedback)) => void
+  /** Command line arguments passed to the action (defaults to []) */
+  args?: string[]
 }
 
 /**
@@ -69,7 +71,7 @@ export async function runAction(
   action: Action,
   options: RunActionOptions = {},
 ): Promise<RunResult> {
-  const { plugins, config: providedConfig, onOutput, onVisualFeedback } = options
+  const { plugins, config: providedConfig, onOutput, onVisualFeedback, args } = options
 
   logger.info(`Running action: ${action.meta.name}`)
 
@@ -95,6 +97,7 @@ export async function runAction(
       pluginConfig,
       setVisualFeedback: onVisualFeedback,
       onOutput,
+      args,
     })
 
     // Run the action
@@ -122,6 +125,7 @@ export async function runAction(
       actionName: action.meta.name,
       config,
       onOutput,
+      args,
     })
 
     return {

@@ -3,10 +3,26 @@
     "usage": "Usage",
     "commands": {
       "default": "Show action launcher",
+      "run": "Run action in headless mode (for CI/CD)",
       "version": "Show version",
       "help": "Show this help"
     },
     "version_label": "Version"
+  },
+  "run_help": {
+    "title": "arere run - Run an action in headless mode (for CI/CD)",
+    "usage": "Usage",
+    "usage_line": "arere run <action> [args...]  Run the specified action with optional arguments",
+    "arguments": "Arguments",
+    "arg_action": "Name of the action to run (e.g., 'deploy', 'test')",
+    "arg_args": "Optional arguments passed to the action via ctx.args",
+    "options": "Options",
+    "opt_help": "Show this help message",
+    "examples": "Examples",
+    "example_basic": "Run the 'deploy' action",
+    "example_with_arg": "Run with args: ['production']",
+    "example_with_flags": "Run with args: ['production', '--force']",
+    "accessing_args": "Accessing arguments in actions"
   },
   "loading": {
     "actions": "Loading actions..."

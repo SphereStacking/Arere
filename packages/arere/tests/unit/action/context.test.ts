@@ -82,4 +82,50 @@ describe('createActionContext', () => {
 
     expect(typeof context.t).toBe('function')
   })
+
+  describe('args property', () => {
+    it('should have args property as empty array by default', () => {
+      const { context } = createActionContext({
+        actionName: 'test-action',
+        config: defaultConfig,
+      })
+
+      expect(context.args).toBeDefined()
+      expect(Array.isArray(context.args)).toBe(true)
+      expect(context.args).toEqual([])
+    })
+
+    it('should pass args when provided', () => {
+      const { context } = createActionContext({
+        actionName: 'test-action',
+        config: defaultConfig,
+        args: ['arg1', 'arg2', '--flag'],
+      })
+
+      expect(context.args).toEqual(['arg1', 'arg2', '--flag'])
+    })
+
+    it('should handle empty args array', () => {
+      const { context } = createActionContext({
+        actionName: 'test-action',
+        config: defaultConfig,
+        args: [],
+      })
+
+      expect(context.args).toEqual([])
+    })
+
+    it('should preserve args order', () => {
+      const { context } = createActionContext({
+        actionName: 'test-action',
+        config: defaultConfig,
+        args: ['production', '--force', '--verbose', 'extra'],
+      })
+
+      expect(context.args[0]).toBe('production')
+      expect(context.args[1]).toBe('--force')
+      expect(context.args[2]).toBe('--verbose')
+      expect(context.args[3]).toBe('extra')
+    })
+  })
 })

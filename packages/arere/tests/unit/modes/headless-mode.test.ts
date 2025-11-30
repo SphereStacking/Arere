@@ -89,4 +89,33 @@ describe('HeadlessMode', () => {
       expect(processExitSpy).toHaveBeenCalledWith(1)
     })
   })
+
+  describe('args parameter', () => {
+    it('should accept args as second parameter', async () => {
+      const mode = new HeadlessMode(config)
+
+      // run() should accept args without throwing
+      await mode.run('non-existent-action', ['arg1', 'arg2'])
+
+      // Verify it ran (will fail because action doesn't exist, but args should be accepted)
+      expect(processExitSpy).toHaveBeenCalledWith(1)
+    })
+
+    it('should default args to empty array', async () => {
+      const mode = new HeadlessMode(config)
+
+      // run() with only action name should work
+      await mode.run('non-existent-action')
+
+      expect(processExitSpy).toHaveBeenCalledWith(1)
+    })
+
+    it('should accept empty args array', async () => {
+      const mode = new HeadlessMode(config)
+
+      await mode.run('non-existent-action', [])
+
+      expect(processExitSpy).toHaveBeenCalledWith(1)
+    })
+  })
 })
