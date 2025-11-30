@@ -2,11 +2,13 @@ import { defineAction } from 'arere'
 
 export default defineAction({
   description: 'plugin:actions.git-branch-clean.description',
-  run: async ({ $, tui, prompt, t }) => {
+  run: async ({ $, tui, t }) => {
+    const { prompt, output } = tui
+
     // Check if we're in a git repository
     const gitCheck = await $`git rev-parse --is-inside-work-tree`
     if (gitCheck.exitCode !== 0) {
-      tui.output.error(t('plugin:notGitRepository'))
+      output.error(t('plugin:notGitRepository'))
       return
     }
 
@@ -21,26 +23,26 @@ export default defineAction({
       defaultBranch = defaultBranchResult.stdout.trim().replace('refs/remotes/origin/', '')
     }
 
-    tui.output.info(t('plugin:branchClean.currentBranch', { branch: currentBranch }))
-    tui.output.info(t('plugin:branchClean.defaultBranch', { branch: defaultBranch }))
-    tui.output.newline()
+    output.info(t('plugin:branchClean.currentBranch', { branch: currentBranch }))
+    output.info(t('plugin:branchClean.defaultBranch', { branch: defaultBranch }))
+    output.newline()
 
     // Step 1: Fetch and prune remote tracking branches
-    tui.output.section(t('plugin:branchClean.fetchingPruning'))
+    output.section(t('plugin:branchClean.fetchingPruning'))
     const fetchResult = await $`git fetch --prune`
     if (fetchResult.exitCode !== 0) {
-      tui.output.warn(t('plugin:branchClean.fetchFailed'))
+      output.warn(t('plugin:branchClean.fetchFailed'))
     } else {
-      tui.output.success(t('plugin:branchClean.fetchSuccess'))
+      output.success(t('plugin:branchClean.fetchSuccess'))
     }
-    tui.output.newline()
+    output.newline()
 
     // Step 2: Find merged local branches
-    tui.output.section(t('plugin:branchClean.findingMerged'))
+    output.section(t('plugin:branchClean.findingMerged'))
 
     const mergedResult = await $`git branch --merged ${defaultBranch}`
     if (mergedResult.exitCode !== 0) {
-      tui.output.error(t('plugin:branchClean.getMergedFailed'))
+      output.error(t('plugin:branchClean.getMergedFailed'))
       return
     }
 
@@ -52,13 +54,13 @@ export default defineAction({
       )
 
     if (mergedBranches.length === 0) {
-      tui.output.success(t('plugin:branchClean.noMergedBranches'))
+      output.success(t('plugin:branchClean.noMergedBranches'))
       return
     }
 
-    tui.output.info(t('plugin:branchClean.foundBranches', { count: mergedBranches.length }))
-    tui.output.list(mergedBranches)
-    tui.output.newline()
+    output.info(t('plugin:branchClean.foundBranches', { count: mergedBranches.length }))
+    output.list(mergedBranches)
+    output.newline()
 
     // Ask user to select branches to delete
     const selectedBranches = await prompt.multiSelect(t('plugin:branchClean.selectBranches'), {
@@ -69,7 +71,7 @@ export default defineAction({
     })
 
     if (selectedBranches.length === 0) {
-      tui.output.info(t('plugin:branchClean.noBranchesSelected'))
+      output.info(t('plugin:branchClean.noBranchesSelected'))
       return
     }
 
@@ -79,22 +81,22 @@ export default defineAction({
     )
 
     if (!confirm) {
-      tui.output.info(t('plugin:cancelled'))
+      output.info(t('plugin:cancelled'))
       return
     }
 
     // Delete selected branches
-    tui.output.newline()
+    output.newline()
     for (const branch of selectedBranches) {
       const deleteResult = await $`git branch -d ${branch}`
       if (deleteResult.exitCode === 0) {
-        tui.output.success(t('plugin:branchClean.deleted', { branch }))
+        output.success(t('plugin:branchClean.deleted', { branch }))
       } else {
-        tui.output.error(t('plugin:branchClean.deleteFailed', { branch }))
+        output.error(t('plugin:branchClean.deleteFailed', { branch }))
       }
     }
 
-    tui.output.newline()
-    tui.output.success(t('plugin:branchClean.complete'))
+    output.newline()
+    output.success(t('plugin:branchClean.complete'))
   },
 })
