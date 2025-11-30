@@ -1,0 +1,31 @@
+{
+  "name": "arere-plugin-githooks",
+  "version": "0.1.0",
+  "description": "Git hooks plugin for 'arere' - run the same TypeScript actions locally, in git hooks, and in CI/CD",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "files": ["dist", "actions", "README.md"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["arere", "arere-plugin", "git-hooks", "pre-commit", "pre-push", "husky-alternative"],
+  "author": "SphereStacking <sphere.stacking@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SphereStacking/Arere.git",
+    "directory": "packages/arere-plugin-githooks"
+  },
+  "bugs": {
+    "url": "https://github.com/SphereStacking/Arere/issues"
+  },
+  "homepage": "https://github.com/SphereStacking/Arere/tree/main/packages/arere-plugin-githooks#readme",
+  "peerDependencies": {
+    "arere": "^0.1.0"
+  }
+}
