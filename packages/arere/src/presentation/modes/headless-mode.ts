@@ -120,14 +120,15 @@ export class HeadlessMode implements ExecutionMode {
       console.log(`Running action: ${action.meta.name}`)
       console.log() // Empty line for separation
 
-      // Run action and collect output
-      const result = await runAction(action, { args })
-
-      // Render collected output using PlainTextRenderer
+      // Create renderer for real-time output
       const renderer = new PlainTextRenderer()
-      const messages = result.outputCollector.getMessages()
 
-      for (const message of messages) {
+      // Helper to render a message
+      const renderMessage = (message: {
+        type: string
+        content: unknown
+        meta?: Record<string, unknown>
+      }) => {
         switch (message.type) {
           case 'log':
             renderer.log(message.content)
@@ -163,16 +164,30 @@ export class HeadlessMode implements ExecutionMode {
             renderer.table(message.content as Record<string, unknown>[])
             break
           case 'json':
-            renderer.json(message.content, message.meta?.indent)
+            renderer.json(message.content, message.meta?.indent as number | undefined)
             break
           case 'separator':
-            renderer.separator(message.meta?.char, message.meta?.length)
+            renderer.separator(
+              message.meta?.char as string | undefined,
+              message.meta?.length as number | undefined,
+            )
             break
           case 'step':
-            renderer.step(message.meta?.number ?? 0, String(message.content))
+            renderer.step((message.meta?.number as number) ?? 0, String(message.content))
             break
         }
       }
+
+      // Run action with real-time output streaming
+      const plugins = pluginManager.getPlugins()
+      const result = await runAction(action, {
+        args,
+        plugins,
+        onOutput: renderMessage,
+      })
+
+      // Messages are already rendered via onOutput callback
+      const messages = result.outputCollector.getMessages()
 
       if (messages.length > 0) {
         console.log() // Empty line after output
