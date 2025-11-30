@@ -6,5 +6,47 @@
     "git-branch-clean": {
       "description": "Clean up merged branches"
     }
+  },
+  "notGitRepository": "Not a git repository",
+  "cancelled": "Cancelled",
+  "hooksSetup": {
+    "currentPath": "Current hooks path: {{path}}",
+    "currentPathDefault": "Current hooks path: .git/hooks (default)",
+    "selectAction": "What would you like to do?",
+    "options": {
+      "setup": "Setup new hooks directory",
+      "change": "Change hooks path only",
+      "reset": "Reset to default (.git/hooks)",
+      "custom": "Enter custom path..."
+    },
+    "resetFailed": "Failed to reset core.hooksPath",
+    "resetSuccess": "Reset hooks path to default (.git/hooks)",
+    "selectDirectory": "Select hooks directory:",
+    "enterCustomPath": "Enter hooks directory path:",
+    "setPathFailed": "Failed to set core.hooksPath",
+    "setPathSuccess": "Set core.hooksPath to: {{path}}",
+    "createdDirectory": "Created directory: {{path}}",
+    "directoryExists": "Directory exists: {{path}}",
+    "selectHooks": "Select hooks to create:",
+    "skippedExists": "Skipped (exists): {{name}}",
+    "created": "Created: {{name}}",
+    "editHooksIn": "Edit your hooks in: {{path}}/"
+  },
+  "branchClean": {
+    "currentBranch": "Current branch: {{branch}}",
+    "defaultBranch": "Default branch: {{branch}}",
+    "fetchingPruning": "Fetching and pruning remote tracking branches...",
+    "fetchFailed": "Failed to fetch from remote",
+    "fetchSuccess": "Remote tracking branches updated",
+    "findingMerged": "Finding merged local branches...",
+    "getMergedFailed": "Failed to get merged branches",
+    "noMergedBranches": "No merged branches to clean up",
+    "foundBranches": "Found {{count}} merged branch(es):",
+    "selectBranches": "Select branches to delete:",
+    "noBranchesSelected": "No branches selected",
+    "confirmDelete": "Delete {{count}} branch(es)? This cannot be undone.",
+    "deleted": "Deleted: {{branch}}",
+    "deleteFailed": "Failed to delete: {{branch}}",
+    "complete": "Branch cleanup complete!"
   }
 }

@@ -6,5 +6,47 @@
     "git-branch-clean": {
       "description": "マージ済みブランチを削除"
     }
+  },
+  "notGitRepository": "git リポジトリではありません",
+  "cancelled": "キャンセルしました",
+  "hooksSetup": {
+    "currentPath": "現在の hooks パス: {{path}}",
+    "currentPathDefault": "現在の hooks パス: .git/hooks (デフォルト)",
+    "selectAction": "何をしますか？",
+    "options": {
+      "setup": "新しい hooks ディレクトリをセットアップ",
+      "change": "hooks パスのみ変更",
+      "reset": "デフォルトにリセット (.git/hooks)",
+      "custom": "カスタムパスを入力..."
+    },
+    "resetFailed": "core.hooksPath のリセットに失敗しました",
+    "resetSuccess": "hooks パスをデフォルト (.git/hooks) にリセットしました",
+    "selectDirectory": "hooks ディレクトリを選択:",
+    "enterCustomPath": "hooks ディレクトリのパスを入力:",
+    "setPathFailed": "core.hooksPath の設定に失敗しました",
+    "setPathSuccess": "core.hooksPath を設定しました: {{path}}",
+    "createdDirectory": "ディレクトリを作成しました: {{path}}",
+    "directoryExists": "ディレクトリは存在します: {{path}}",
+    "selectHooks": "作成する hooks を選択:",
+    "skippedExists": "スキップ (存在): {{name}}",
+    "created": "作成しました: {{name}}",
+    "editHooksIn": "hooks を編集: {{path}}/"
+  },
+  "branchClean": {
+    "currentBranch": "現在のブランチ: {{branch}}",
+    "defaultBranch": "デフォルトブランチ: {{branch}}",
+    "fetchingPruning": "リモート追跡ブランチを取得・整理中...",
+    "fetchFailed": "リモートからの取得に失敗しました",
+    "fetchSuccess": "リモート追跡ブランチを更新しました",
+    "findingMerged": "マージ済みローカルブランチを検索中...",
+    "getMergedFailed": "マージ済みブランチの取得に失敗しました",
+    "noMergedBranches": "削除するマージ済みブランチはありません",
+    "foundBranches": "{{count}} 個のマージ済みブランチを発見:",
+    "selectBranches": "削除するブランチを選択:",
+    "noBranchesSelected": "ブランチが選択されていません",
+    "confirmDelete": "{{count}} 個のブランチを削除しますか？この操作は取り消せません。",
+    "deleted": "削除しました: {{branch}}",
+    "deleteFailed": "削除に失敗しました: {{branch}}",
+    "complete": "ブランチのクリーンアップが完了しました！"
   }
 }

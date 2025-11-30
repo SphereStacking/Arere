@@ -1,12 +1,12 @@
 import { defineAction } from 'arere'
 
 export default defineAction({
-  description: 'Clean up merged branches (local and remote tracking)',
-  run: async ({ $, tui, prompt }) => {
+  description: 'plugin:actions.git-branch-clean.description',
+  run: async ({ $, tui, prompt, t }) => {
     // Check if we're in a git repository
     const gitCheck = await $`git rev-parse --is-inside-work-tree`
     if (gitCheck.exitCode !== 0) {
-      tui.output.error('Not a git repository')
+      tui.output.error(t('plugin:notGitRepository'))
       return
     }
 
@@ -21,26 +21,26 @@ export default defineAction({
       defaultBranch = defaultBranchResult.stdout.trim().replace('refs/remotes/origin/', '')
     }
 
-    tui.output.info(`Current branch: ${currentBranch}`)
-    tui.output.info(`Default branch: ${defaultBranch}`)
+    tui.output.info(t('plugin:branchClean.currentBranch', { branch: currentBranch }))
+    tui.output.info(t('plugin:branchClean.defaultBranch', { branch: defaultBranch }))
     tui.output.newline()
 
     // Step 1: Fetch and prune remote tracking branches
-    tui.output.section('Fetching and pruning remote tracking branches...')
+    tui.output.section(t('plugin:branchClean.fetchingPruning'))
     const fetchResult = await $`git fetch --prune`
     if (fetchResult.exitCode !== 0) {
-      tui.output.warn('Failed to fetch from remote')
+      tui.output.warn(t('plugin:branchClean.fetchFailed'))
     } else {
-      tui.output.success('Remote tracking branches updated')
+      tui.output.success(t('plugin:branchClean.fetchSuccess'))
     }
     tui.output.newline()
 
     // Step 2: Find merged local branches
-    tui.output.section('Finding merged local branches...')
+    tui.output.section(t('plugin:branchClean.findingMerged'))
 
     const mergedResult = await $`git branch --merged ${defaultBranch}`
     if (mergedResult.exitCode !== 0) {
-      tui.output.error('Failed to get merged branches')
+      tui.output.error(t('plugin:branchClean.getMergedFailed'))
       return
     }
 
@@ -52,16 +52,16 @@ export default defineAction({
       )
 
     if (mergedBranches.length === 0) {
-      tui.output.success('No merged branches to clean up')
+      tui.output.success(t('plugin:branchClean.noMergedBranches'))
       return
     }
 
-    tui.output.info(`Found ${mergedBranches.length} merged branch(es):`)
+    tui.output.info(t('plugin:branchClean.foundBranches', { count: mergedBranches.length }))
     tui.output.list(mergedBranches)
     tui.output.newline()
 
     // Ask user to select branches to delete
-    const selectedBranches = await prompt.multiSelect('Select branches to delete:', {
+    const selectedBranches = await prompt.multiSelect(t('plugin:branchClean.selectBranches'), {
       options: mergedBranches.map((branch) => ({
         label: branch,
         value: branch,
@@ -69,17 +69,17 @@ export default defineAction({
     })
 
     if (selectedBranches.length === 0) {
-      tui.output.info('No branches selected')
+      tui.output.info(t('plugin:branchClean.noBranchesSelected'))
       return
     }
 
     // Confirm deletion
     const confirm = await prompt.confirm(
-      `Delete ${selectedBranches.length} branch(es)? This cannot be undone.`,
+      t('plugin:branchClean.confirmDelete', { count: selectedBranches.length }),
     )
 
     if (!confirm) {
-      tui.output.info('Cancelled')
+      tui.output.info(t('plugin:cancelled'))
       return
     }
 
@@ -88,13 +88,13 @@ export default defineAction({
     for (const branch of selectedBranches) {
       const deleteResult = await $`git branch -d ${branch}`
       if (deleteResult.exitCode === 0) {
-        tui.output.success(`Deleted: ${branch}`)
+        tui.output.success(t('plugin:branchClean.deleted', { branch }))
       } else {
-        tui.output.error(`Failed to delete: ${branch}`)
+        tui.output.error(t('plugin:branchClean.deleteFailed', { branch }))
       }
     }
 
     tui.output.newline()
-    tui.output.success('Branch cleanup complete!')
+    tui.output.success(t('plugin:branchClean.complete'))
   },
 })
