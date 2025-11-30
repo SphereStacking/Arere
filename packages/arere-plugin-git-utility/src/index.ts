@@ -7,6 +7,6 @@ export default definePlugin({
     description: 'Git utility actions for arere',
     i18nNamespace: 'git-utility',
   },
-  actions: ['actions/git-hooks-setup.ts'],
+  actions: ['actions/git-hooks-setup.ts', 'actions/git-branch-clean.ts'],
   locales: 'locales',
 })

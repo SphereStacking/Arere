@@ -2,6 +2,9 @@
   "actions": {
     "git-hooks-setup": {
       "description": "git hooks ディレクトリをセットアップ"
+    },
+    "git-branch-clean": {
+      "description": "マージ済みブランチを削除"
     }
   }
 }
