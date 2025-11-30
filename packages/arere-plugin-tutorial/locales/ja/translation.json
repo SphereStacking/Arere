@@ -1,4 +1,5 @@
 {
+  "greeting": "チュートリアルプラグインからこんにちは（locales）！",
   "config": {
     "greeting": {
       "description": "使用する挨拶メッセージ"

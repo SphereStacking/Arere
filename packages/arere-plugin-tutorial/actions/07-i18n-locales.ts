@@ -88,7 +88,10 @@ t('plugin:greeting')
 t('inline_greeting')`)
 
     // Try plugin translation
+    // Note: plugin: prefix accesses plugin's locales directory at runtime
+    // TypeScript only knows about inline translations, so we use @ts-expect-error
     try {
+      // @ts-expect-error - plugin: prefix is resolved at runtime
       const pluginMessage = t('plugin:greeting')
       tui.output.success(`plugin: ${pluginMessage}`)
     } catch {
