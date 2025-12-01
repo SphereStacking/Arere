@@ -118,4 +118,27 @@ describe('HeadlessMode', () => {
       expect(processExitSpy).toHaveBeenCalledWith(1)
     })
   })
+
+  describe('--help flag', () => {
+    it('should detect --help flag in args', async () => {
+      const mode = new HeadlessMode(config)
+
+      // --help should still require action to exist first
+      await mode.run('non-existent-action', ['--help'])
+
+      // Should exit with error because action doesn't exist
+      expect(consoleErrorSpy).toHaveBeenCalledWith('Error: Action "non-existent-action" not found')
+      expect(processExitSpy).toHaveBeenCalledWith(1)
+    })
+
+    it('should detect -h flag in args', async () => {
+      const mode = new HeadlessMode(config)
+
+      await mode.run('non-existent-action', ['-h'])
+
+      // Should exit with error because action doesn't exist
+      expect(consoleErrorSpy).toHaveBeenCalledWith('Error: Action "non-existent-action" not found')
+      expect(processExitSpy).toHaveBeenCalledWith(1)
+    })
+  })
 })

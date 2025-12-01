@@ -6,6 +6,8 @@ import { loadActions } from '@/core/loader'
 import { ActionRegistry } from '@/core/registry'
 import { findActionsWithPriority } from '@/core/resolver'
 import { runAction } from '@/domain/action/executor'
+import type { Action } from '@/domain/action/types'
+import { analyzeActionArgs, formatArgsHelp } from '@/infrastructure/args/analyzer'
 import type { ArereConfig } from '@/infrastructure/config/schema'
 import { registerTranslations, t } from '@/infrastructure/i18n/index'
 import { PlainTextRenderer } from '@/infrastructure/output/plain-renderer'
@@ -25,12 +27,47 @@ import type { ExecutionMode } from './types'
 export class HeadlessMode implements ExecutionMode {
   constructor(private config: ArereConfig) {}
 
+  /**
+   * Show help for an action
+   */
+  private showActionHelp(action: Action): void {
+    const meta = analyzeActionArgs(action.filePath)
+
+    if (meta) {
+      // Override with actual action meta if available
+      if (action.meta.name) {
+        meta.name = action.meta.name
+      }
+      if (typeof action.meta.description === 'string') {
+        meta.description = action.meta.description
+      }
+
+      console.log(formatArgsHelp(meta))
+    } else {
+      // Fallback if static analysis fails
+      console.log(action.meta.name)
+      if (typeof action.meta.description === 'string') {
+        console.log(`  ${action.meta.description}`)
+      }
+      console.log()
+      console.log('No CLI arguments available for this action.')
+    }
+
+    // Show additional info
+    console.log()
+    console.log('Usage:')
+    console.log(`  arere run ${action.meta.name} [options]`)
+  }
+
   async run(actionName?: string, args: string[] = []): Promise<void> {
     if (!actionName) {
       console.error('Error: Action name is required in headless mode')
       console.error('Usage: arere run <action-name>')
       process.exit(1)
     }
+
+    // Check if --help is requested for the action
+    const showHelp = args.includes('--help') || args.includes('-h')
 
     try {
       // Disable logger output in headless mode (only show errors)
@@ -114,6 +151,12 @@ export class HeadlessMode implements ExecutionMode {
           console.error(`  - ${a.meta.name}`)
         }
         process.exit(1)
+      }
+
+      // Show help and exit if --help is requested
+      if (showHelp) {
+        this.showActionHelp(action)
+        process.exit(0)
       }
 
       // Run action
