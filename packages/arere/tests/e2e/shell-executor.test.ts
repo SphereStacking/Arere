@@ -5,8 +5,8 @@
  * return proper results (stdout, stderr, exitCode).
  */
 
-import { defineAction } from '@/domain/action/defineAction.js'
-import { runAction } from '@/domain/action/executor.js'
+import { defineAction } from '@/action/define.js'
+import { runAction } from '@/action/executor.js'
 import { describe, expect, it } from 'vitest'
 
 describe('E2E: Shell Executor', () => {

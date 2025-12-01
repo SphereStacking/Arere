@@ -2,7 +2,7 @@
  * Tests for ConfirmInput component
  */
 
-import { ConfirmInput } from '@/presentation/ui/components/inputs/ConfirmInput.js'
+import { ConfirmInput } from '@/ui/components/inputs/ConfirmInput.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'

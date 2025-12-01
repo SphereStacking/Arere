@@ -2,8 +2,8 @@
  * Integration tests for headless mode with prompts
  */
 
-import { createReadLineBackend } from '@/infrastructure/prompt/backends/readline-backend.js'
-import { clearPromptHandler, setPromptHandler } from '@/infrastructure/prompt/renderer.js'
+import { createReadLineBackend } from '@/ui/prompts/backends/readline-backend.js'
+import { clearPromptHandler, setPromptHandler } from '@/ui/prompts/renderer.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 describe('Headless mode prompt integration', () => {

@@ -2,7 +2,7 @@
  * Tests for defineAction function
  */
 
-import { defineAction } from '@/domain/action/defineAction.js'
+import { defineAction } from '@/action/define.js'
 import { describe, expect, it } from 'vitest'
 
 describe('defineAction', () => {

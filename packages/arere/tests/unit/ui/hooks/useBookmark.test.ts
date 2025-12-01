@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { useSettingsStore } from '@/presentation/ui/stores/settingsStore'
-import { useBookmark } from '@/presentation/ui/hooks/useBookmark'
-import type { ArereConfig } from '@/infrastructure/config/schema'
-import type { Action, ActionLocation } from '@/domain/action/types'
-import { createBookmarkId, isBookmarked } from '@/domain/bookmark/utils'
+import { useSettingsStore } from '@/ui/stores/settingsStore'
+import { useBookmark } from '@/ui/hooks/useBookmark'
+import type { ArereConfig } from '@/config/schema'
+import type { Action, ActionLocation } from '@/action/types'
+import { createBookmarkId, isBookmarked } from '@/ui/bookmark/utils'
 
 // Helper to create mock action
 function createMockAction(

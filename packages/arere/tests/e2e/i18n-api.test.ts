@@ -8,9 +8,9 @@
  * won't have translations registered.
  */
 
-import { defineAction } from '@/domain/action/defineAction.js'
-import { runAction } from '@/domain/action/executor.js'
-import { registerTranslations } from '@/infrastructure/i18n/index.js'
+import { defineAction } from '@/action/define.js'
+import { runAction } from '@/action/executor.js'
+import { registerTranslations } from '@/i18n/index.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 describe('E2E: i18n API', () => {

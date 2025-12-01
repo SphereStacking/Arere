@@ -3,7 +3,7 @@
  */
 
 import { join } from 'node:path'
-import { findActions, findActionsWithPriority } from '@/core/resolver.js'
+import { findActions, findActionsWithPriority } from '@/action/resolver.js'
 import { describe, expect, it } from 'vitest'
 
 describe('Action resolver', () => {

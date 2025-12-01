@@ -7,13 +7,13 @@
  * - Tests verify correct manager interactions
  */
 
-import { ConfigService } from '@/application/services/ConfigService.js'
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
-import type { ConfigLayer } from '@/infrastructure/config/types.js'
+import { ConfigService } from '@/config/service.js'
+import type { ArereConfig } from '@/config/schema.js'
+import type { ConfigLayer } from '@/config/types.js'
 import { type Mock, beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Mock FileConfigManager
-vi.mock('@/infrastructure/config/manager.js', () => {
+vi.mock('@/config/manager.js', () => {
   return {
     FileConfigManager: vi.fn().mockImplementation(() => ({
       loadMerged: vi.fn(),
@@ -27,11 +27,11 @@ vi.mock('@/infrastructure/config/manager.js', () => {
 })
 
 // Mock Infrastructure dependencies
-vi.mock('@/infrastructure/i18n/index.js', () => ({
+vi.mock('@/i18n/index.js', () => ({
   changeLocale: vi.fn(),
 }))
 
-vi.mock('@/shared/utils/logger.js', () => ({
+vi.mock('@/lib/logger.js', () => ({
   setLogLevel: vi.fn(),
   logger: {
     debug: vi.fn(),
@@ -41,9 +41,9 @@ vi.mock('@/shared/utils/logger.js', () => ({
   },
 }))
 
-import { FileConfigManager } from '@/infrastructure/config/manager.js'
-import { changeLocale } from '@/infrastructure/i18n/index.js'
-import { setLogLevel } from '@/shared/utils/logger.js'
+import { FileConfigManager } from '@/config/manager.js'
+import { changeLocale } from '@/i18n/index.js'
+import { setLogLevel } from '@/lib/logger.js'
 
 describe('ConfigService (Unified Config Manager)', () => {
   let service: ConfigService

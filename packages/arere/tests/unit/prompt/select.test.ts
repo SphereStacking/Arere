@@ -2,9 +2,9 @@
  * Tests for select prompt
  */
 
-import { clearPromptHandler, setPromptHandler } from '@/infrastructure/prompt/renderer.js'
-import type { PromptRequest } from '@/infrastructure/prompt/renderer.js'
-import { select } from '@/infrastructure/prompt/select.js'
+import { clearPromptHandler, setPromptHandler } from '@/ui/prompts/renderer.js'
+import type { PromptRequest } from '@/ui/prompts/renderer.js'
+import { select } from '@/ui/prompts/select.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 describe('select', () => {

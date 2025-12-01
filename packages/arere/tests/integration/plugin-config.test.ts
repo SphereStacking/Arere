@@ -4,10 +4,10 @@
 
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import type { LoadedPlugin } from '@/domain/plugin/types.js'
-import { FileConfigManager } from '@/infrastructure/config/manager.js'
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
-import { createPluginManager } from '@/infrastructure/plugin/index.js'
+import type { LoadedPlugin } from '@/plugin/types.js'
+import { FileConfigManager } from '@/config/manager.js'
+import type { ArereConfig } from '@/config/schema.js'
+import { createPluginManager } from '@/plugin/index.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { z } from 'zod'
 

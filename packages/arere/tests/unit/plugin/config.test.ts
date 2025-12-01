@@ -2,8 +2,8 @@
  * Plugin configuration tests
  */
 
-import type { PluginPackageInfo } from '@/infrastructure/plugin/detector.js'
-import { loadPlugin } from '@/infrastructure/plugin/loader.js'
+import type { PluginPackageInfo } from '@/plugin/detector.js'
+import { loadPlugin } from '@/plugin/loader.js'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { z } from 'zod'
 

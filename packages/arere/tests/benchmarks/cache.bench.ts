@@ -5,7 +5,7 @@
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { CacheManager } from '@/core/cache.js'
+import { CacheManager } from '@/action/cache.js'
 import { beforeEach, bench, describe } from 'vitest'
 
 describe('Cache System Performance', () => {

@@ -2,12 +2,12 @@
  * Tests for kaomoji selector
  */
 
-import { faces } from '@/domain/kaomoji/faces'
+import { faces } from '@/ui/kaomoji/faces'
 import {
   getFacesByCategory,
   getFallbackFace,
   getRandomFace,
-} from '@/domain/kaomoji/selector'
+} from '@/ui/kaomoji/selector'
 import { describe, expect, it } from 'vitest'
 
 describe('kaomoji selector', () => {

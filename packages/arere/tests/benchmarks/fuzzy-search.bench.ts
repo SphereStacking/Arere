@@ -2,7 +2,7 @@
  * Benchmark tests for fuzzy search performance
  */
 
-import type { Action } from '@/domain/action/types.js'
+import type { Action } from '@/action/types.js'
 import fuzzysort from 'fuzzysort'
 import { bench, describe } from 'vitest'
 

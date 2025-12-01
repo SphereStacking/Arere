@@ -2,7 +2,7 @@
  * Format transformers unit tests
  */
 
-import { applyFormat } from '@/infrastructure/prompt/formatters'
+import { applyFormat } from '@/ui/prompts/formatters'
 import { describe, expect, it } from 'vitest'
 
 describe('applyFormat', () => {

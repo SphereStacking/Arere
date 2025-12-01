@@ -4,7 +4,7 @@ import {
   formatKeyBindingString,
   parseUserKeyBinding,
   parseUserKeyBindings,
-} from '@/infrastructure/keybindings/parser'
+} from '@/ui/keybindings/parser'
 
 describe('parseKeyBinding', () => {
   it('should parse simple character key', () => {

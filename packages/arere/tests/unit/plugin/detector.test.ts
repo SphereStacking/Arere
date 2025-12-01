@@ -2,7 +2,7 @@
  * Tests for plugin detector
  */
 
-import { detectPlugins } from '@/infrastructure/plugin/detector.js'
+import { detectPlugins } from '@/plugin/detector.js'
 import { describe, expect, it } from 'vitest'
 
 describe('detectPlugins', () => {

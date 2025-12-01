@@ -4,11 +4,11 @@
  * SettingsScreen uses Zustand stores for state, so tests mock the stores.
  */
 
-import type { LoadedPlugin } from '@/domain/plugin/types.js'
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
-import { SettingsScreen as Settings } from '@/presentation/ui/screens/settings/SettingsScreen.js'
-import { useScreenStore } from '@/presentation/ui/stores/screenStore.js'
-import { useSettingsStore } from '@/presentation/ui/stores/settingsStore.js'
+import type { LoadedPlugin } from '@/plugin/types.js'
+import type { ArereConfig } from '@/config/schema.js'
+import { SettingsScreen as Settings } from '@/ui/screens/settings/SettingsScreen.js'
+import { useScreenStore } from '@/ui/stores/screenStore.js'
+import { useSettingsStore } from '@/ui/stores/settingsStore.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'

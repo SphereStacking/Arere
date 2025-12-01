@@ -2,8 +2,8 @@
  * Tests for ActionRegistry
  */
 
-import { ActionRegistry } from '@/core/registry.js'
-import type { Action } from '@/domain/action/types.js'
+import { ActionRegistry } from '@/action/registry.js'
+import type { Action } from '@/action/types.js'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('ActionRegistry', () => {

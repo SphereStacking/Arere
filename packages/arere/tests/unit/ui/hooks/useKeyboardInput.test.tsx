@@ -12,8 +12,8 @@
  * - 's' for settings
  */
 
-import type { UseKeyboardInputProps } from '@/presentation/ui/hooks/app/useKeyboardInput.js'
-import type { ScreenState } from '@/presentation/ui/types.js'
+import type { UseKeyboardInputProps } from '@/ui/hooks/app/useKeyboardInput.js'
+import type { ScreenState } from '@/ui/types.js'
 import { Text } from 'ink'
 import { render } from 'ink-testing-library'
 import React from 'react'
@@ -36,7 +36,7 @@ vi.mock('ink', async () => {
 })
 
 // Import after mocking
-const { useKeyboardInput } = await import('@/presentation/ui/hooks/app/useKeyboardInput.js')
+const { useKeyboardInput } = await import('@/ui/hooks/app/useKeyboardInput.js')
 
 // Test component that uses the hook
 const TestComponent: React.FC<UseKeyboardInputProps> = (props) => {

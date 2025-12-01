@@ -2,7 +2,7 @@
  * Tests for nested value utilities
  */
 
-import { deleteNestedValue, getNestedValue, setNestedValue } from '@/infrastructure/config/utils.js'
+import { deleteNestedValue, getNestedValue, setNestedValue } from '@/config/utils.js'
 import { describe, expect, it } from 'vitest'
 
 describe('setNestedValue', () => {

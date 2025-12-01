@@ -2,9 +2,9 @@
  * Tests for PluginManager
  */
 
-import type { Action } from '@/domain/action/types.js'
-import { PluginManager, type PluginManagerDependencies } from '@/domain/plugin/manager.js'
-import type { LoadedPlugin } from '@/domain/plugin/types.js'
+import type { Action } from '@/action/types.js'
+import { PluginManager, type PluginManagerDependencies } from '@/plugin/manager.js'
+import type { LoadedPlugin } from '@/plugin/types.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('PluginManager', () => {

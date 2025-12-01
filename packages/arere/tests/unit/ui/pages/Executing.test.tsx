@@ -4,10 +4,10 @@
  * ExecutingScreen uses Zustand stores for state, so tests mock the stores.
  */
 
-import type { Action } from '@/domain/action/types.js'
-import type { VisualFeedback } from '@/domain/types/control.js'
-import { ExecutingScreen as Executing } from '@/presentation/ui/screens/execution/ExecutingScreen.js'
-import { useExecutionStore } from '@/presentation/ui/stores/executionStore.js'
+import type { Action } from '@/action/types.js'
+import type { VisualFeedback } from '@/ui/control/types.js'
+import { ExecutingScreen as Executing } from '@/ui/screens/execution/ExecutingScreen.js'
+import { useExecutionStore } from '@/ui/stores/executionStore.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'

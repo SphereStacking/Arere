@@ -2,8 +2,8 @@
  * Test for PluginRow component
  */
 
-import type { LoadedPlugin } from '@/domain/plugin/types.js'
-import { PluginRow } from '@/presentation/ui/screens/settings/components/PluginRow.js'
+import type { LoadedPlugin } from '@/plugin/types.js'
+import { PluginRow } from '@/ui/screens/settings/components/PluginRow.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { beforeEach, describe, expect, it } from 'vitest'

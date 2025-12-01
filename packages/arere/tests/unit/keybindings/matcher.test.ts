@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { matchKey, matchAny, createKeyMatcher } from '@/infrastructure/keybindings/matcher'
-import { defaultKeyBindings } from '@/infrastructure/keybindings/defaults'
-import type { KeyBinding } from '@/domain/keybindings/types'
-import type { InkKey } from '@/infrastructure/keybindings/matcher'
+import { matchKey, matchAny, createKeyMatcher } from '@/ui/keybindings/matcher'
+import { defaultKeyBindings } from '@/ui/keybindings/defaults'
+import type { KeyBinding } from '@/ui/keybindings/types'
+import type { InkKey } from '@/ui/keybindings/matcher'
 
 describe('matchKey', () => {
   it('should match simple character key', () => {

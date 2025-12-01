@@ -2,8 +2,8 @@
  * Tests for headless mode execution
  */
 
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
-import { HeadlessMode } from '@/presentation/modes/headless-mode.js'
+import type { ArereConfig } from '@/config/schema.js'
+import { HeadlessMode } from '@/modes/headless-mode.js'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('HeadlessMode', () => {

@@ -3,8 +3,8 @@
  */
 
 import { join } from 'node:path'
-import { loadAction, loadActions } from '@/core/loader.js'
-import { ActionLoadError } from '@/shared/utils/error.js'
+import { loadAction, loadActions } from '@/action/loader.js'
+import { ActionLoadError } from '@/lib/error.js'
 import { describe, expect, it } from 'vitest'
 
 describe('Action loader', () => {

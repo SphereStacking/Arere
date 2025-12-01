@@ -2,10 +2,10 @@
  * Tests for ActionList component
  */
 
-import type { Action, ActionLocation } from '@/domain/action/types.js'
-import { ActionList } from '@/presentation/ui/components/ActionList.js'
-import { useSettingsStore } from '@/presentation/ui/stores/settingsStore.js'
-import { defaultConfig, type ArereConfig } from '@/infrastructure/config/schema.js'
+import type { Action, ActionLocation } from '@/action/types.js'
+import { ActionList } from '@/ui/components/ActionList.js'
+import { useSettingsStore } from '@/ui/stores/settingsStore.js'
+import { defaultConfig, type ArereConfig } from '@/config/schema.js'
 import { render } from 'ink-testing-library'
 import React, { act } from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -27,12 +27,12 @@ vi.mock('ink', async () => {
 
 // Mock useTerminalSize to control terminal width in tests
 let mockColumns = 120
-vi.mock('@/presentation/ui/hooks/useTerminalSize', () => ({
+vi.mock('@/ui/hooks/useTerminalSize', () => ({
   useTerminalSize: () => ({ columns: mockColumns, rows: 24 }),
 }))
 
 // Mock useMouseScroll to avoid process.stdin issues in tests
-vi.mock('@/presentation/ui/hooks/useMouseScroll', () => ({
+vi.mock('@/ui/hooks/useMouseScroll', () => ({
   useMouseScroll: () => {},
 }))
 

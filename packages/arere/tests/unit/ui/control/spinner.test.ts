@@ -2,8 +2,8 @@
  * Spinner control tests
  */
 
-import { createSpinnerControl } from '@/presentation/ui/control/spinner.js'
-import type { VisualFeedback } from '@/presentation/ui/control/types.js'
+import { createSpinnerControl } from '@/ui/control/spinner.js'
+import type { VisualFeedback } from '@/ui/control/types.js'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('createSpinnerControl()', () => {

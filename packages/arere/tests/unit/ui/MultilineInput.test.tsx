@@ -5,7 +5,7 @@
  * We focus on basic rendering behavior.
  */
 
-import { MultilineInput } from '@/presentation/ui/components/MultilineInput.js'
+import { MultilineInput } from '@/ui/components/MultilineInput.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { describe, expect, it, vi } from 'vitest'

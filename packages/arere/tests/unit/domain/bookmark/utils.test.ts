@@ -3,9 +3,9 @@ import {
   createBookmarkId,
   isBookmarked,
   parseBookmarkId,
-} from '@/domain/bookmark/utils'
-import type { Action, ActionLocation } from '@/domain/action/types'
-import type { BookmarkId } from '@/domain/bookmark/types'
+} from '@/ui/bookmark/utils'
+import type { Action, ActionLocation } from '@/action/types'
+import type { BookmarkId } from '@/ui/bookmark/types'
 
 // Helper to create mock action
 function createMockAction(

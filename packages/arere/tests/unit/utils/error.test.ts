@@ -8,7 +8,7 @@ import {
   ActionNotFoundError,
   ArereError,
   formatError,
-} from '@/shared/utils/error.js'
+} from '@/lib/error.js'
 import { describe, expect, it } from 'vitest'
 
 describe('Error utilities', () => {

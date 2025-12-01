@@ -2,8 +2,8 @@
  * Tests for override detection logic
  */
 
-import { getOverriddenKeys, isKeyOverridden } from '@/infrastructure/config/override-detector.js'
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
+import { getOverriddenKeys, isKeyOverridden } from '@/config/override-detector.js'
+import type { ArereConfig } from '@/config/schema.js'
 import { describe, expect, it } from 'vitest'
 
 describe('getOverriddenKeys', () => {

@@ -2,7 +2,7 @@
  * Tests for configuration schema
  */
 
-import { configSchema, defaultConfig } from '@/infrastructure/config/schema.js'
+import { configSchema, defaultConfig } from '@/config/schema.js'
 import { describe, expect, it } from 'vitest'
 
 describe('Configuration schema', () => {

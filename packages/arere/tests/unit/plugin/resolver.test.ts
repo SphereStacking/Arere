@@ -20,7 +20,7 @@ vi.mock('node:fs')
 import {
   clearGlobalNodeModulesCache,
   getGlobalNodeModules,
-} from '@/infrastructure/plugin/resolver.js'
+} from '@/plugin/resolver.js'
 
 describe('getGlobalNodeModules', () => {
   afterEach(() => {

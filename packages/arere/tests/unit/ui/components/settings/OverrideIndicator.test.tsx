@@ -2,7 +2,7 @@
  * Tests for OverrideIndicator component
  */
 
-import { OverrideIndicator } from '@/presentation/ui/screens/settings/components/OverrideIndicator.js'
+import { OverrideIndicator } from '@/ui/screens/settings/components/OverrideIndicator.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { describe, expect, it } from 'vitest'

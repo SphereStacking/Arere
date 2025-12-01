@@ -2,10 +2,10 @@
  * Tests for SelectInput component
  */
 
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
-import { defaultKeyBindings } from '@/infrastructure/keybindings/index.js'
-import { SelectInput } from '@/presentation/ui/components/inputs/SelectInput.js'
-import { AppContext } from '@/presentation/ui/AppContext.js'
+import type { ArereConfig } from '@/config/schema.js'
+import { defaultKeyBindings } from '@/ui/keybindings/index.js'
+import { SelectInput } from '@/ui/components/inputs/SelectInput.js'
+import { AppContext } from '@/ui/AppContext.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'

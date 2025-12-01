@@ -2,8 +2,8 @@
  * Tests for action executor
  */
 
-import { runAction } from '@/domain/action/executor.js'
-import type { Action } from '@/domain/action/types.js'
+import { runAction } from '@/action/executor.js'
+import type { Action } from '@/action/types.js'
 import { describe, expect, it, vi } from 'vitest'
 
 describe('runAction', () => {

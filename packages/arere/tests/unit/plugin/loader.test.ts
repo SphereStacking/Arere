@@ -3,10 +3,19 @@
  */
 
 import { resolve } from 'node:path'
-import type { PluginPackageInfo } from '@/infrastructure/plugin/detector.js'
-import { loadPlugin, loadPluginActions } from '@/infrastructure/plugin/loader.js'
-import { PluginLoadError } from '@/shared/utils/error.js'
-import { describe, expect, it } from 'vitest'
+import type { PluginPackageInfo } from '@/plugin/detector.js'
+import { loadPlugin, loadPluginActions } from '@/plugin/loader.js'
+import { PluginLoadError } from '@/lib/error.js'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+// Mock i18n module to track registerTranslations calls
+vi.mock('@/i18n/index.js', async () => {
+  const actual = await vi.importActual('@/i18n/index.js')
+  return {
+    ...actual,
+    registerTranslations: vi.fn(),
+  }
+})
 
 describe('loadPlugin', () => {
   const tutorialPluginPath = resolve(process.cwd(), '../arere-plugin-tutorial')
@@ -240,5 +249,69 @@ describe('Plugin dependency resolution (jiti integration)', () => {
     // This verifies that jiti creates proper contexts for plugin resolution
     expect(plugin).toBeDefined()
     expect(plugin.meta.name).toBe('arere-plugin-tutorial')
+  })
+})
+
+describe('Plugin action translations', () => {
+  const tutorialPluginPath = resolve(process.cwd(), '../arere-plugin-tutorial')
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  afterEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it('should register inline translations when loading plugin actions', async () => {
+    const { registerTranslations } = await import('@/i18n/index.js')
+
+    const packageInfo: PluginPackageInfo = {
+      name: 'arere-plugin-tutorial',
+      path: tutorialPluginPath,
+      packageJson: {
+        name: 'arere-plugin-tutorial',
+        version: '1.0.0',
+        main: 'dist/index.js',
+      },
+    }
+
+    const plugin = await loadPlugin(packageInfo)
+    const actions = await loadPluginActions(plugin)
+
+    // Find actions with translations (tutorial plugin has actions with inline translations)
+    const actionsWithTranslations = actions.filter((a) => a.translations)
+
+    // registerTranslations should have been called for each action with translations
+    expect(actionsWithTranslations.length).toBeGreaterThan(0)
+    expect(registerTranslations).toHaveBeenCalledTimes(actionsWithTranslations.length)
+
+    // Verify it was called with correct arguments
+    for (const action of actionsWithTranslations) {
+      expect(registerTranslations).toHaveBeenCalledWith(action.meta.name, action.translations)
+    }
+  })
+
+  it('should not call registerTranslations for actions without translations', async () => {
+    const { registerTranslations } = await import('@/i18n/index.js')
+
+    const plugin = {
+      meta: {
+        name: 'plugin-without-translations',
+        version: '1.0.0',
+        description: 'Plugin for testing',
+        author: 'test',
+      },
+      path: tutorialPluginPath,
+      actionPaths: [resolve(tutorialPluginPath, 'actions/01-hello-world.ts')],
+      i18nNamespace: 'plugin-without-translations',
+      enabled: true,
+    }
+
+    const actions = await loadPluginActions(plugin)
+
+    // 01-hello-world.ts has no inline translations
+    const actionsWithTranslations = actions.filter((a) => a.translations)
+    expect(registerTranslations).toHaveBeenCalledTimes(actionsWithTranslations.length)
   })
 })

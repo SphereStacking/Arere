@@ -2,7 +2,7 @@
  * Tests for definePlugin helper function
  */
 
-import { definePlugin } from '@/domain/plugin/definePlugin.js'
+import { definePlugin } from '@/plugin/define.js'
 import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
 

@@ -2,8 +2,8 @@
  * Unit tests for registerTranslations function
  */
 
-import { changeLocale, initI18n, registerTranslations } from '@/infrastructure/i18n/index.js'
-import { translationManager } from '@/infrastructure/i18n/manager.js'
+import { changeLocale, initI18n, registerTranslations } from '@/i18n/index.js'
+import { translationManager } from '@/i18n/manager.js'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 // Helper for tests: use translationManager directly for namespace:key format

@@ -2,7 +2,7 @@
  * Tests for shell executor
  */
 
-import { createShellExecutor } from '@/infrastructure/shell/executor.js'
+import { createShellExecutor } from '@/shell/executor.js'
 import { describe, expect, it } from 'vitest'
 
 describe('createShellExecutor', () => {

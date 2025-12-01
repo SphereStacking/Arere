@@ -2,7 +2,7 @@
  * Tests for useTerminalSize hook
  */
 
-import { isTerminalTooSmall, useTerminalSize } from '@/presentation/ui/hooks/useTerminalSize.js'
+import { isTerminalTooSmall, useTerminalSize } from '@/ui/hooks/useTerminalSize.js'
 import { Text } from 'ink'
 import { render } from 'ink-testing-library'
 import React from 'react'

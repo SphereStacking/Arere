@@ -2,9 +2,9 @@
  * Tests for configuration merging (VSCode-style 2-layer system)
  */
 
-import { defaultConfig, type ArereConfig } from '@/infrastructure/config/schema.js'
-import type { LayeredConfig } from '@/infrastructure/config/types.js'
-import { type PluginConfigValue, mergeConfigs } from '@/infrastructure/config/utils.js'
+import { defaultConfig, type ArereConfig } from '@/config/schema.js'
+import type { LayeredConfig } from '@/config/types.js'
+import { type PluginConfigValue, mergeConfigs } from '@/config/utils.js'
 import { describe, expect, it } from 'vitest'
 
 describe('mergeConfigs', () => {

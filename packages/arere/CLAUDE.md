@@ -82,35 +82,29 @@ npm run test:watch         # Watch mode
 npm run test:coverage      # With coverage report
 ```
 
-**Coverage Target**: 90%+ (current: 816 tests)
+**Coverage Target**: 90%+ (current: 1166 tests)
 
 ## Architecture Overview
 
-> **📝 Architecture Documentation**
->
-> For details on Clean Architecture / Layered Architecture, see the following documents:
-> - **[Architecture Guide](docs/content/en/4.development/1.architecture-guide.md)** - Layer structure, responsibilities, data flow
-> - **[Testing Guide](docs/content/en/4.development/2.testing-guide.md)** - TDD principles, test patterns
->
-> **⚠️ Update Policy**:
-> - When architecture changes, **always update** the above documents
-> - This CLAUDE.md contains only an overview; details are consolidated in the above documents
+The codebase uses a **Feature-based Architecture** where related code is grouped by feature rather than by layer:
 
-### Layer Structure Overview
+### Directory Structure
 
 ```
 src/
-├── core/                # Core Layer - Action loading system
-├── domain/              # Domain Layer - Business logic & types
-├── infrastructure/      # Infrastructure Layer - External systems
-├── application/         # Application Layer - Use cases
-├── presentation/        # Presentation Layer - UI
-└── shared/              # Shared Layer - Common utilities
+├── action/              # Action system (types, loading, execution, context)
+├── plugin/              # Plugin system (detection, loading, management)
+├── config/              # Configuration management (schema, manager, paths)
+├── i18n/                # Internationalization (translations, scoped T)
+├── shell/               # Shell execution ($ tagged template)
+├── ui/                  # Terminal UI (React/Ink components, screens, stores)
+├── modes/               # Execution modes (UI mode, headless mode)
+└── lib/                 # Shared utilities (logger, error, path)
 ```
 
 **Path Alias**: `@/*` → `./src/*`
 
-### Traditional Description (Reference)
+### High-Level Flow
 
 1. **CLI Entry** (`src/cli.ts`) → Config loading → i18n initialization → React/Ink app
 2. **Action System** - Dynamic loading of TypeScript actions using jiti
@@ -150,26 +144,23 @@ export default definePlugin({
 })
 ```
 
-**Plugin layer structure (Clean Architecture):**
+**Plugin directory structure:**
 ```
-src/
-├── domain/plugin/           # Domain Layer - Pure business logic
-│   ├── types.ts             # PluginMeta, ArerePlugin, LoadedPlugin types
-│   ├── definePlugin.ts      # definePlugin() pure function
-│   └── manager.ts           # PluginManager (dependency injection pattern)
-│
-└── infrastructure/plugin/   # Infrastructure Layer - External systems
-    ├── detector.ts          # detectPlugins (FS dependent)
-    ├── resolver.ts          # getGlobalNodeModules (system command dependent)
-    ├── loader.ts            # loadPlugin, loadPluginActions (jiti dependent)
-    └── index.ts             # createPluginManager() factory function
+src/plugin/
+├── types.ts           # PluginMeta, ArerePlugin, LoadedPlugin types
+├── define.ts          # definePlugin() helper function
+├── manager.ts         # PluginManager class
+├── detector.ts        # detectPlugins (scans node_modules)
+├── resolver.ts        # getGlobalNodeModules (system paths)
+├── loader.ts          # loadPlugin, loadPluginActions (jiti loading)
+├── service.ts         # PluginService (toggle, enable/disable)
+└── index.ts           # Public exports
 ```
 
-**Dependency Injection pattern:**
+**Usage:**
 ```typescript
-// PluginManager is in Domain layer and has no direct dependency on Infrastructure layer
-// createPluginManager() injects dependencies to create the instance
-const pluginManager = createPluginManager()  // Used from Infrastructure layer
+import { createPluginManager } from '@/plugin'
+const pluginManager = createPluginManager()
 await pluginManager.loadAll(config)
 ```
 
@@ -269,7 +260,7 @@ Implementation uses Node's `spawn()` with `/bin/sh -c`, escapes arguments safely
 
 **Layer System**:
 - VSCode-style 2-layer system with priority: workspace → user → defaults
-- **Schema**: Validated with Zod (`src/infrastructure/config/schema.ts`)
+- **Schema**: Validated with Zod (`src/config/schema.ts`)
 - **Locations**:
   - Workspace: `.arere/settings.json` (project-specific)
   - User: `~/.arere/settings.json` (global)
@@ -354,7 +345,7 @@ capturedHandler?.('', { downArrow: true }) // Down arrow
 - UI interaction components: 85%+
 - Core business logic: 95%+
 
-Current coverage: **90%+** (816 tests)
+Current coverage: **90%+** (1166 tests)
 
 ## Code Style
 
@@ -369,36 +360,47 @@ Current coverage: **90%+** (816 tests)
 src/
 ├── cli.ts                     # Entry point
 ├── index.ts                   # Public API exports
-├── infrastructure/
-│   ├── config/                # Configuration system
-│   │   ├── manager.ts         # FileConfigManager unified implementation
-│   │   ├── errors.ts          # Config-specific error classes
-│   │   ├── schema.ts          # Zod validation schemas + defaultConfig
-│   │   ├── types.ts           # ConfigLayer and related types
-│   │   ├── utils.ts           # Utility functions (merge, nested-value)
-│   │   ├── override-detector.ts # Override detection for UI
-│   │   └── paths.ts           # Config file path resolution
-├── core/                      # Action loading (jiti + resolver + registry)
-├── action/                    # Action types, context, executor
-├── plugin/                    # Plugin detection, loading, management
-├── shell/                     # $ tagged template executor
-├── prompt/                    # Prompt functions (text, select, confirm, etc.)
-├── i18n/                      # i18next setup + dynamic registration
-├── ui/                        # Ink/React components
-│   ├── App.tsx                # Main application component
-│   ├── AppContext.tsx         # Application context provider
+├── action/                    # Action system
+│   ├── types.ts               # Action, ActionContext types
+│   ├── define.ts              # defineAction() helper
+│   ├── context.ts             # createActionContext()
+│   ├── executor.ts            # runAction()
+│   ├── loader.ts              # loadAction() with jiti
+│   ├── registry.ts            # ActionRegistry
+│   └── resolver.ts            # Action path resolution
+├── plugin/                    # Plugin system
+│   ├── types.ts               # Plugin types
+│   ├── define.ts              # definePlugin() helper
+│   ├── manager.ts             # PluginManager
+│   ├── detector.ts            # Plugin detection
+│   ├── loader.ts              # Plugin loading
+│   └── service.ts             # PluginService
+├── config/                    # Configuration
+│   ├── schema.ts              # Zod schemas + defaultConfig
+│   ├── manager.ts             # FileConfigManager
+│   ├── paths.ts               # Config file paths
+│   └── utils.ts               # Merge utilities
+├── i18n/                      # Internationalization
+│   ├── index.ts               # initI18n(), t()
+│   ├── manager.ts             # TranslationManager
+│   └── types.ts               # Translation key types
+├── shell/                     # Shell execution
+│   └── executor.ts            # $ tagged template
+├── modes/                     # Execution modes
+│   ├── ui-mode.ts             # Interactive TUI mode
+│   └── headless-mode.ts       # CLI mode (arere run)
+├── ui/                        # Terminal UI
+│   ├── App.tsx                # Main application
 │   ├── screens/               # Screen components
-│   │   ├── execution/         # ExecutingScreen, ErrorScreen, SuccessScreen
-│   │   ├── help/              # HelpScreen
-│   │   ├── home/components/   # ActionList, ActionFuzzySearch
-│   │   ├── prompt/            # PromptScreen + input components
-│   │   └── settings/          # SettingsScreen + plugins/ + components/
-│   ├── components/            # Shared components (Header, Footer, Spinner, etc.)
-│   ├── routing/               # ScreenRouter
-│   ├── hooks/                 # Custom React hooks
-│   │   └── app/               # State management hooks
-│   └── utils/                 # UI utilities (schema-to-fields, etc.)
-└── utils/                     # Logger, error, path utilities
+│   ├── components/            # Shared components
+│   ├── stores/                # Zustand stores
+│   ├── hooks/                 # React hooks
+│   ├── prompts/               # Prompt implementations
+│   └── keybindings/           # Keybinding system
+└── lib/                       # Shared utilities
+    ├── logger.ts              # Logger
+    ├── error.ts               # Error utilities
+    └── path.ts                # Path utilities
 ```
 
 ## Important Constraints

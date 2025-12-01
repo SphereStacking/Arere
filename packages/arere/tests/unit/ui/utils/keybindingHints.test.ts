@@ -4,7 +4,7 @@ import {
   formatKeyBindings,
   formatHintItem,
   formatHints,
-} from '@/presentation/ui/utils/keybindingHints'
+} from '@/ui/utils/keybindingHints'
 
 describe('formatKeyBinding', () => {
   it('should format simple character key', () => {

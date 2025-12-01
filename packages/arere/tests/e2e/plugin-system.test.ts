@@ -3,11 +3,11 @@
  */
 
 import { resolve } from 'node:path'
-import { runAction } from '@/domain/action/executor.js'
-import { detectPlugins } from '@/infrastructure/plugin/detector.js'
-import { type PluginManager, createPluginManager } from '@/infrastructure/plugin/index.js'
-import { loadPlugin, loadPluginActions } from '@/infrastructure/plugin/loader.js'
-import { clearPromptHandler, setPromptHandler } from '@/infrastructure/prompt/renderer.js'
+import { runAction } from '@/action/executor.js'
+import { detectPlugins } from '@/plugin/detector.js'
+import { type PluginManager, createPluginManager } from '@/plugin/index.js'
+import { loadPlugin, loadPluginActions } from '@/plugin/loader.js'
+import { clearPromptHandler, setPromptHandler } from '@/ui/prompts/renderer.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 describe('E2E: Plugin System', () => {

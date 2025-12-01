@@ -5,10 +5,10 @@
  * Full integration testing is complex, so we focus on basic rendering and structure.
  */
 
-import type { Action } from '@/domain/action/types.js'
-import type { LoadedPlugin } from '@/domain/plugin/types.js'
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
-import { App } from '@/presentation/ui/App.js'
+import type { Action } from '@/action/types.js'
+import type { LoadedPlugin } from '@/plugin/types.js'
+import type { ArereConfig } from '@/config/schema.js'
+import { App } from '@/ui/App.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'

@@ -5,13 +5,13 @@
  * a mock prompt handler that simulates user input.
  */
 
-import { defineAction } from '@/domain/action/defineAction.js'
-import { runAction } from '@/domain/action/executor.js'
+import { defineAction } from '@/action/define.js'
+import { runAction } from '@/action/executor.js'
 import {
   clearPromptHandler,
   type PromptRequest,
   setPromptHandler,
-} from '@/infrastructure/prompt/index.js'
+} from '@/ui/prompts/index.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 describe('E2E: Form API', () => {

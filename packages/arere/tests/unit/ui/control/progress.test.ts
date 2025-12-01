@@ -2,8 +2,8 @@
  * Progress control tests
  */
 
-import { createProgressControl } from '@/presentation/ui/control/progress.js'
-import type { VisualFeedback } from '@/presentation/ui/control/types.js'
+import { createProgressControl } from '@/ui/control/progress.js'
+import type { VisualFeedback } from '@/ui/control/types.js'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('createProgressControl()', () => {

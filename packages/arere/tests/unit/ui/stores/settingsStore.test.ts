@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { useSettingsStore } from '@/presentation/ui/stores/settingsStore'
-import type { ArereConfig } from '@/infrastructure/config/schema'
+import { useSettingsStore } from '@/ui/stores/settingsStore'
+import type { ArereConfig } from '@/config/schema'
 
 describe('settingsStore - bookmark functionality', () => {
   beforeEach(() => {
