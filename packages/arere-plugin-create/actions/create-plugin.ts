@@ -27,6 +27,9 @@ export default defineAction({
       pattern: /^[a-z0-9-]+$/,
       maxLength: 50,
       placeholder: 'example',
+      arg: 'name',
+      argShort: 'n',
+      description: 'Plugin name (without arere-plugin- prefix)',
       validate: (value) => {
         if (!value) {
           return t('plugin:createPlugin.validation.required')
@@ -38,6 +41,9 @@ export default defineAction({
     // Step 2: Description
     const description = await tui.prompt.text(t('plugin:createPlugin.prompt.description'), {
       placeholder: 'My awesome arere plugin',
+      arg: 'description',
+      argShort: 'd',
+      description: 'Plugin description',
       validate: (value) => {
         if (!value) {
           return t('plugin:createPlugin.validation.required')
@@ -51,6 +57,9 @@ export default defineAction({
     const author = await tui.prompt.text(t('plugin:createPlugin.prompt.author'), {
       placeholder: gitAuthor || 'Your Name',
       defaultValue: gitAuthor,
+      arg: 'author',
+      argShort: 'a',
+      description: 'Author name',
     })
 
     // Step 4: Email (with git config default)
@@ -58,6 +67,9 @@ export default defineAction({
     const authorEmail = await tui.prompt.text(t('plugin:createPlugin.prompt.email'), {
       placeholder: gitEmail || 'you@example.com',
       defaultValue: gitEmail,
+      arg: 'email',
+      argShort: 'e',
+      description: 'Author email',
       validate: (value) => {
         if (!value) {
           return t('plugin:createPlugin.validation.required')
@@ -89,6 +101,11 @@ export default defineAction({
           description: t('plugin:createPlugin.templates.full.description'),
         },
       ],
+      {
+        arg: 'template',
+        argShort: 't',
+        description: 'Template type (minimal/standard/full)',
+      },
     )
 
     // Step 6: Output Directory
@@ -96,6 +113,9 @@ export default defineAction({
     const outputDir = await tui.prompt.text(t('plugin:createPlugin.prompt.outputDir'), {
       placeholder: defaultOutputDir,
       defaultValue: defaultOutputDir,
+      arg: 'output-dir',
+      argShort: 'o',
+      description: 'Output directory',
     })
 
     const resolvedOutputDir = resolve(outputDir)
@@ -105,6 +125,12 @@ export default defineAction({
       await stat(resolvedOutputDir)
       const overwrite = await tui.prompt.confirm(
         t('plugin:createPlugin.prompt.overwrite', { dir: resolvedOutputDir }),
+        {
+          defaultValue: false,
+          arg: 'overwrite',
+          argShort: 'y',
+          description: 'Overwrite existing directory',
+        },
       )
       if (!overwrite) {
         tui.output.info(t('plugin:createPlugin.cancelled'))

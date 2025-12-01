@@ -141,23 +141,17 @@ async function main() {
     const subcommand = args[0]
 
     if (subcommand === 'run') {
-      // Handle arere run --help
-      const runArgs = args.slice(1)
-      if (runArgs.includes('--help') || runArgs.includes('-h')) {
-        showRunHelp()
-        return
-      }
-
       // Headless mode: arere run <action> [args...]
       const actionName = args[1]
       const actionArgs = args.slice(2) // Everything after action name
 
-      if (!actionName) {
-        console.error('Error: Action name is required')
-        console.error('Usage: arere run <action-name> [args...]')
-        process.exit(1)
+      // Handle arere run --help (without action name)
+      if (!actionName || actionName === '--help' || actionName === '-h') {
+        showRunHelp()
+        return
       }
 
+      // Pass to HeadlessMode (handles action-specific --help)
       const mode = new HeadlessMode(config)
       await mode.run(actionName, actionArgs)
     } else {

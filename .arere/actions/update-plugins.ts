@@ -148,13 +148,27 @@ export default defineAction({
       return
     }
 
-    // Select packages to update
-    const choices = updatable.map((pkg) => ({
-      label: `${pkg.name} (${pkg.current} → ${pkg.latest})`,
-      value: pkg.name,
-    }))
+    // Check for --all flag
+    const updateAll = await prompt.confirm(t('selectPackages'), {
+      defaultValue: false,
+      arg: 'all',
+      description: 'Update all packages without prompting',
+    })
 
-    const selected = await prompt.multiSelect<string>(t('selectPackages'), choices)
+    let selected: string[]
+
+    if (updateAll) {
+      // Update all packages when --all flag is provided
+      selected = updatable.map((p) => p.name)
+    } else {
+      // Select packages to update interactively
+      const choices = updatable.map((pkg) => ({
+        label: `${pkg.name} (${pkg.current} → ${pkg.latest})`,
+        value: pkg.name,
+      }))
+
+      selected = await prompt.multiSelect<string>(t('selectPackages'), choices)
+    }
 
     if (selected.length === 0) {
       output.info(t('noPackagesSelected'))

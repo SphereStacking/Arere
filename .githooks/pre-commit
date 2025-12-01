@@ -1,4 +1,0 @@
-#!/bin/sh
-# pre-commit hook
-npm run lint
-npm run typecheck

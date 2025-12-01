@@ -82,6 +82,9 @@ export default defineAction({
     // Get duration from user
     const durationInput = await tui.prompt.text(t('plugin:timer.enterDuration'), {
       placeholder: t('plugin:timer.placeholder'),
+      arg: 'duration',
+      argShort: 'd',
+      description: 'Timer duration (e.g., 5m, 30s, 1h30m)',
       validate: (value) => {
         if (!value.trim()) return t('plugin:timer.invalidFormat')
         const ms = parseDuration(value)

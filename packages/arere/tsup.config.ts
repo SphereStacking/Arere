@@ -15,4 +15,6 @@ export default defineConfig({
   minify: false,
   target: 'es2020',
   outDir: 'dist',
+  // ts-morph uses dynamic require which doesn't work in ESM bundles
+  external: ['ts-morph'],
 })

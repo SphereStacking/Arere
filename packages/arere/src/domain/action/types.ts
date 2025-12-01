@@ -3,6 +3,32 @@
  */
 
 /**
+ * Argument mapping for headless mode support
+ *
+ * When specified, the prompt will first check CLI arguments before
+ * showing the interactive prompt.
+ *
+ * @example
+ * ```typescript
+ * await tui.prompt.select('Target', ['staging', 'production'], {
+ *   arg: 'target',      // --target=production
+ *   argShort: 't',      // -t production
+ *   description: 'Deploy target',
+ * })
+ * ```
+ */
+export interface ArgMapping {
+  /** Long argument name (e.g., 'target' for --target) */
+  arg?: string
+  /** Short argument name (e.g., 't' for -t) */
+  argShort?: string
+  /** Positional argument index (0-based) */
+  argIndex?: number
+  /** Description for --help */
+  description?: string
+}
+
+/**
  * Action metadata (for loaded actions - name is always present)
  */
 export interface ActionMeta {
@@ -31,7 +57,7 @@ export interface BasePromptOptions<T> {
 /**
  * Text input options
  */
-export interface TextOptions extends BasePromptOptions<string> {
+export interface TextOptions extends BasePromptOptions<string>, ArgMapping {
   /** Enable multiline input */
   multiline?: boolean
 
@@ -57,7 +83,7 @@ export interface TextOptions extends BasePromptOptions<string> {
 /**
  * Number input options
  */
-export interface NumberOptions extends BasePromptOptions<number> {
+export interface NumberOptions extends BasePromptOptions<number>, ArgMapping {
   /** Minimum value */
   min?: number
   /** Maximum value */
@@ -67,7 +93,9 @@ export interface NumberOptions extends BasePromptOptions<number> {
 /**
  * Password input options
  */
-export interface PasswordOptions extends Omit<BasePromptOptions<string>, 'defaultValue'> {
+export interface PasswordOptions
+  extends Omit<BasePromptOptions<string>, 'defaultValue'>,
+    ArgMapping {
   /** Minimum length */
   minLength?: number
 }
@@ -75,17 +103,21 @@ export interface PasswordOptions extends Omit<BasePromptOptions<string>, 'defaul
 /**
  * Select options
  */
-export interface SelectOptions<T> extends Pick<BasePromptOptions<T>, 'defaultValue'> {}
+export interface SelectOptions<T> extends Pick<BasePromptOptions<T>, 'defaultValue'>, ArgMapping {}
 
 /**
  * Confirm options
  */
-export interface ConfirmOptions extends Pick<BasePromptOptions<boolean>, 'defaultValue'> {}
+export interface ConfirmOptions
+  extends Pick<BasePromptOptions<boolean>, 'defaultValue'>,
+    ArgMapping {}
 
 /**
  * Multiple select options
  */
-export interface MultiSelectOptions<T> extends Pick<BasePromptOptions<T[]>, 'defaultValue'> {
+export interface MultiSelectOptions<T>
+  extends Pick<BasePromptOptions<T[]>, 'defaultValue'>,
+    ArgMapping {
   /** Minimum selection count */
   min?: number
   /** Maximum selection count */

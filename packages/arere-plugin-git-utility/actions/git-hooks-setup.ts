@@ -55,11 +55,19 @@ export default defineAction({
     tui.output.newline()
 
     // Select action
-    const action = await tui.prompt.select(t('plugin:hooksSetup.selectAction'), [
-      { label: t('plugin:hooksSetup.options.setup'), value: 'setup' },
-      { label: t('plugin:hooksSetup.options.change'), value: 'change' },
-      { label: t('plugin:hooksSetup.options.reset'), value: 'reset' },
-    ])
+    const action = await tui.prompt.select(
+      t('plugin:hooksSetup.selectAction'),
+      [
+        { label: t('plugin:hooksSetup.options.setup'), value: 'setup' },
+        { label: t('plugin:hooksSetup.options.change'), value: 'change' },
+        { label: t('plugin:hooksSetup.options.reset'), value: 'reset' },
+      ],
+      {
+        arg: 'action',
+        argShort: 'a',
+        description: 'Action to perform (setup/change/reset)',
+      },
+    )
 
     if (action === 'reset') {
       const result = await $`git config --unset core.hooksPath`
@@ -72,12 +80,20 @@ export default defineAction({
     }
 
     // Select hooks directory
-    const selected = await tui.prompt.select(t('plugin:hooksSetup.selectDirectory'), [
-      { label: './githooks', value: './githooks' },
-      { label: './.githooks', value: './.githooks' },
-      { label: './.husky', value: './.husky' },
-      { label: t('plugin:hooksSetup.options.custom'), value: '__custom__' },
-    ])
+    const selected = await tui.prompt.select(
+      t('plugin:hooksSetup.selectDirectory'),
+      [
+        { label: './githooks', value: './githooks' },
+        { label: './.githooks', value: './.githooks' },
+        { label: './.husky', value: './.husky' },
+        { label: t('plugin:hooksSetup.options.custom'), value: '__custom__' },
+      ],
+      {
+        arg: 'path',
+        argShort: 'p',
+        description: 'Hooks directory path',
+      },
+    )
 
     const hooksPath: string =
       selected === '__custom__'
@@ -110,6 +126,11 @@ export default defineAction({
     const selectedHooks = await tui.prompt.multiSelect(
       t('plugin:hooksSetup.selectHooks'),
       HOOK_TYPES,
+      {
+        arg: 'hooks',
+        argShort: 'h',
+        description: 'Hooks to create (comma-separated)',
+      },
     )
 
     if (selectedHooks.length > 0) {
