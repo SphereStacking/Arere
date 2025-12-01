@@ -41,7 +41,19 @@ import {
 export function createPromptAPIWithArgs(args: string[], isInteractiveFn: () => boolean): PromptAPI {
   const parsedArgs = parseArgs(args)
 
-  // Helper to get arg name for error messages
+  // Helper to format arg name for error messages
+  const formatArgForError = (options: {
+    arg?: string
+    argShort?: string
+    argIndex?: number
+  }): string => {
+    if (options.arg) return `--${options.arg}`
+    if (options.argShort) return `-${options.argShort}`
+    if (options.argIndex !== undefined) return `argument at position ${options.argIndex}`
+    return 'argument'
+  }
+
+  // Helper to get raw arg name for validator (without prefix)
   const getArgName = (options: { arg?: string; argShort?: string; argIndex?: number }): string =>
     options.arg || options.argShort || `position ${options.argIndex}`
 
@@ -59,7 +71,7 @@ export function createPromptAPIWithArgs(args: string[], isInteractiveFn: () => b
       // In non-interactive mode, throw error if required
       if (!isInteractiveFn()) {
         throw new Error(
-          `Required argument --${getArgName(options)} is missing (non-interactive mode)`,
+          `Required argument ${formatArgForError(options)} is missing (non-interactive mode)`,
         )
       }
     }
@@ -81,7 +93,7 @@ export function createPromptAPIWithArgs(args: string[], isInteractiveFn: () => b
           return options.defaultValue
         }
         throw new Error(
-          `Required argument --${getArgName(options)} is missing (non-interactive mode)`,
+          `Required argument ${formatArgForError(options)} is missing (non-interactive mode)`,
         )
       }
     }
@@ -99,7 +111,7 @@ export function createPromptAPIWithArgs(args: string[], isInteractiveFn: () => b
       }
       if (!isInteractiveFn()) {
         throw new Error(
-          `Required argument --${getArgName(options)} is missing (non-interactive mode)`,
+          `Required argument ${formatArgForError(options)} is missing (non-interactive mode)`,
         )
       }
     }
@@ -122,7 +134,7 @@ export function createPromptAPIWithArgs(args: string[], isInteractiveFn: () => b
           return options.defaultValue
         }
         throw new Error(
-          `Required argument --${getArgName(options)} is missing (non-interactive mode)`,
+          `Required argument ${formatArgForError(options)} is missing (non-interactive mode)`,
         )
       }
     }
@@ -145,7 +157,7 @@ export function createPromptAPIWithArgs(args: string[], isInteractiveFn: () => b
           return options.defaultValue
         }
         throw new Error(
-          `Required argument --${getArgName(options)} is missing (non-interactive mode)`,
+          `Required argument ${formatArgForError(options)} is missing (non-interactive mode)`,
         )
       }
     }
@@ -168,7 +180,7 @@ export function createPromptAPIWithArgs(args: string[], isInteractiveFn: () => b
           return options.defaultValue
         }
         throw new Error(
-          `Required argument --${getArgName(options)} is missing (non-interactive mode)`,
+          `Required argument ${formatArgForError(options)} is missing (non-interactive mode)`,
         )
       }
     }
