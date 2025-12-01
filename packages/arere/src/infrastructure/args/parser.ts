@@ -165,10 +165,10 @@ export function getArgValue(parsedArgs: ParsedArgs, mapping: ArgMapping): string
  * ```
  */
 export function getFlagValue(parsedArgs: ParsedArgs, mapping: ArgMapping): boolean | undefined {
-  // Check if explicitly set to 'true' or 'false' via --no-flag
+  // Check if explicitly set to 'true' or 'false' via --flag=value or --no-flag
   if (mapping.arg && parsedArgs.named.has(mapping.arg)) {
     const value = parsedArgs.named.get(mapping.arg)
-    return value === 'true' || value !== 'false'
+    return value !== 'false'
   }
 
   // Check long flag
