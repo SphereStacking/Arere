@@ -43,19 +43,35 @@ export default defineAction({
     tui.output.newline()
 
     // Configuration
-    const workMinutes = await tui.prompt.number(t('plugin:pomodoro.workTime'), { defaultValue: 25 })
+    const workMinutes = await tui.prompt.number(t('plugin:pomodoro.workTime'), {
+      defaultValue: 25,
+      arg: 'work',
+      argShort: 'w',
+      description: 'Work duration in minutes',
+    })
 
     const breakMinutes = await tui.prompt.number(t('plugin:pomodoro.breakTime'), {
       defaultValue: 5,
+      arg: 'break',
+      argShort: 'b',
+      description: 'Short break duration in minutes',
     })
 
     const longBreakMinutes = await tui.prompt.number(t('plugin:pomodoro.longBreakTime'), {
       defaultValue: 15,
+      arg: 'long-break',
+      argShort: 'l',
+      description: 'Long break duration in minutes',
     })
 
     const cyclesBeforeLongBreak = await tui.prompt.number(
       t('plugin:pomodoro.cyclesBeforeLongBreak'),
-      { defaultValue: 4 },
+      {
+        defaultValue: 4,
+        arg: 'cycles',
+        argShort: 'c',
+        description: 'Number of work cycles before long break',
+      },
     )
 
     // Pomodoro session

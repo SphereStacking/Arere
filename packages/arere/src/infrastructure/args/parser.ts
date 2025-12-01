@@ -78,18 +78,12 @@ export function parseArgs(args: string[]): ParsedArgs {
       const key = arg.slice(1)
 
       const nextArg = args[i + 1]
-      // Only treat next arg as value if it doesn't look like another flag
-      // and the next arg after that suggests this is a value (not a standalone flag followed by positional)
+      // If next arg exists and doesn't look like a flag, treat it as the value
       if (nextArg && !nextArg.startsWith('-')) {
-        // Peek ahead to see if this looks like a value or a positional
-        const afterNext = args[i + 2]
-        // If afterNext is undefined or starts with -, treat nextArg as value
-        // If afterNext exists and doesn't start with -, nextArg might be positional
-        // This is a heuristic - short flags are typically followed by values with = or are standalone
-        // For safety, short single-char flags without = are treated as flags
-        flags.add(key)
+        named.set(key, nextArg)
+        i++ // Skip the value argument
       } else {
-        // It's a flag
+        // It's a flag (no value follows)
         flags.add(key)
       }
     } else if (arg.startsWith('-') && arg.length > 2) {

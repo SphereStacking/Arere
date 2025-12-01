@@ -66,9 +66,12 @@ export function analyzeActionArgs(filePath: string): ActionArgsMeta | null {
     for (const call of callExpressions) {
       const expression = call.getExpression().getText()
 
-      // Check if it's a tui.prompt.* call
+      // Check if it's a prompt call (supports both tui.prompt.* and destructured prompt.*)
+      // Examples:
+      //   - tui.prompt.text(...)
+      //   - prompt.text(...) (when destructured: const { prompt } = tui)
       const promptMatch = expression.match(
-        /tui\.prompt\.(text|number|select|confirm|multiSelect|password)/,
+        /(?:tui\.)?prompt\.(text|number|select|confirm|multiSelect|password)$/,
       )
       if (!promptMatch) continue
 

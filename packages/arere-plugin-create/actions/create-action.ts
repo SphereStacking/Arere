@@ -27,6 +27,9 @@ export default defineAction({
     tui.output.step(1, t('plugin:prompts.name'))
     const name = await tui.prompt.text(t('plugin:prompts.name'), {
       placeholder: 'my-awesome-action',
+      arg: 'name',
+      argShort: 'n',
+      description: 'Action name (kebab-case)',
       validate: (value) => {
         if (!/^[a-z0-9-]+$/.test(value)) {
           return t('plugin:errors.invalid_name')
@@ -41,6 +44,9 @@ export default defineAction({
     tui.output.step(2, t('plugin:prompts.description'))
     const description = await tui.prompt.text(t('plugin:prompts.description'), {
       placeholder: 'My awesome action',
+      arg: 'description',
+      argShort: 'd',
+      description: 'Action description',
       validate: (value) => {
         if (value.trim().length === 0) {
           return t('plugin:errors.empty_description')
@@ -53,26 +59,42 @@ export default defineAction({
 
     // Step 3: Select category
     tui.output.step(3, t('plugin:prompts.category'))
-    const category = await tui.prompt.select(t('plugin:prompts.category'), [
-      { label: t('plugin:categories.utility'), value: 'utility' },
-      { label: t('plugin:categories.development'), value: 'development' },
-      { label: t('plugin:categories.git'), value: 'git' },
-      { label: t('plugin:categories.testing'), value: 'testing' },
-      { label: t('plugin:categories.demo'), value: 'demo' },
-    ])
+    const category = await tui.prompt.select(
+      t('plugin:prompts.category'),
+      [
+        { label: t('plugin:categories.utility'), value: 'utility' },
+        { label: t('plugin:categories.development'), value: 'development' },
+        { label: t('plugin:categories.git'), value: 'git' },
+        { label: t('plugin:categories.testing'), value: 'testing' },
+        { label: t('plugin:categories.demo'), value: 'demo' },
+      ],
+      {
+        arg: 'category',
+        argShort: 'c',
+        description: 'Action category (utility/development/git/testing/demo)',
+      },
+    )
     tui.output.success(`Category: ${category}`)
     tui.output.newline()
 
     // Step 4: Select tags
     tui.output.step(4, t('plugin:prompts.tags'))
-    const tags = await tui.prompt.multiSelect(t('plugin:prompts.tags'), [
-      { label: t('plugin:tags.demo'), value: 'demo' },
-      { label: t('plugin:tags.tutorial'), value: 'tutorial' },
-      { label: t('plugin:tags.utility'), value: 'utility' },
-      { label: t('plugin:tags.git'), value: 'git' },
-      { label: t('plugin:tags.test'), value: 'test' },
-      { label: t('plugin:tags.dev'), value: 'dev' },
-    ])
+    const tags = await tui.prompt.multiSelect(
+      t('plugin:prompts.tags'),
+      [
+        { label: t('plugin:tags.demo'), value: 'demo' },
+        { label: t('plugin:tags.tutorial'), value: 'tutorial' },
+        { label: t('plugin:tags.utility'), value: 'utility' },
+        { label: t('plugin:tags.git'), value: 'git' },
+        { label: t('plugin:tags.test'), value: 'test' },
+        { label: t('plugin:tags.dev'), value: 'dev' },
+      ],
+      {
+        arg: 'tags',
+        argShort: 't',
+        description: 'Action tags (comma-separated)',
+      },
+    )
     tui.output.success(`Tags: ${tags.join(', ')}`)
     tui.output.newline()
 
@@ -97,24 +119,36 @@ export default defineAction({
           description: t('plugin:templates.with-i18n.description'),
         },
       ],
+      {
+        arg: 'template',
+        description: 'Template type (basic/advanced/with-i18n)',
+      },
     )
     tui.output.success(`Template: ${template}`)
     tui.output.newline()
 
     // Step 6: Select scope
     tui.output.step(6, t('plugin:prompts.scope'))
-    const scope = await tui.prompt.select<Scope>(t('plugin:prompts.scope'), [
+    const scope = await tui.prompt.select<Scope>(
+      t('plugin:prompts.scope'),
+      [
+        {
+          label: t('plugin:scopes.workspace.label'),
+          value: 'workspace',
+          description: t('plugin:scopes.workspace.description'),
+        },
+        {
+          label: t('plugin:scopes.global.label'),
+          value: 'global',
+          description: t('plugin:scopes.global.description'),
+        },
+      ],
       {
-        label: t('plugin:scopes.workspace.label'),
-        value: 'workspace',
-        description: t('plugin:scopes.workspace.description'),
+        arg: 'scope',
+        argShort: 's',
+        description: 'Action scope (workspace/global)',
       },
-      {
-        label: t('plugin:scopes.global.label'),
-        value: 'global',
-        description: t('plugin:scopes.global.description'),
-      },
-    ])
+    )
     tui.output.success(`Scope: ${scope}`)
     tui.output.newline()
 
@@ -124,6 +158,9 @@ export default defineAction({
     if (fileExists(filePath)) {
       const overwrite = await tui.prompt.confirm(t('plugin:prompts.overwrite'), {
         defaultValue: false,
+        arg: 'overwrite',
+        argShort: 'y',
+        description: 'Overwrite existing file',
       })
       if (!overwrite) {
         tui.output.warn(t('plugin:messages.cancelled'))
@@ -151,7 +188,7 @@ export default defineAction({
     const content = renderTemplate(templateContent, placeholders)
 
     // Write file
-    const spinner = tui.control.spinner(t('plugin:messages.creating'))
+    const spinner = tui.control.spinner({ message: t('plugin:messages.creating') })
     spinner.start()
 
     try {

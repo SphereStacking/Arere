@@ -61,20 +61,40 @@ export default defineAction({
     tui.output.list(mergedBranches)
     tui.output.newline()
 
-    // Ask user to select branches to delete
-    const selectedBranches = await tui.prompt.multiSelect(
-      t('plugin:branchClean.selectBranches'),
-      mergedBranches,
-    )
+    // Check for --all flag
+    const deleteAll = await tui.prompt.confirm(t('plugin:branchClean.selectBranches'), {
+      defaultValue: false,
+      arg: 'all',
+      description: 'Delete all merged branches',
+    })
+
+    let selectedBranches: string[]
+
+    if (deleteAll) {
+      // Select all merged branches when --all flag is provided
+      selectedBranches = mergedBranches
+    } else {
+      // Ask user to select branches to delete interactively
+      selectedBranches = await tui.prompt.multiSelect(
+        t('plugin:branchClean.selectBranches'),
+        mergedBranches,
+      )
+    }
 
     if (selectedBranches.length === 0) {
       tui.output.info(t('plugin:branchClean.noBranchesSelected'))
       return
     }
 
-    // Confirm deletion
+    // Confirm deletion (can be skipped with --force)
     const confirm = await tui.prompt.confirm(
       t('plugin:branchClean.confirmDelete', { count: selectedBranches.length }),
+      {
+        defaultValue: false,
+        arg: 'force',
+        argShort: 'f',
+        description: 'Skip confirmation prompt',
+      },
     )
 
     if (!confirm) {

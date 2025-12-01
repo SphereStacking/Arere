@@ -134,21 +134,30 @@ export function createActionContext<TKeys extends string = string>(
         // Visual feedback
         spinner: (options?: SpinnerOptions): SpinnerControl => {
           if (!setVisualFeedback) {
-            throw new Error(
-              'spinner() requires visual feedback support. ' +
-                'This action is running in a context without UI rendering. ' +
-                'Spinner/Progress are only available when actions are run from the TUI.',
-            )
+            // Headless mode: return no-op spinner that does nothing
+            // This allows actions to use spinner() without checking if TUI is available
+            return {
+              start: () => {},
+              stop: () => {},
+              succeed: () => {},
+              fail: () => {},
+              update: () => {},
+            }
           }
           return createSpinnerControl(options ?? {}, setVisualFeedback)
         },
         progress: (options?: ProgressOptions): ProgressControl => {
           if (!setVisualFeedback) {
-            throw new Error(
-              'progress() requires visual feedback support. ' +
-                'This action is running in a context without UI rendering. ' +
-                'Spinner/Progress are only available when actions are run from the TUI.',
-            )
+            // Headless mode: return no-op progress that does nothing
+            // This allows actions to use progress() without checking if TUI is available
+            return {
+              start: () => {},
+              stop: () => {},
+              succeed: () => {},
+              fail: () => {},
+              update: () => {},
+              increment: () => {},
+            }
           }
           return createProgressControl(options ?? {}, setVisualFeedback)
         },
