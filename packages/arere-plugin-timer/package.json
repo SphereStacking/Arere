@@ -1,6 +1,6 @@
 {
   "name": "arere-plugin-timer",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Timer plugin for 'arere' - countdown timer, pomodoro, stopwatch",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

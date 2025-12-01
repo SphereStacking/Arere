@@ -1,6 +1,6 @@
 {
   "name": "arere-plugin-create",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Create new Arere actions and plugins from interactive prompts",
   "type": "module",
   "main": "dist/index.js",

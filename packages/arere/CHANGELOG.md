@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.9] - 2025-12-01
+
+### Changes
+
+- feat: headless mode CLI argument mapping for all actions (#28)
+- chore: release arere@0.1.8, arere-plugin-create@0.1.2, arere-plugin-git-utility@0.1.3, arere-plugin-timer@0.1.2, arere-plugin-tutorial@0.1.2
+- feat: remove version from definePlugin, read from package.json (#27)
+
 ## [0.1.7] - 2025-11-30
 
 ### Changes
