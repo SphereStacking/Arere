@@ -2,7 +2,7 @@
  * Tests for plain text renderer
  */
 
-import { PlainTextRenderer } from '@/infrastructure/output/plain-renderer.js'
+import { PlainTextRenderer } from '@/ui/output/plain-renderer.js'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('PlainTextRenderer', () => {

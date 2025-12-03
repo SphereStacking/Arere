@@ -9,7 +9,7 @@ import {
   CONFIG_PATHS,
   getAllConfigPaths,
   getConfigPath,
-} from '@/infrastructure/config/paths.js'
+} from '@/config/paths.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 describe('Config Paths', () => {

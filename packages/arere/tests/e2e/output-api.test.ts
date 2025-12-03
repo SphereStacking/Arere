@@ -7,9 +7,9 @@
  * 3. All output types work correctly
  */
 
-import { defineAction } from '@/domain/action/defineAction.js'
-import { runAction } from '@/domain/action/executor.js'
-import type { OutputMessage } from '@/infrastructure/output/types.js'
+import { defineAction } from '@/action/define.js'
+import { runAction } from '@/action/executor.js'
+import type { OutputMessage } from '@/ui/output/types.js'
 import { describe, expect, it } from 'vitest'
 
 describe('E2E: Output API', () => {

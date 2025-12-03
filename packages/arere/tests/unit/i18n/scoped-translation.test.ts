@@ -2,7 +2,7 @@
  * Tests for scoped translation functionality
  */
 
-import { createScopedT, initI18n, registerTranslations } from '@/infrastructure/i18n/index.js'
+import { createScopedT, initI18n, registerTranslations } from '@/i18n/index.js'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('Scoped Translation', () => {

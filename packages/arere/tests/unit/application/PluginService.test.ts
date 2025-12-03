@@ -9,14 +9,14 @@
  * Updated to test Repository Pattern
  */
 
-import { PluginService } from '@/application/services/PluginService.js'
-import type { LoadedPlugin } from '@/domain/plugin/types.js'
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
-import type { ConfigLayer } from '@/infrastructure/config/types.js'
+import { PluginService } from '@/plugin/service.js'
+import type { LoadedPlugin } from '@/plugin/types.js'
+import type { ArereConfig } from '@/config/schema.js'
+import type { ConfigLayer } from '@/config/types.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Mock Infrastructure dependencies
-vi.mock('@/infrastructure/config/manager.js', () => ({
+vi.mock('@/config/manager.js', () => ({
   FileConfigManager: vi.fn().mockImplementation(() => ({
     loadMerged: vi.fn(),
     loadLayer: vi.fn(),
@@ -27,7 +27,7 @@ vi.mock('@/infrastructure/config/manager.js', () => ({
   })),
 }))
 
-vi.mock('@/shared/utils/logger.js', () => ({
+vi.mock('@/lib/logger.js', () => ({
   logger: {
     debug: vi.fn(),
     info: vi.fn(),
@@ -36,7 +36,7 @@ vi.mock('@/shared/utils/logger.js', () => ({
   },
 }))
 
-import { FileConfigManager } from '@/infrastructure/config/manager.js'
+import { FileConfigManager } from '@/config/manager.js'
 
 describe('PluginService', () => {
   let service: PluginService

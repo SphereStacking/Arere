@@ -2,7 +2,7 @@
  * Tests for ReadLine prompt backend
  */
 
-import { createReadLineBackend } from '@/infrastructure/prompt/backends/readline-backend.js'
+import { createReadLineBackend } from '@/ui/prompts/backends/readline-backend.js'
 import { describe, expect, it } from 'vitest'
 
 describe('ReadLineBackend', () => {

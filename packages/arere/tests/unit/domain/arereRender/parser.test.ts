@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getVariableNames, hasModifier, parseFormat } from '@/domain/arereRender/parser'
+import { getVariableNames, hasModifier, parseFormat } from '@/ui/arere-render/parser'
 
 describe('parseFormat', () => {
   it('parses simple variable', () => {

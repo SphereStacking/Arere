@@ -4,9 +4,9 @@
  * PromptScreen uses Zustand stores for state, so tests mock the stores.
  */
 
-import type { PromptRequest } from '@/infrastructure/prompt/renderer.js'
-import { PromptScreen as PromptRenderer } from '@/presentation/ui/screens/prompt/PromptScreen.js'
-import { usePromptStore } from '@/presentation/ui/stores/promptStore.js'
+import type { PromptRequest } from '@/ui/prompts/renderer.js'
+import { PromptScreen as PromptRenderer } from '@/ui/screens/prompt/PromptScreen.js'
+import { usePromptStore } from '@/ui/stores/promptStore.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'

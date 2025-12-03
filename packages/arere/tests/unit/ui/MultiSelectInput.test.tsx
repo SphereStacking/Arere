@@ -2,7 +2,7 @@
  * Tests for MultiSelectInput component
  */
 
-import { MultiSelectInput } from '@/presentation/ui/components/inputs/MultiSelectInput.js'
+import { MultiSelectInput } from '@/ui/components/inputs/MultiSelectInput.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'

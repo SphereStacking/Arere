@@ -2,13 +2,13 @@
  * Tests for Header component
  */
 
-import { Header } from '@/presentation/ui/components/Header.js'
+import { Header } from '@/ui/components/Header.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { describe, expect, it, vi } from 'vitest'
 
 // Mock useKaomoji to return a fixed face for testing
-vi.mock('@/presentation/ui/hooks/useKaomoji', () => ({
+vi.mock('@/ui/hooks/useKaomoji', () => ({
   useKaomoji: () => '(・_・?)',
 }))
 

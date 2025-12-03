@@ -1,0 +1,138 @@
+/**
+ * Action executor
+ */
+
+import { FileConfigManager } from '@/config/manager'
+import type { ArereConfig } from '@/config/schema'
+import { formatError } from '@/lib/error'
+import { logger } from '@/lib/logger'
+import type { LoadedPlugin } from '@/plugin/types'
+import type { VisualFeedback } from '@/ui/control/types'
+import type { OutputCallback } from '@/ui/output/collector'
+import { type OutputCollector, createActionContext } from './context'
+import type { Action } from './types'
+
+/**
+ * Action run result
+ */
+export interface RunResult {
+  /** Whether the run was successful */
+  success: boolean
+  /** Run duration in milliseconds */
+  duration: number
+  /** Output collector with all messages from the action */
+  outputCollector: OutputCollector
+  /** Error if run failed */
+  error?: Error
+}
+
+/**
+ * Options for action run
+ */
+export interface RunActionOptions {
+  /** Plugins to get plugin config from */
+  plugins?: LoadedPlugin[]
+  /** Application configuration */
+  config?: ArereConfig
+  /** Callback for real-time output streaming */
+  onOutput?: OutputCallback
+  /** Callback for visual feedback updates */
+  onVisualFeedback?: (feedback: VisualFeedback | ((prev: VisualFeedback) => VisualFeedback)) => void
+  /** Command line arguments passed to the action (defaults to []) */
+  args?: string[]
+}
+
+/**
+ * Run an action
+ *
+ * @param action - Action to run
+ * @param options - Run options
+ * @returns Run result
+ *
+ * @example
+ * ```typescript
+ * const result = await runAction(action)
+ * if (result.success) {
+ *   console.log(`Action completed in ${result.duration}ms`)
+ * } else {
+ *   console.error(`Action failed:`, result.error)
+ * }
+ * ```
+ *
+ * @example With real-time output streaming
+ * ```typescript
+ * const result = await runAction(action, {
+ *   onOutput: (message) => console.log(message),
+ *   onVisualFeedback: (feedback) => setState(feedback),
+ * })
+ * ```
+ */
+export async function runAction(
+  action: Action,
+  options: RunActionOptions = {},
+): Promise<RunResult> {
+  const { plugins, config: providedConfig, onOutput, onVisualFeedback, args } = options
+
+  logger.info(`Running action: ${action.meta.name}`)
+
+  const startTime = performance.now()
+
+  try {
+    // Load current config for ActionContext (use provided or load from file)
+    const manager = new FileConfigManager()
+    const config = providedConfig ?? (await manager.loadMerged())
+
+    // Find plugin config for this action
+    let pluginConfig: Record<string, unknown> | undefined
+    if (action.pluginNamespace && plugins) {
+      const plugin = plugins.find((p) => p.i18nNamespace === action.pluginNamespace)
+      pluginConfig = plugin?.userConfig
+    }
+
+    // Create execution context with scoped translations
+    const { context, outputCollector } = createActionContext({
+      actionName: action.meta.name,
+      config,
+      pluginNamespace: action.pluginNamespace,
+      pluginConfig,
+      setVisualFeedback: onVisualFeedback,
+      onOutput,
+      args,
+    })
+
+    // Run the action
+    await action.run(context)
+
+    const duration = Math.round(performance.now() - startTime)
+
+    logger.info(`Action "${action.meta.name}" completed successfully in ${duration}ms`)
+
+    return {
+      success: true,
+      duration,
+      outputCollector,
+    }
+  } catch (error) {
+    const duration = Math.round(performance.now() - startTime)
+
+    logger.error(`Action "${action.meta.name}" failed after ${duration}ms:`, formatError(error))
+
+    // Create a minimal output collector for error cases
+    // (context might not have been created if error occurred during setup)
+    const manager = new FileConfigManager()
+    const config = providedConfig ?? (await manager.loadMerged())
+    const { outputCollector } = createActionContext({
+      actionName: action.meta.name,
+      config,
+      onOutput,
+      args,
+    })
+
+    return {
+      success: false,
+      duration,
+      outputCollector,
+      error: error instanceof Error ? error : new Error(String(error)),
+    }
+  }
+}

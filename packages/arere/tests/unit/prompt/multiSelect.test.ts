@@ -2,9 +2,9 @@
  * Tests for multiSelect prompt
  */
 
-import { multiSelect } from '@/infrastructure/prompt/multiSelect.js'
-import { clearPromptHandler, setPromptHandler } from '@/infrastructure/prompt/renderer.js'
-import type { PromptRequest } from '@/infrastructure/prompt/renderer.js'
+import { multiSelect } from '@/ui/prompts/multiSelect.js'
+import { clearPromptHandler, setPromptHandler } from '@/ui/prompts/renderer.js'
+import type { PromptRequest } from '@/ui/prompts/renderer.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 describe('multiSelect', () => {

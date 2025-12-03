@@ -4,7 +4,7 @@ import {
   getFlagValue,
   hasArgMapping,
   parseArgs,
-} from '@/infrastructure/args/parser'
+} from '@/action/args/parser'
 
 describe('parseArgs', () => {
   it('should parse long arguments with = separator', () => {

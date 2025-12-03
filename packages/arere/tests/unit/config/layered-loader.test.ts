@@ -8,9 +8,9 @@
 import { mkdir, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { FileConfigManager } from '@/infrastructure/config/manager.js'
-import { defaultConfig } from '@/infrastructure/config/schema.js'
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
+import { FileConfigManager } from '@/config/manager.js'
+import { defaultConfig } from '@/config/schema.js'
+import type { ArereConfig } from '@/config/schema.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 describe('FileConfigManager.loadAll', () => {

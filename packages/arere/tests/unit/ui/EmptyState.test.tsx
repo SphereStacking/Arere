@@ -2,7 +2,7 @@
  * Tests for EmptyState component
  */
 
-import { EmptyState } from '@/presentation/ui/components/EmptyState.js'
+import { EmptyState } from '@/ui/components/EmptyState.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { describe, expect, it } from 'vitest'

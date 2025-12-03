@@ -2,7 +2,7 @@
  * Tests for Spinner component
  */
 
-import { Spinner } from '@/presentation/ui/components/Spinner.js'
+import { Spinner } from '@/ui/components/Spinner.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'

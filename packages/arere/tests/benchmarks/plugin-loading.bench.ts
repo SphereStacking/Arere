@@ -5,10 +5,10 @@
 import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { detectPlugins } from '@/infrastructure/plugin/detector.js'
+import { detectPlugins } from '@/plugin/detector.js'
 import { beforeEach, bench, describe } from 'vitest'
 // Note: resolvePluginPackage has been removed from plugin/resolver.js
-// import { resolvePluginPackage } from '@/infrastructure/plugin/resolver.js'
+// import { resolvePluginPackage } from '@/plugin/resolver.js'
 
 describe('Plugin Loading Performance', () => {
   let tempDir: string

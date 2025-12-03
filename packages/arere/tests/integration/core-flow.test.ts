@@ -5,11 +5,11 @@
  */
 
 import { join } from 'node:path'
-import { loadActions } from '@/core/loader.js'
-import { ActionRegistry } from '@/core/registry.js'
-import { findActions } from '@/core/resolver.js'
-import { createActionContext } from '@/domain/action/context.js'
-import { defaultConfig } from '@/infrastructure/config/schema.js'
+import { loadActions } from '@/action/loader.js'
+import { ActionRegistry } from '@/action/registry.js'
+import { findActions } from '@/action/resolver.js'
+import { createActionContext } from '@/action/context.js'
+import { defaultConfig } from '@/config/schema.js'
 import { beforeEach, describe, expect, it } from 'vitest'
 
 describe('Core action loading flow (integration)', () => {

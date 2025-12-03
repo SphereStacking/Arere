@@ -2,7 +2,7 @@
  * Timing control tests
  */
 
-import { delay } from '@/presentation/ui/control/timing.js'
+import { delay } from '@/ui/control/timing.js'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('delay()', () => {

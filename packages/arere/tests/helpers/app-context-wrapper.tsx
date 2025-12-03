@@ -2,9 +2,9 @@
  * Test helper to wrap components with AppContext
  */
 
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
-import { defaultKeyBindings } from '@/infrastructure/keybindings/index.js'
-import { AppContext } from '@/presentation/ui/AppContext.js'
+import type { ArereConfig } from '@/config/schema.js'
+import { defaultKeyBindings } from '@/ui/keybindings/index.js'
+import { AppContext } from '@/ui/AppContext.js'
 import React from 'react'
 
 export function AppContextWrapper({ children }: { children: React.ReactNode }) {

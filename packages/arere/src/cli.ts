@@ -7,12 +7,12 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { FileConfigManager } from './infrastructure/config/manager'
-import { initI18n, t } from './infrastructure/i18n/index'
-import { HeadlessMode } from './presentation/modes/headless-mode'
-import { UIMode } from './presentation/modes/ui-mode'
-import { formatError } from './shared/utils/error'
-import { logger } from './shared/utils/logger'
+import { FileConfigManager } from './config/manager'
+import { initI18n, t } from './i18n/index'
+import { formatError } from './lib/error'
+import { logger } from './lib/logger'
+import { HeadlessMode } from './modes/headless-mode'
+import { UIMode } from './modes/ui-mode'
 
 /**
  * Get version from package.json

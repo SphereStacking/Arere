@@ -2,8 +2,8 @@
  * Tests for LayerSelector component
  */
 
-import type { ConfigLayer } from '@/infrastructure/config/types.js'
-import { LayerSelector } from '@/presentation/ui/screens/settings/components/LayerSelector.js'
+import type { ConfigLayer } from '@/config/types.js'
+import { LayerSelector } from '@/ui/screens/settings/components/LayerSelector.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { beforeEach, describe, expect, it } from 'vitest'

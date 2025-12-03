@@ -5,7 +5,7 @@ import {
   padText,
   parseFormat,
   truncateText,
-} from '@/domain/arereRender'
+} from '@/ui/arere-render'
 
 describe('calculateLayout', () => {
   it('calculates layout for simple format', () => {

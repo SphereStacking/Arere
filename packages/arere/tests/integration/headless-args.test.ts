@@ -2,7 +2,7 @@
  * Integration tests for headless mode argument mapping
  */
 
-import { createPromptAPIWithArgs } from '@/infrastructure/args/prompt-wrapper.js'
+import { createPromptAPIWithArgs } from '@/action/args/prompt-wrapper.js'
 import { describe, expect, it } from 'vitest'
 
 describe('Headless mode argument mapping integration', () => {

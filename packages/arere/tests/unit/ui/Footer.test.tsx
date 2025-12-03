@@ -2,7 +2,7 @@
  * Tests for Footer component
  */
 
-import { Footer } from '@/presentation/ui/components/Footer.js'
+import { Footer } from '@/ui/components/Footer.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { describe, expect, it } from 'vitest'

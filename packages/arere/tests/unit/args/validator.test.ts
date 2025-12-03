@@ -6,7 +6,7 @@ import {
   convertToNumber,
   convertToSelectValue,
   validateTextValue,
-} from '@/infrastructure/args/validator'
+} from '@/action/args/validator'
 
 describe('convertToNumber', () => {
   it('should convert valid number string', () => {

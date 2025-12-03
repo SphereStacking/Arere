@@ -2,9 +2,9 @@
  * End-to-end tests for action execution
  */
 
-import { defineAction } from '@/domain/action/defineAction.js'
-import { runAction } from '@/domain/action/executor.js'
-import { clearPromptHandler, setPromptHandler } from '@/infrastructure/prompt/renderer.js'
+import { defineAction } from '@/action/define.js'
+import { runAction } from '@/action/executor.js'
+import { clearPromptHandler, setPromptHandler } from '@/ui/prompts/renderer.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 describe('E2E: Action Execution', () => {

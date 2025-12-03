@@ -2,7 +2,7 @@
  * Tests for TextInput component
  */
 
-import { TextInput } from '@/presentation/ui/components/inputs/TextInput.js'
+import { TextInput } from '@/ui/components/inputs/TextInput.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'

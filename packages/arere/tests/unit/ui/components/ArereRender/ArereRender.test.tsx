@@ -1,7 +1,7 @@
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { describe, expect, it } from 'vitest'
-import { ArereRender } from '@/presentation/ui/components/ArereRender'
+import { ArereRender } from '@/ui/components/ArereRender'
 
 describe('ArereRender', () => {
   it('renders simple format', () => {

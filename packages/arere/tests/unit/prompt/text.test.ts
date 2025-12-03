@@ -2,9 +2,9 @@
  * Tests for text prompt
  */
 
-import { clearPromptHandler, setPromptHandler } from '@/infrastructure/prompt/renderer.js'
-import type { PromptRequest } from '@/infrastructure/prompt/renderer.js'
-import { text } from '@/infrastructure/prompt/text.js'
+import { clearPromptHandler, setPromptHandler } from '@/ui/prompts/renderer.js'
+import type { PromptRequest } from '@/ui/prompts/renderer.js'
+import { text } from '@/ui/prompts/text.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 describe('text', () => {

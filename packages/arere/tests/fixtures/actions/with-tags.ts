@@ -2,7 +2,7 @@
  * Test fixture: Action with tags
  */
 
-import { defineAction } from '@/domain/action/defineAction.js'
+import { defineAction } from '@/action/define.js'
 
 export default defineAction({
   name: 'test-tags',

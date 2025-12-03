@@ -2,7 +2,7 @@
  * Terminal utilities tests
  */
 
-import { getTerminalSize, isInteractive } from '@/presentation/ui/control/terminal.js'
+import { getTerminalSize, isInteractive } from '@/ui/control/terminal.js'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe('isInteractive()', () => {

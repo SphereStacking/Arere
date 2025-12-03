@@ -2,7 +2,7 @@
  * Tests for logger utilities
  */
 
-import { logger, setLogLevel } from '@/shared/utils/logger.js'
+import { logger, setLogLevel } from '@/lib/logger.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 describe('Logger utilities', () => {

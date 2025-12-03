@@ -65,38 +65,39 @@ npm run docs:build         # Build documentation
 
 > **📝 Architecture Documentation**
 >
-> For details on Clean Architecture / Layered Architecture, see the following documents:
-> - **[Architecture Guide](docs/content/en/4.development/1.architecture-guide.md)** - Layer structure, responsibilities, data flow
-> - **[Testing Guide](docs/content/en/4.development/2.testing-guide.md)** - TDD principles, test patterns
-> - `packages/arere/CLAUDE.md` - Package-specific details
+> See `packages/arere/CLAUDE.md` for package-specific details.
 >
 > **⚠️ Update Policy**:
-> - When architecture changes, **always update** the above documents
-> - This CLAUDE.md contains only an overview; details are consolidated in the above documents
+> - When architecture changes, **always update** the documentation
+> - This CLAUDE.md contains only an overview; details are in package-specific files
 
 Key highlights:
 
-### Clean Architecture Layers
+### Feature-Based Architecture
+
+The codebase uses a **Feature-based Architecture** where related code is grouped by feature:
 
 ```
 src/
-├── core/                # Core Layer - Action loading system
-├── domain/              # Domain Layer - Business logic & types
-├── infrastructure/      # Infrastructure Layer - External systems (config, plugin, i18n, shell, prompt)
-├── application/         # Application Layer - Use cases (ConfigService, PluginService)
-├── presentation/        # Presentation Layer - UI (React/Ink components, modes)
-└── shared/              # Shared Layer - Common utilities (logger, error, path)
+├── action/              # Action system (types, loading, execution, context)
+├── plugin/              # Plugin system (detection, loading, management)
+├── config/              # Configuration management (schema, manager, paths)
+├── i18n/                # Internationalization (translations, scoped T)
+├── shell/               # Shell execution ($ tagged template)
+├── ui/                  # Terminal UI (React/Ink components, screens, stores)
+├── modes/               # Execution modes (UI mode, headless mode)
+└── lib/                 # Shared utilities (logger, error, path)
 ```
 
 **Path Alias**: `@/*` → `./src/*` (used throughout the codebase)
 
-**Test Results**: ✅ 776/776 tests passed, 83.52% coverage
+**Test Results**: ✅ 1166/1166 tests passed
 
 ### Action System
-**✅ Completed**: The codebase has been fully migrated from "Script" → "Action" terminology:
+The codebase uses Action terminology:
 - Types: `Action`, `ActionContext`, etc.
 - Functions: `defineAction()`, etc.
-- Directories: `src/domain/action/`, `actions/`, etc.
+- Directories: `src/action/`, `actions/`, etc.
 
 ### Traditional Description (Reference)
 1. **CLI Entry** (`packages/arere/src/cli.ts`)

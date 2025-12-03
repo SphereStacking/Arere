@@ -20,7 +20,7 @@ import {
   getGlobalNodeModules,
   getProjectActionsDir,
   resolveActionPath,
-} from '@/shared/utils/path.js'
+} from '@/lib/path.js'
 
 describe('Path utilities', () => {
   afterEach(() => {

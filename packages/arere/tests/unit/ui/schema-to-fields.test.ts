@@ -2,7 +2,7 @@
  * Schema to fields conversion tests
  */
 
-import { schemaToFields } from '@/presentation/ui/utils/schema-to-fields.js'
+import { schemaToFields } from '@/ui/utils/schema-to-fields.js'
 import { describe, expect, it } from 'vitest'
 import { z } from 'zod'
 

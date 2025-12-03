@@ -4,11 +4,11 @@
 
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { FileConfigManager } from '@/infrastructure/config/manager.js'
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
-import { createBookmarkId, isBookmarked, parseBookmarkId } from '@/domain/bookmark/utils.js'
-import type { Action, ActionLocation } from '@/domain/action/types.js'
-import type { BookmarkId } from '@/domain/bookmark/types.js'
+import { FileConfigManager } from '@/config/manager.js'
+import type { ArereConfig } from '@/config/schema.js'
+import { createBookmarkId, isBookmarked, parseBookmarkId } from '@/ui/bookmark/utils.js'
+import type { Action, ActionLocation } from '@/action/types.js'
+import type { BookmarkId } from '@/ui/bookmark/types.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 // Helper to create mock action

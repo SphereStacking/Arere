@@ -1,5 +1,5 @@
-import type { Action, ActionContext, TuiAPI } from '@/domain/action/types'
-import { actionToRenderData, formatTags } from '@/presentation/ui/utils/action'
+import type { Action, ActionContext, TuiAPI } from '@/action/types'
+import { actionToRenderData, formatTags } from '@/ui/utils/action'
 import { describe, expect, it } from 'vitest'
 
 describe('formatTags', () => {

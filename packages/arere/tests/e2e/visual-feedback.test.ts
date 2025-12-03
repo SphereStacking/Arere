@@ -5,9 +5,9 @@
  * and emit proper visual feedback states.
  */
 
-import { defineAction } from '@/domain/action/defineAction.js'
-import { runAction } from '@/domain/action/executor.js'
-import type { VisualFeedback } from '@/domain/types/control.js'
+import { defineAction } from '@/action/define.js'
+import { runAction } from '@/action/executor.js'
+import type { VisualFeedback } from '@/ui/control/types.js'
 import { describe, expect, it } from 'vitest'
 
 /**

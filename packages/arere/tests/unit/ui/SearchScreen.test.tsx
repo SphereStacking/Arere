@@ -4,11 +4,11 @@
  * SearchScreen uses Zustand stores for state, so tests mock the stores.
  */
 
-import type { Action } from '@/domain/action/types.js'
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
-import { SearchScreen } from '@/presentation/ui/screens/search/SearchScreen.js'
-import { useScreenStore } from '@/presentation/ui/stores/screenStore.js'
-import { useSettingsStore } from '@/presentation/ui/stores/settingsStore.js'
+import type { Action } from '@/action/types.js'
+import type { ArereConfig } from '@/config/schema.js'
+import { SearchScreen } from '@/ui/screens/search/SearchScreen.js'
+import { useScreenStore } from '@/ui/stores/screenStore.js'
+import { useSettingsStore } from '@/ui/stores/settingsStore.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
@@ -17,7 +17,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 let searchInputCallbacks: { onChange?: any; onSubmit?: any } = {}
 
 // Mock child components to isolate SearchScreen logic
-vi.mock('@/presentation/ui/components/ActionList.js', () => ({
+vi.mock('@/ui/components/ActionList.js', () => ({
   ActionList: ({ actions, onSelect }: any) => {
     return React.createElement('action-list', {
       'data-testid': 'action-list',
@@ -26,7 +26,7 @@ vi.mock('@/presentation/ui/components/ActionList.js', () => ({
   },
 }))
 
-vi.mock('@/presentation/ui/components/inputs/TextInput.js', () => ({
+vi.mock('@/ui/components/inputs/TextInput.js', () => ({
   TextInput: ({ value, onChange, onSubmit, isFocused, placeholder, mode }: any) => {
     // Store callbacks for testing
     searchInputCallbacks = { onChange, onSubmit }
@@ -366,7 +366,7 @@ describe('SearchScreen', () => {
   describe('Enhanced search with function descriptions, categories, and tags', () => {
     // Mock createActionContext to return a context with t() function
     beforeEach(() => {
-      vi.mock('@/domain/action/context.js', () => ({
+      vi.mock('@/action/context.js', () => ({
         createActionContext: (name: string, pluginNamespace?: string) => ({
           context: {
             t: (key: string) => {

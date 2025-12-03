@@ -2,9 +2,9 @@
  * Tests for confirm prompt
  */
 
-import { confirm } from '@/infrastructure/prompt/confirm.js'
-import { clearPromptHandler, setPromptHandler } from '@/infrastructure/prompt/renderer.js'
-import type { PromptRequest } from '@/infrastructure/prompt/renderer.js'
+import { confirm } from '@/ui/prompts/confirm.js'
+import { clearPromptHandler, setPromptHandler } from '@/ui/prompts/renderer.js'
+import type { PromptRequest } from '@/ui/prompts/renderer.js'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 describe('confirm', () => {

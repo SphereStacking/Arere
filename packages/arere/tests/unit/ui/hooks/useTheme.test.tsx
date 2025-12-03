@@ -2,10 +2,10 @@
  * Tests for useTheme hook
  */
 
-import type { ArereConfig } from '@/infrastructure/config/schema.js'
-import { defaultKeyBindings } from '@/infrastructure/keybindings/index.js'
-import { useTheme } from '@/presentation/ui/hooks/useTheme.js'
-import { AppContext } from '@/presentation/ui/AppContext.js'
+import type { ArereConfig } from '@/config/schema.js'
+import { defaultKeyBindings } from '@/ui/keybindings/index.js'
+import { useTheme } from '@/ui/hooks/useTheme.js'
+import { AppContext } from '@/ui/AppContext.js'
 import { Text } from 'ink'
 import { render } from 'ink-testing-library'
 import React from 'react'

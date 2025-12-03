@@ -4,8 +4,8 @@
  * Updated to pass config parameter to createActionContext
  */
 
-import { createActionContext } from '@/domain/action/context.js'
-import { defaultConfig } from '@/infrastructure/config/schema.js'
+import { createActionContext } from '@/action/context.js'
+import { defaultConfig } from '@/config/schema.js'
 import { describe, expect, it } from 'vitest'
 
 describe('createActionContext', () => {

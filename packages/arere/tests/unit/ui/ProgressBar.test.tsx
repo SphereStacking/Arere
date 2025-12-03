@@ -2,7 +2,7 @@
  * Tests for ProgressBar component
  */
 
-import { ProgressBar } from '@/presentation/ui/components/ProgressBar.js'
+import { ProgressBar } from '@/ui/components/ProgressBar.js'
 import { render } from 'ink-testing-library'
 import React from 'react'
 import { describe, expect, it } from 'vitest'

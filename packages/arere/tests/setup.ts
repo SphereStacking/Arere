@@ -3,7 +3,7 @@
  * Initializes i18n for all tests
  */
 
-import { initI18n } from '@/infrastructure/i18n/index.js'
+import { initI18n } from '@/i18n/index.js'
 import * as React from 'react'
 import { beforeAll } from 'vitest'
 
