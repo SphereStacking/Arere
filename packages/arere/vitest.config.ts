@@ -27,7 +27,9 @@ export default defineConfig({
         'src/index.ts', // Library entry point
         '**/index.ts', // Re-export files
         'src/ui/App.tsx', // Main app tested via E2E
-        'src/ui/ErrorBoundary.tsx', // Error boundary tested via E2E
+        'src/modes/ui-mode.ts', // UI mode entry point tested via E2E
+        'src/ui/hooks/useActionExecution.ts', // React hook tested via component tests
+        'src/ui/hooks/useConfigManagement.ts', // React hook tested via component tests
       ],
     },
     include: ['tests/**/*.test.ts', 'tests/**/*.test.tsx'],
