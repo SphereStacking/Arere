@@ -5,6 +5,7 @@
 [日本語](./README.ja.md) | English
 
 [![CI](https://github.com/SphereStacking/Arere/workflows/CI/badge.svg)](https://github.com/SphereStacking/Arere/actions)
+[![codecov](https://codecov.io/gh/SphereStacking/Arere/graph/badge.svg)](https://codecov.io/gh/SphereStacking/Arere)
 [![npm version](https://img.shields.io/npm/v/arere.svg)](https://www.npmjs.com/package/arere)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
