@@ -58,7 +58,7 @@
     "fuzzysort": "^2.0.4",
     "hookable": "^5.5.3",
     "ink": "^4.4.1",
-    "jiti": "^1.21.7",
+    "jiti": "^2.6.1",
     "react": "^18.3.1",
     "ts-morph": "^27.0.2",
     "update-notifier": "^7.3.1",
