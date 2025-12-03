@@ -6,8 +6,13 @@
 
 [![CI](https://github.com/SphereStacking/Arere/workflows/CI/badge.svg)](https://github.com/SphereStacking/Arere/actions)
 [![codecov](https://codecov.io/gh/SphereStacking/Arere/graph/badge.svg)](https://codecov.io/gh/SphereStacking/Arere)
-[![npm version](https://img.shields.io/npm/v/arere.svg)](https://www.npmjs.com/package/arere)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+[![arere](https://img.shields.io/npm/v/arere.svg?label=arere)](https://www.npmjs.com/package/arere)
+[![arere-plugin-create](https://img.shields.io/npm/v/arere-plugin-create.svg?label=plugin-create)](https://www.npmjs.com/package/arere-plugin-create)
+[![arere-plugin-git-utility](https://img.shields.io/npm/v/arere-plugin-git-utility.svg?label=plugin-git-utility)](https://www.npmjs.com/package/arere-plugin-git-utility)
+[![arere-plugin-timer](https://img.shields.io/npm/v/arere-plugin-timer.svg?label=plugin-timer)](https://www.npmjs.com/package/arere-plugin-timer)
+[![arere-plugin-tutorial](https://img.shields.io/npm/v/arere-plugin-tutorial.svg?label=plugin-tutorial)](https://www.npmjs.com/package/arere-plugin-tutorial)
 
 TypeScriptベースの**常駐型ターミナルランチャー**。コマンドを覚える必要はありません。`arere` を起動すれば、よく使うアクションをファジー検索で実行できます。
 
